@@ -16,6 +16,6 @@ To get a copy of the project up and running on your local machine, follow these 
 - Configure your environment (e.g., Java SDK, web server)
 
 ## Requirements
-Java JDK 11 or higher
-Apache Tomcat or any Java servlet container
-XML/JSON libraries for file handling
+- Java JDK 11 or higher
+- Apache Tomcat or any Java servlet container
+- XML/JSON libraries for file handling
