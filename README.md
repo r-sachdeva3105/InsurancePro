@@ -10,8 +10,8 @@ InsurancePro is a web-based Insurance Broker Management System developed using J
 
 ## Getting Started
 To get a copy of the project up and running on your local machine, follow these steps:
-- Clone the repository: `git clone https://github.com/r-sachdeva3105/insurancePro.git`
-- Navigate to the project directory: `cd insurancePro`
+- Clone the repository: `git clone https://github.com/r-sachdeva3105/InsurancePro.git`
+- Navigate to the project directory: `cd InsurancePro`
 - Set up the project in your preferred IDE (e.g., IntelliJ IDEA, Eclipse)
 - Configure your environment (e.g., Java SDK, web server)
 
