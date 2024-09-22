@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>InsurancePro - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 text-gray-900">
+    <!-- Header -->
+    <header class="bg-gray-800 text-white shadow-md">
+      <div
+        class="container mx-auto px-6 py-4 flex justify-between items-center"
+      >
+        <a href="dashboard.html" class="text-2xl font-bold text-white"
+          >InsurancePro</a
+        >
+        <nav class="space-x-4">
+          <span>Welcome, John Doe</span>
+          <a
+            href="login.html"
+            class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+            >Logout</a
+          >
+        </nav>
+      </div>
+    </header>
+
+    <!-- Sidebar and Main Content Wrapper -->
+    <div class="flex">
+      <!-- Sidebar -->
+      <aside class="w-64 bg-gray-800 text-white h-screen hidden md:block">
+        <div class="px-6 py-6">
+          <ul>
+            <li class="mb-4">
+              <a
+                href="dashboard.html"
+                class="text-white font-semibold block bg-gray-900 hover:bg-gray-700 px-4 py-2 rounded"
+                >Dashboard</a
+              >
+            </li>
+            <li class="mb-4">
+              <a
+                href="customers.html"
+                class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded"
+                >Customers</a
+              >
+            </li>
+            <li class="mb-4">
+              <a
+                href="policies.html"
+                class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded"
+                >Policies</a
+              >
+            </li>
+          </ul>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 p-6">
+        <h1 class="text-4xl font-bold mb-6">Dashboard</h1>
+
+        <!-- Overview Statistics -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold">Total Customers</h2>
+            <p class="text-gray-700 text-4xl mt-4">120</p>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold">Total Policies</h2>
+            <p class="text-gray-700 text-4xl mt-4">89</p>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
