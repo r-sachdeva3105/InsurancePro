@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import service.CustomerService;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -15,14 +16,14 @@ import entity.Customer;
 /**
  * Servlet implementation class CustomerServlets
  */
-public class CustomerServlet extends HttpServlet {
+public class ViewCustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CustomerService customerService;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CustomerServlet() {
+    public ViewCustomerServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -47,21 +48,7 @@ public class CustomerServlet extends HttpServlet {
 	    response.getWriter().write(json);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		List<Customer> customers = customerService.getAllCustomers();
-	    
-	    // Set response type to JSON
-	    response.setContentType("application/json");
-	    response.setCharacterEncoding("UTF-8");
-	    
-	    // Convert the list to JSON (you may need to use a library like Jackson or Gson)
-	    String json = convertToJson(customers); // Implement this method to convert your list to JSON
-	    response.getWriter().write(json);
-	}
+
 	
 	private String convertToJson(List<Customer> customers) {
 	    StringBuilder json = new StringBuilder("[");

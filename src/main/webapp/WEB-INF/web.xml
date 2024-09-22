@@ -2,13 +2,13 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" version="6.0">
   <servlet>
     <description></description>
-    <display-name>CustomerServlet</display-name>
-    <servlet-name>CustomerServlet</servlet-name>
-    <servlet-class>servlets.CustomerServlet</servlet-class>
+    <display-name>ViewCustomerServlet</display-name>
+    <servlet-name>ViewCustomerServlet</servlet-name>
+    <servlet-class>servlets.ViewCustomerServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>CustomerServlet</servlet-name>
-    <url-pattern>/CustomerServlet</url-pattern>
+    <servlet-name>ViewCustomerServlet</servlet-name>
+    <url-pattern>/ViewCustomerServlet</url-pattern>
   </servlet-mapping>
   <display-name>InsurancePro</display-name>
   <welcome-file-list>
@@ -19,4 +19,34 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>AddCustomerServlet</display-name>
+    <servlet-name>AddCustomerServlet</servlet-name>
+    <servlet-class>servlets.AddCustomerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddCustomerServlet</servlet-name>
+    <url-pattern>/AddCustomerServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdateCustomerServlet</display-name>
+    <servlet-name>UpdateCustomerServlet</servlet-name>
+    <servlet-class>servlets.UpdateCustomerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdateCustomerServlet</servlet-name>
+    <url-pattern>/UpdateCustomerServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteCustomerServlet</display-name>
+    <servlet-name>DeleteCustomerServlet</servlet-name>
+    <servlet-class>servlets.DeleteCustomerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteCustomerServlet</servlet-name>
+    <url-pattern>/DeleteCustomerServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

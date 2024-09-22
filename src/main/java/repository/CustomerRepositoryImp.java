@@ -8,6 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import entity.Customer;
 
@@ -20,8 +21,15 @@ public class CustomerRepositoryImp implements CustomerRepository {
     
 
     @Override
-    public void addCustomer(Customer customer) {
+    public void addCustomer(Customer customer) throws Exception{
         List<Customer> customers = getAllCustomers();
+        List<Customer> customerCheck = customers.stream()
+                .filter(cust -> cust.getEmail().equals(customer.getEmail()))
+                .collect(Collectors.toList());
+        if(!customerCheck.isEmpty()) {
+        	throw new Exception("Customer already exsists");
+        }
+        	
         customers.add(customer);
         saveToFile(customers);
     }
@@ -85,21 +93,37 @@ public class CustomerRepositoryImp implements CustomerRepository {
 
     @Override
     public void updateCustomer(Customer customer) {
-        List<Customer> customers = getAllCustomers();
-        for (int i = 0; i < customers.size(); i++) {
-            if (customers.get(i).getId().equals(customer.getId())) {
-                customers.set(i, customer);
-                break;
-            }
-        }
-        saveToFile(customers);
+    	 List<Customer> customers = getAllCustomers();
+    	    boolean customerFound = false;
+
+    	    // Iterate through the customer list to find and update the customer
+    	    for (int i = 0; i < customers.size(); i++) {
+    	        if (customers.get(i).getId().equals(customer.getId())) {
+    	            customers.set(i, customer); // Replace the existing customer with the updated one
+    	            customerFound = true;
+    	            break;
+    	        }
+    	    }
+
+    	    // If the customer was found and updated, save the updated list back to the file
+    	    if (customerFound) {
+    	        saveToFile(customers);
+    	    } else {
+    	        // Handle the case when the customer is not found
+    	        throw new IllegalArgumentException("Customer with ID " + customer.getId() + " not found.");
+    	    }
     }
 
     @Override
-    public void deleteCustomer(String id) {
+    public void deleteCustomer(String id) throws Exception {
         List<Customer> customers = getAllCustomers();
-        customers.removeIf(customer -> customer.getId().equals(id));
-        saveToFile(customers);
+        if(customers.removeIf(customer -> customer.getId().equals(id)))
+        	saveToFile(customers);
+        else {
+	        // Handle the case when the customer is not found
+	        throw new Exception("Customer with ID " + id + " not found.");
+	    }
+        
     }
 
     private void saveToFile(List<Customer> customers) {
