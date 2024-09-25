@@ -48,10 +48,10 @@
 			<h1 class="text-4xl font-bold mb-6">Customer Management</h1>
 
 			<!-- Search Bar -->
-			<div class="mb-6">
+			<!-- <div class="mb-6">
 				<input type="text" placeholder="Search by name or ID"
 					class="w-full p-4 border border-gray-300 rounded-lg" />
-			</div>
+			</div> -->
 
 			<!-- Add Customer Button -->
 			<div class="flex justify-end mb-4">
@@ -72,7 +72,7 @@
 						<thead>
 							<tr>
 								<th
-									class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+									class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs bold text-gray-600 uppercase tracking-wider">
 									ID</th>
 								<th
 									class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -144,7 +144,7 @@
 					if (data.length > 0) {
 						tableBody.innerHTML = data.map(customer => `
                             <tr>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${customer.id}</td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm bold">${customer.id}</td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${customer.name}</td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${customer.email}</td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${customer.phone}</td>
