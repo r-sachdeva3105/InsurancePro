@@ -8,14 +8,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 import entity.Customer;
+import entity.Policys;
 
 public class CustomerRepositoryImp implements CustomerRepository {
 	//facing issue with relative path
 	//will figure out later
-    private static final String FILE_PATH = "/Users/rajat/github/InsurancePro/customer.json";
+    private static final String FILE_PATH = "C:\\Users\\samch\\OneDrive\\Documents\\Humber\\Sem3\\J2EE\\InsurancePro\\customer.json";
     
 
     
@@ -44,51 +46,99 @@ public class CustomerRepositoryImp implements CustomerRepository {
 
     @Override
     public List<Customer> getAllCustomers() {
-    	List<Customer> customers = new ArrayList<>();
-    	File file = new File(FILE_PATH);
+        List<Customer> customers = new ArrayList<>();
+        File file = new File(FILE_PATH);
         System.out.println("Looking for file at: " + file.getAbsolutePath());
-    	try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-    	    StringBuilder json = new StringBuilder();
-    	    String line;
-    	    while ((line = reader.readLine()) != null) {
-    	        json.append(line);
-    	    }
-    	    // Trim the JSON array brackets
-    	    String jsonString = json.toString().trim();
-    	    jsonString = jsonString.substring(1, jsonString.length() - 1); // Remove the outer brackets
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+            StringBuilder json = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                json.append(line);
+            }
 
-    	    // Split by "}, {" to get individual customer strings
-    	    String[] customerStrings = jsonString.split("\\},\\s*\\{");
-    	    for (String customerString : customerStrings) {
-    	        customerString = customerString.replaceAll("[\\{\\}\"]", "").trim();
-    	        String[] attributes = customerString.split(",\\s*");
-    	        
-    	        String id = null, name = null, email = null, phone = null;
-    	        for (String attribute : attributes) {
-    	            String[] keyValue = attribute.split(":");
-    	            if (keyValue.length == 2) {
-    	                switch (keyValue[0].trim()) {
-    	                    case "id":
-    	                        id = keyValue[1].trim();
-    	                        break;
-    	                    case "name":
-    	                        name = keyValue[1].trim();
-    	                        break;
-    	                    case "email":
-    	                        email = keyValue[1].trim();
-    	                        break;
-    	                    case "phone":
-    	                        phone = keyValue[1].trim();
-    	                        break;
-    	                }
-    	            }
-    	        }
-    	        customers.add(new Customer(id, name, email, phone));
-    	    }
-    	} catch (IOException e) {
-    	    e.printStackTrace();
-    	}
-    	return customers;
+            // Trim the JSON array brackets
+            String jsonString = json.toString().trim();
+            jsonString = jsonString.substring(1, jsonString.length() - 1); // Remove the outer brackets
+
+            // Split by "}, {" to get individual customer strings
+            String[] customerStrings = jsonString.split("\\},\\s*\\{");
+            for (String customerString : customerStrings) {
+                customerString = customerString.replaceAll("[\\{\\}\"]", "").trim();
+
+                // Split by commas to get key-value pairs
+                String[] attributes = customerString.split(",\\s*");
+
+                String id = null, name = null, email = null, phone = null, policys = null; 
+                //List<Policy> policies = new ArrayList<>();
+
+                for (String attribute : attributes) {
+                    // Split key and value
+                    String[] keyValue = attribute.split(":");
+                    if (keyValue.length == 2) {
+                        String key = keyValue[0].trim();
+                        String value = keyValue[1].trim();
+
+                        // Check if the attribute is one of the basic fields or a policy field
+                        switch (key) {
+                            case "id":
+                                id = value;
+                                break;
+                            case "name":
+                                name = value;
+                                break;
+                            case "email":
+                                email = value;
+                                break;
+                            case "phone":
+                                phone = value;
+                                break;
+                            case "policy": 
+                            	policys = "[]";
+                                // Policy array starts, handle it
+//                                String policyArray = attribute.substring(attribute.indexOf("[") + 1, attribute.indexOf("]")).trim();
+//                                if (!policyArray.isEmpty()) {
+//                                    // Split by },{ to get individual policy strings
+//                                    String[] policyStrings = policyArray.split("\\},\\s*\\{");
+//                                    for (String policyString : policyStrings) {
+//                                        String[] policyAttributes = policyString.replaceAll("[\\{\\}]", "").split(",\\s*");
+//                                        int policyNo = 0, brokerId = 0;
+//                                        double premium = 0.0;
+//
+//                                        // Extract policy details
+//                                        for (String policyAttr : policyAttributes) {
+//                                            String[] policyKeyValue = policyAttr.split(":");
+//                                            if (policyKeyValue.length == 2) {
+//                                                String policyKey = policyKeyValue[0].trim();
+//                                                String policyValue = policyKeyValue[1].trim();
+//                                                
+//                                                switch (policyKey) {
+//                                                    case "policy_no":
+//                                                        policyNo = Integer.parseInt(policyValue);
+//                                                        break;
+//                                                    case "broker_id":
+//                                                        brokerId = Integer.parseInt(policyValue);
+//                                                        break;
+//                                                    case "premium":
+//                                                        premium = Double.parseDouble(policyValue);
+//                                                        break;
+//                                                }
+//                                            }
+//                                        }
+//                                        policies.add(new Policy(policyNo, brokerId, premium));
+//                                    }
+//                                }
+//                                break;
+                       }
+                    }
+                }
+                Customer customer = new Customer(id, name, email, phone, policys);
+                customers.add(customer);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return customers;
     }
 
     @Override
@@ -128,17 +178,39 @@ public class CustomerRepositoryImp implements CustomerRepository {
 
     private void saveToFile(List<Customer> customers) {
         StringBuilder json = new StringBuilder("[");
-        for (int i = 0; i < customers.size(); i++) {
-            Customer customer = customers.get(i);
-            json.append("{")
+        
+        StringJoiner customerJoiner = new StringJoiner(",");
+        for (Customer customer : customers) {
+            StringBuilder customerJson = new StringBuilder();
+            customerJson.append("{")
                 .append("\"id\":\"").append(customer.getId()).append("\",")
                 .append("\"name\":\"").append(customer.getName()).append("\",")
                 .append("\"email\":\"").append(customer.getEmail()).append("\",")
-                .append("\"phone\":\"").append(customer.getPhone()).append("\"")
-                .append("}");
-            if (i < customers.size() - 1) json.append(",");
+                .append("\"phone\":\"").append(customer.getPhone()).append("\",")
+                .append("\"policy\":[");
+
+            // Handle customer policies
+            //List<Policys> policies = customer.getPolicies();
+            //StringJoiner policyJoiner = new StringJoiner(",");
+//            for (Policys policy : policies) {
+//                StringBuilder policyJson = new StringBuilder();
+//                policyJson.append("{")
+//                    .append("\"policy_no\":").append(policy.getPolicyNo()).append(",")
+//                    .append("\"broker_id\":").append(policy.getBrokerId()).append(",")
+//                    .append("\"premium\":").append(policy.getPremium())
+//                    .append("}");
+//                policyJoiner.add(policyJson.toString());
+//            }
+
+           // customerJson.append(policyJoiner.toString()).append("]");
+            customerJson.append("]");
+            
+            customerJson.append("}");
+
+            customerJoiner.add(customerJson.toString());
         }
-        json.append("]");
+        
+        json.append(customerJoiner.toString()).append("]");
         
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             writer.write(json.toString());

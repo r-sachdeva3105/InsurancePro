@@ -10,6 +10,7 @@ import service.CustomerService;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
+import java.util.StringJoiner;
 
 import entity.Customer;
 
@@ -52,18 +53,45 @@ public class ViewCustomerServlet extends HttpServlet {
 	
 	private String convertToJson(List<Customer> customers) {
 	    StringBuilder json = new StringBuilder("[");
-	    for (int i = 0; i < customers.size(); i++) {
-	        Customer customer = customers.get(i);
-	        json.append("{")
+	    
+	    // StringJoiner to manage commas between customer objects
+	    StringJoiner customerJoiner = new StringJoiner(",");
+	    for (Customer customer : customers) {
+	        StringBuilder customerJson = new StringBuilder();
+	        customerJson.append("{")
 	            .append("\"id\":\"").append(customer.getId()).append("\",")
 	            .append("\"name\":\"").append(customer.getName()).append("\",")
 	            .append("\"email\":\"").append(customer.getEmail()).append("\",")
-	            .append("\"phone\":\"").append(customer.getPhone()).append("\"")
-	            .append("}");
-	        if (i < customers.size() - 1) json.append(",");
+	            .append("\"phone\":\"").append(customer.getPhone()).append("\",")
+	            .append("\"policy\":[");
+
+	        // Handle policies for each customer
+	       // List<Policys> policies = customer.getPolicies();
+	       // StringJoiner policyJoiner = new StringJoiner(",");
+//	        for (Policy policy : policies) {
+//	            StringBuilder policyJson = new StringBuilder();
+//	            policyJson.append("{")
+//	                .append("\"policy_no\":").append(policy.getPolicyNo()).append(",")
+//	                .append("\"broker_id\":").append(policy.getBrokerId()).append(",")
+//	                .append("\"premium\":").append(policy.getPremium())
+//	                .append("}");
+//	            policyJoiner.add(policyJson.toString());
+//	        }
+
+	        // Append policies and close customer JSON
+	       // customerJson.append(policyJoiner.toString()).append("]");
+	        customerJson.append("]");
+	        customerJson.append("}");
+
+	        // Add this customer JSON to the main JSON
+	        customerJoiner.add(customerJson.toString());
 	    }
-	    json.append("]");
+	    
+	    // Append all customer data and close the JSON array
+	    json.append(customerJoiner.toString()).append("]");
+	    
 	    return json.toString();
 	}
+
 
 }

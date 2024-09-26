@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "name": "Health Insurance",
+    "description": "This policy allows employees to work remotely on a temporary basis due to office renovations.",
+    "type":"Health"
+  },
+  {
+    "id": "2",
+    "name": "Life Insurance",
+    "description": "A comprehensive life insurance policy providing coverage for the policyholder's beneficiaries.",
+    "type":"Health"
+  },
+  {
+    "id": "3",
+    "name": "Auto Insurance",
+    "description": "Provides coverage for damages to vehicles and liability protection in case of accidents.",
+    "type":"Health"
+  },
+  {
+    "id": "4",
+    "name": "Home Insurance",
+    "description": "Covers damages to the home and personal property due to natural disasters or theft.",
+    "type":"Health"
+  }
+]
