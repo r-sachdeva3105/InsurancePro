@@ -49,4 +49,44 @@
     <servlet-name>DeleteCustomerServlet</servlet-name>
     <url-pattern>/DeleteCustomerServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddPolicyServlet</display-name>
+    <servlet-name>AddPolicyServlet</servlet-name>
+    <servlet-class>servlets.AddPolicyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddPolicyServlet</servlet-name>
+    <url-pattern>/AddPolicyServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetAllPoliciesServlet</display-name>
+    <servlet-name>GetAllPoliciesServlet</servlet-name>
+    <servlet-class>servlets.GetAllPoliciesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllPoliciesServlet</servlet-name>
+    <url-pattern>/GetAllPoliciesServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UpdatePolicyServlet</display-name>
+    <servlet-name>UpdatePolicyServlet</servlet-name>
+    <servlet-class>servlets.UpdatePolicyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UpdatePolicyServlet</servlet-name>
+    <url-pattern>/UpdatePolicyServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeletePolicyServlet</display-name>
+    <servlet-name>DeletePolicyServlet</servlet-name>
+    <servlet-class>servlets.DeletePolicyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeletePolicyServlet</servlet-name>
+    <url-pattern>/DeletePolicyServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

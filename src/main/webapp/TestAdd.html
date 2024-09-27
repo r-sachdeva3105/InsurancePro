@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Policy</title>
+</head>
+<body>
+    <h1>Add Policy</h1>
+    <form action="AddPolicyServlet" method="post">
+        <label for="policyId">Policy ID:</label><br>
+        <input type="text" id="policyId" name="policyId" required><br><br>
+
+        <label for="name">Policy Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" required></textarea><br><br>
+
+        <label for="type">Type:</label><br>
+        <input type="text" id="type" name="type" required><br><br>
+
+        <input type="submit" value="Add Policy">
+    </form>
+</body>
+</html>
