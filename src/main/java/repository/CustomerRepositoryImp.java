@@ -12,7 +12,6 @@ import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 import entity.Customer;
-import entity.Policys;
 
 public class CustomerRepositoryImp implements CustomerRepository {
 	//facing issue with relative path
