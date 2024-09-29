@@ -11,7 +11,10 @@ import java.util.List;
 import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
+
+
 import entity.Customer;
+import entity.PolicyDetails;
 
 public class CustomerRepositoryImp implements CustomerRepository {
 	//facing issue with relative path
@@ -42,7 +45,6 @@ public class CustomerRepositoryImp implements CustomerRepository {
                 .findFirst()
                 .orElse(null);
     }
-
     @Override
     public List<Customer> getAllCustomers() {
         List<Customer> customers = new ArrayList<>();
@@ -140,6 +142,7 @@ public class CustomerRepositoryImp implements CustomerRepository {
         return customers;
     }
 
+ 
     @Override
     public void updateCustomer(Customer customer) {
     	 List<Customer> customers = getAllCustomers();
@@ -174,7 +177,7 @@ public class CustomerRepositoryImp implements CustomerRepository {
 	    }
         
     }
-
+    
     private void saveToFile(List<Customer> customers) {
         StringBuilder json = new StringBuilder("[");
         
@@ -188,20 +191,6 @@ public class CustomerRepositoryImp implements CustomerRepository {
                 .append("\"phone\":\"").append(customer.getPhone()).append("\",")
                 .append("\"policy\":[");
 
-            // Handle customer policies
-            //List<Policys> policies = customer.getPolicies();
-            //StringJoiner policyJoiner = new StringJoiner(",");
-//            for (Policys policy : policies) {
-//                StringBuilder policyJson = new StringBuilder();
-//                policyJson.append("{")
-//                    .append("\"policy_no\":").append(policy.getPolicyNo()).append(",")
-//                    .append("\"broker_id\":").append(policy.getBrokerId()).append(",")
-//                    .append("\"premium\":").append(policy.getPremium())
-//                    .append("}");
-//                policyJoiner.add(policyJson.toString());
-//            }
-
-           // customerJson.append(policyJoiner.toString()).append("]");
             customerJson.append("]");
             
             customerJson.append("}");

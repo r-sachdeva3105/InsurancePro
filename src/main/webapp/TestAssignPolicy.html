@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance Broker Form</title>
+</head>
+<body>
+    <h2>Insurance Broker Form</h2>
+    <form action="AssignPolicyServlet" method="POST">
+        <label for="policyName">Policy Name:</label>
+        <select id="policyName" name="policyName" required>
+            <option value="" disabled selected>Select Policy</option>
+            <option value="Life Insurance">Life Insurance</option>
+            <option value="Health Insurance">Health Insurance</option>
+            <option value="Auto Insurance">Auto Insurance</option>
+            <option value="Home Insurance">Home Insurance</option>
+        </select>
+        <br><br>
+        
+        <label for="customerId">Broker ID:</label>
+        <input type="text" id="customerId" name="customerId" placeholder="Enter Customer ID" required>
+        <br><br>
+        
+        <label for="brokerId">Broker ID:</label>
+        <input type="text" id="brokerId" name="brokerId" placeholder="Enter Broker ID" required>
+        <br><br>
+
+        <label for="premiumAmount">Premium Amount:</label>
+        <input type="number" id="premiumAmount" name="premiumAmount" placeholder="Enter Premium Amount" step="0.01" required>
+        <br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

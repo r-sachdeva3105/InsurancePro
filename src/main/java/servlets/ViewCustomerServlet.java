@@ -64,22 +64,6 @@ public class ViewCustomerServlet extends HttpServlet {
 	            .append("\"email\":\"").append(customer.getEmail()).append("\",")
 	            .append("\"phone\":\"").append(customer.getPhone()).append("\",")
 	            .append("\"policy\":[");
-
-	        // Handle policies for each customer
-	       // List<Policys> policies = customer.getPolicies();
-	       // StringJoiner policyJoiner = new StringJoiner(",");
-//	        for (Policy policy : policies) {
-//	            StringBuilder policyJson = new StringBuilder();
-//	            policyJson.append("{")
-//	                .append("\"policy_no\":").append(policy.getPolicyNo()).append(",")
-//	                .append("\"broker_id\":").append(policy.getBrokerId()).append(",")
-//	                .append("\"premium\":").append(policy.getPremium())
-//	                .append("}");
-//	            policyJoiner.add(policyJson.toString());
-//	        }
-
-	        // Append policies and close customer JSON
-	       // customerJson.append(policyJoiner.toString()).append("]");
 	        customerJson.append("]");
 	        customerJson.append("}");
 
@@ -92,6 +76,8 @@ public class ViewCustomerServlet extends HttpServlet {
 	    
 	    return json.toString();
 	}
+	
+	
 
 
 }

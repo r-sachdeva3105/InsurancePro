@@ -3,14 +3,18 @@ package service;
 import java.util.List;
 
 import entity.Customer;
+import entity.Policy;
+import entity.PolicyDetails;
 import repository.CustomerRepository;
 import repository.CustomerRepositoryImp;
 
 public class CustomerService {
 	private CustomerRepository customerRepository;
+	private PolicyService policyService;
 
 	public CustomerService() {
 		this.customerRepository = new CustomerRepositoryImp();
+		policyService = new PolicyService();
 	}
 
 	public void addCustomer(Customer customer) throws Exception {
@@ -42,4 +46,6 @@ public class CustomerService {
 			return false;
 		}
 	}
+
+
 }

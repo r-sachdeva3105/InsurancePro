@@ -89,4 +89,24 @@
     <servlet-name>DeletePolicyServlet</servlet-name>
     <url-pattern>/DeletePolicyServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AssignPolicyServlet</display-name>
+    <servlet-name>AssignPolicyServlet</servlet-name>
+    <servlet-class>servlets.AssignPolicyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AssignPolicyServlet</servlet-name>
+    <url-pattern>/AssignPolicyServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ViewAssignedPolicesServlet</display-name>
+    <servlet-name>ViewAssignedPolicesServlet</servlet-name>
+    <servlet-class>servlets.ViewAssignedPolicesServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ViewAssignedPolicesServlet</servlet-name>
+    <url-pattern>/ViewAssignedPolicesServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
