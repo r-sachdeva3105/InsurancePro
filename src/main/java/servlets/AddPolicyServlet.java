@@ -34,6 +34,6 @@ public class AddPolicyServlet extends HttpServlet {
             request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
         }
         
-        response.sendRedirect("TestGetPolicy.html");
+        response.sendRedirect("policies.html");
     }
 }

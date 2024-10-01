@@ -113,7 +113,7 @@
                 </th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="policyTableBody">
               <!-- Add more rows as necessary -->
             </tbody>
           </table>
@@ -122,7 +122,7 @@
         <!-- Add Policy Form (Hidden by default) -->
         <div id="addPolicyForm" class="hidden mt-6">
           <h2 class="text-2xl font-bold mb-4">Add New Policy</h2>
-          <form class="bg-white p-6 rounded-lg shadow-md space-y-4">
+          <form class="bg-white p-6 rounded-lg shadow-md space-y-4" action="AddPolicyServlet" method="POST">
             <div>
               <label
                 for="policyNumber"
@@ -193,6 +193,70 @@
         const form = document.getElementById("addPolicyForm");
         form.classList.toggle("hidden");
       }
+	  // Function to show and populate the Edit policy form
+	  		function editPolicy(id, name, description, type) {
+	  			// Populate the form fields with customer data
+	  			document.getElementById('edit-id').value = id;
+	  			document.getElementById('edit-name').value = name;
+	  			document.getElementById('edit-description').value = description;
+	  			document.getElementById('edit-type').value = type;
+
+	  			// Show the edit form
+	  			document.getElementById('editPolicyForm').classList.remove('hidden');
+	  		}
+
+	  		// Fetch policy data from the GetAllPoliciesServlet and populate the table
+	  		window.addEventListener("load", function () {
+		  			fetch('GetAllPoliciesServlet')
+	  				.then(response => response.json()) 
+	  				.then(data => {
+	  					const tableBody = document.getElementById("policyTableBody");
+	  					if (data.length > 0) {
+	  						tableBody.innerHTML = data.map(policy => `
+	                              <tr>
+	                                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm bold">${policy.id}</td>
+	                                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.name}</td>
+	                                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.description}</td>
+	                                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.type}</td>
+	                                  <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm space-x-2">
+	                                      <button class="text-green-600 hover:text-green-900" onclick="editPolicy(${policy.id}, ${policy.name}, ${policy.description}, ${policy.type})">Edit</button>
+	                                      <button class="text-red-600 hover:text-red-900" onclick="deletePolicy(${policy.id})">Delete</button>
+	                                  </td>
+	                              </tr>
+	                          `).join('');
+	  					} else {
+	  						tableBody.innerHTML = `<tr><td colspan="5" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">No policy found.</td></tr>`;
+	  					}
+	  				})
+	  				.catch(error => {
+	  					console.error('Error fetching policy:', error);
+	  					document.getElementById("policyTableBody").innerHTML = `<tr><td colspan="5" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Error loading policy.</td></tr>`;
+	  				});
+	  		});
+
+	  		// Function to delete a customer
+	  		function deletePolicy(policyId) {
+				const data = new URLSearchParams(); // To send data in application/x-www-form-urlencoded format
+				    data.append('policyId', policyId);
+	  			fetch('DeletePolicyServlet', {
+	  				method: 'POST',
+	  				headers: {
+	  					'Content-Type': 'application/x-www-form-urlencoded',
+	  				},
+	  				body: data
+	  			})
+	  				.then(response => {
+	  					if (response.ok) {
+	  						console.log('policyId deleted successfully');
+	  						window.location.reload(); 
+	  					} else {
+	  						console.error('Failed to delete policyId');
+	  					}
+	  				})
+	  				.catch(error => {
+	  					console.error('Error deleting policyId:', error);
+	  				});
+	  		}
     </script>
   </body>
 </html>
