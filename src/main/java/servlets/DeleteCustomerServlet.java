@@ -16,40 +16,42 @@ import java.io.IOException;
  */
 public class DeleteCustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-	   private CustomerService customerService;
 
-	    @Override
-	    public void init() {
-	    	customerService = new CustomerService(getServletContext());
-	    }
-    public DeleteCustomerServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		 String id = request.getParameter("id");
-		if (id != null && !id.isEmpty()) {
-            boolean isDeleted = customerService.deleteCustomer(id);
+	private CustomerService customerService;
 
-            if (isDeleted) {
-                response.setStatus(HttpServletResponse.SC_OK);
-            } else {
-                response.sendError(HttpServletResponse.SC_NOT_FOUND, "Customer not found.");
-            }
-        } else {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid ID.");
-        }
-    }
-	
+	public DeleteCustomerServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	// initialize servlet
+	public void init() {
+		customerService = new CustomerService(getServletContext());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	// handles request to delete customer
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String id = request.getParameter("id");
+		if (id != null && !id.isEmpty()) {
+			boolean isDeleted = customerService.deleteCustomer(id);
+
+			if (isDeleted) {
+				response.setStatus(HttpServletResponse.SC_OK);
+			} else {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND, "Customer not found.");
+			}
+		} else {
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid ID.");
+		}
+	}
 
 }

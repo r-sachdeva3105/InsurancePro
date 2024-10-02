@@ -17,38 +17,44 @@ import entity.Customer;
 public class AddCustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CustomerService customerService;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddCustomerServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    public void init() {
-        customerService = new CustomerService(getServletContext());
-    }
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//check email before add
+	public AddCustomerServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	// Initializing the servlet
+	public void init() {
+		customerService = new CustomerService(getServletContext());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+
+	// handles add customer request
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		// TODO Auto-generated method stub
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
+		String email = request.getParameter("email");
+		String phone = request.getParameter("phone");
 
-        Customer customer = new Customer(id, name, email, phone);
-        try {
+		Customer customer = new Customer(id, name, email, phone);
+		try {
 			customerService.addCustomer(customer);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
 		}
-        
-        response.sendRedirect("customers.html");
+
+		response.sendRedirect("customers.html");
 	}
 
 }

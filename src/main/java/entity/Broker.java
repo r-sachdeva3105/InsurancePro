@@ -1,40 +1,42 @@
 package entity;
 
 public class Broker {
-    private String id;
-    private String name;
-    private String email;
 
-    // Constructor
-    public Broker(String id, String name, String email) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
-    }
+	// decalring fields
+	private String id;
+	private String name;
+	private String email;
 
-    // Getters and Setters
-    public String getId() {
-        return id;
-    }
+	// Constructor
+	public Broker(String id, String name, String email) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+	}
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	// Getters and Setters
+	public String getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 }

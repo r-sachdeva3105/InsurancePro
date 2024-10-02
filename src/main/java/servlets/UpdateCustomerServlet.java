@@ -28,15 +28,17 @@ public class UpdateCustomerServlet extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
+	// initialize servlet
 	public void init() {
 		customerService = new CustomerService(getServletContext());
 	}
 
 	/**
-	 * @return 
+	 * @return
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	// handles request to update customer
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -46,19 +48,16 @@ public class UpdateCustomerServlet extends HttpServlet {
 		String phone = request.getParameter("phone");
 
 		PrintWriter out = response.getWriter();
-		
+
 		Customer updatedCustomer = new Customer(id, name, email, phone);
-		 try {
-	            customerService.updateCustomer(updatedCustomer);
-	            // If update is successful, redirect to viewCustomers.jsp
-	            response.sendRedirect("customers.html");
-	        } catch (IllegalArgumentException e) {
-	        	
-	            // If customer is not found, set the error message as a request attribute
-	        	request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
-	            request.getRequestDispatcher("/UpdateCustomerServlet").forward(request, response);
-	        	
-	        }
+		try {
+			customerService.updateCustomer(updatedCustomer);
+			response.sendRedirect("customers.html");
+		} catch (IllegalArgumentException e) {
+
+			request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
+
+		}
 	}
 
 }

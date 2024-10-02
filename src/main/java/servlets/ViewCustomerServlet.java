@@ -20,64 +20,55 @@ import entity.Customer;
 public class ViewCustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private CustomerService customerService;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ViewCustomerServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-    public void init() {
-        customerService = new CustomerService(getServletContext());
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public ViewCustomerServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	// initialize the servlet
+	public void init() {
+		customerService = new CustomerService(getServletContext());
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	// handles request to view all customer
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		List<Customer> customers = customerService.getAllCustomers();
-	    
-	    // Set response type to JSON
-	    response.setContentType("application/json");
-	    response.setCharacterEncoding("UTF-8");
-	    
-	    // Convert the list to JSON (you may need to use a library like Jackson or Gson)
-	    String json = convertToJson(customers); // Implement this method to convert your list to JSON
-	    response.getWriter().write(json);
+
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+
+		String json = convertToJson(customers);
+		response.getWriter().write(json);
 	}
 
-
-	
+	// method to convert the given list to JSON format
 	private String convertToJson(List<Customer> customers) {
-	    StringBuilder json = new StringBuilder("[");
-	    
-	    // StringJoiner to manage commas between customer objects
-	    StringJoiner customerJoiner = new StringJoiner(",");
-	    for (Customer customer : customers) {
-	        StringBuilder customerJson = new StringBuilder();
-	        customerJson.append("{")
-	            .append("\"id\":\"").append(customer.getId()).append("\",")
-	            .append("\"name\":\"").append(customer.getName()).append("\",")
-	            .append("\"email\":\"").append(customer.getEmail()).append("\",")
-	            .append("\"phone\":\"").append(customer.getPhone()).append("\",")
-	            .append("\"policy\":[");
-	        customerJson.append("]");
-	        customerJson.append("}");
+		StringBuilder json = new StringBuilder("[");
+		StringJoiner customerJoiner = new StringJoiner(",");
+		for (Customer customer : customers) {
+			StringBuilder customerJson = new StringBuilder();
+			customerJson.append("{").append("\"id\":\"").append(customer.getId()).append("\",").append("\"name\":\"")
+					.append(customer.getName()).append("\",").append("\"email\":\"").append(customer.getEmail())
+					.append("\",").append("\"phone\":\"").append(customer.getPhone()).append("\",")
+					.append("\"policy\":[");
+			customerJson.append("]");
+			customerJson.append("}");
+			customerJoiner.add(customerJson.toString());
+		}
 
-	        // Add this customer JSON to the main JSON
-	        customerJoiner.add(customerJson.toString());
-	    }
-	    
-	    // Append all customer data and close the JSON array
-	    json.append(customerJoiner.toString()).append("]");
-	    
-	    return json.toString();
+		json.append(customerJoiner.toString()).append("]");
+
+		return json.toString();
 	}
-	
-	
-
 
 }
