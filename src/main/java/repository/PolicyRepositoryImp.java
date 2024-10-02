@@ -14,7 +14,7 @@ import entity.Policy;
 import jakarta.servlet.ServletContext;
 
 public class PolicyRepositoryImp implements PolicyRepository {
-	 private static final String FILE_PATH = "C:\\Users\\sruth\\OneDrive\\Desktop\\Humber\\Sem3\\J2ee\\InsurancePro\\policy.json"; // Adjust this path
+	 private static final String FILE_PATH = "C:\\\\Users\\\\samch\\\\OneDrive\\\\Documents\\\\Humber\\\\Sem3\\\\J2EE\\\\InsurancePro\\\\policy.json"; // Adjust this path
 	    private ServletContext context;
 	    
 	    public PolicyRepositoryImp(ServletContext context) {
