@@ -25,7 +25,8 @@ public class GetAllPoliciesServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Policy> policies = policyService.getAllPolicies();
+
+    	List<Policy> policies = policyService.getAllPolicies();
      // Set response type to JSON
 	    response.setContentType("application/json");
 	    response.setCharacterEncoding("UTF-8");
@@ -46,12 +47,7 @@ public class GetAllPoliciesServlet extends HttpServlet {
 	            .append("\"id\":\"").append(policy.getId()).append("\",")
 	            .append("\"name\":\"").append(policy.getName()).append("\",")
 	            .append("\"description\":\"").append(policy.getDescription()).append("\",")
-	            .append("\"type\":\"").append(policy.getType()).append("\",");
-
-
-	        // Append policies and close customer JSON
-	       // customerJson.append(policyJoiner.toString()).append("]");
-	        policyJson.append("]");
+	            .append("\"type\":\"").append(policy.getType()).append("\"");
 	        policyJson.append("}");
 
 	        // Add this customer JSON to the main JSON
@@ -60,7 +56,6 @@ public class GetAllPoliciesServlet extends HttpServlet {
 	    
 	    // Append all customer data and close the JSON array
 	    json.append(policyJoiner.toString()).append("]");
-	    
 	    return json.toString();
 	}
 }

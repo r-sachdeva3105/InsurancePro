@@ -1,6 +1,13 @@
 # InsurancePro
 InsurancePro is a web-based Insurance Broker Management System developed using Java Servlets. This system allows insurance brokers to manage customer data, insurance policies, and claims efficiently. The project implements the Repository design pattern for file-based storage (XML/JSON) and follows J2EE Web Application Architecture principles.
 
+## Team Members
+- Rajat Sachdeva
+- Samruddhi Suryakant Chavan
+- Sruthi Jayaprakash Pandiath
+- Manpreet Kaur Gulati
+- Shrabani Sagareeka
+
 ## Features
 - User authentication and registration
 - Manage customer, policy, and claim data
