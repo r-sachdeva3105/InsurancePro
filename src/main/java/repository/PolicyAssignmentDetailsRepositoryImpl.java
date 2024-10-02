@@ -17,7 +17,7 @@ import jakarta.servlet.ServletContext;
 
 public class PolicyAssignmentDetailsRepositoryImpl implements PolicyAssignmentDetailsRepository {
 	
-	 private static final String FILE_PATH = "/PolicyAssignmentDetails.json";
+	 private static final String FILE_PATH = "C:\\Users\\samch\\OneDrive\\Documents\\Humber\\Sem3\\J2EE\\InsurancePro\\PolicyAssignmentDetails.json";
 	 private ServletContext context;
 	 
 	 public PolicyAssignmentDetailsRepositoryImpl(ServletContext context) {
@@ -64,8 +64,8 @@ public class PolicyAssignmentDetailsRepositoryImpl implements PolicyAssignmentDe
 	    }
 	    
 	    json.append(policyJoiner.toString()).append("]");
-	    File file = new File(context.getRealPath(FILE_PATH));
-	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+	    //File file = new File(context.getRealPath(FILE_PATH));
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
 	        writer.write(json.toString());
 	        System.out.println("Sam");
 	    } catch (IOException e) {
@@ -80,8 +80,8 @@ public class PolicyAssignmentDetailsRepositoryImpl implements PolicyAssignmentDe
 	private List<PolicyDetails> getAllPolicies() {
 		// TODO Auto-generated method stub
 		 List<PolicyDetails> assignmentDetails = new ArrayList<>();
-		 File file = new File(context.getRealPath(FILE_PATH));
-	        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+		 //File file = new File(context.getRealPath(FILE_PATH));
+	        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
 	            StringBuilder json = new StringBuilder();
 	            String line;
 	            while ((line = reader.readLine()) != null) {
