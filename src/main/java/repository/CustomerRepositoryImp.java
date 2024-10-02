@@ -20,7 +20,7 @@ import jakarta.servlet.ServletContext;
 public class CustomerRepositoryImp implements CustomerRepository {
 	//facing issue with relative path
 	//will figure out later
-	  private static final String FILE_PATH = "C:\\Users\\samch\\OneDrive\\Documents\\Humber\\Sem3\\J2EE\\InsurancePro\\customer.json";// Relative to WebContent
+	  private static final String FILE_PATH = "C:/Users/samch/OneDrive/Documents/Humber/Sem3/J2EE/InsurancePro/customer.json";// Relative to WebContent
 	    private ServletContext context;
 
 	    // Get the file as an InputStream using ServletContext
@@ -205,7 +205,7 @@ public class CustomerRepositoryImp implements CustomerRepository {
         }
         
         json.append(customerJoiner.toString()).append("]");
-        File file = new File(context.getRealPath(FILE_PATH));
+        //File file = new File(context.getRealPath(FILE_PATH));
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             writer.write(json.toString());
         } catch (IOException e) {
