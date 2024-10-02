@@ -16,7 +16,7 @@ import jakarta.servlet.ServletContext; // Servlet context for web application
 // Implementation of the PolicyRepository interface
 public class PolicyRepositoryImp implements PolicyRepository {
 	// File path for the JSON file to store policies
-	private static final String FILE_PATH = "C:\\\\Users\\\\sruth\\\\OneDrive\\\\Desktop\\\\Humber\\\\Sem3\\\\J2ee\\\\InsurancePro\\\\policy.json"; // Adjust this path
+	private static final String FILE_PATH = "C:\\\\Users\\\\samch\\\\OneDrive\\\\Documents\\\\Humber\\\\Sem3\\\\J2EE\\\\InsurancePro\\\\policy.json"; // Adjust this path
 	private ServletContext context; // Servlet context
 
 	// Constructor to initialize PolicyRepository with ServletContext
@@ -26,7 +26,7 @@ public class PolicyRepositoryImp implements PolicyRepository {
 
 	// Method to add a new policy
 	@Override
-	public void addPolicy(Policy policy) throws Exception {
+	public synchronized void addPolicy(Policy policy) throws Exception {
 		List<Policy> policies = getAllPolicies(); // Retrieve existing policies
 		policies.add(policy); // Add the new policy
 		saveToFile(policies); // Save updated policy list to file
@@ -96,7 +96,7 @@ public class PolicyRepositoryImp implements PolicyRepository {
 
 	// Method to update an existing policy
 	@Override
-	public void updatePolicy(Policy policy) {
+	public synchronized void updatePolicy(Policy policy) {
 		List<Policy> policies = getAllPolicies(); // Retrieve existing policies
 
 		boolean policyFound = false; // Flag for policy existence
@@ -118,7 +118,7 @@ public class PolicyRepositoryImp implements PolicyRepository {
 
 	// Method to delete a policy by its ID
 	@Override
-	public void deletePolicy(String id) throws Exception {
+	public synchronized void deletePolicy(String id) throws Exception {
 		List<Policy> policies = getAllPolicies(); // Retrieve existing policies
 		if (policies.removeIf(policy -> policy.getId().equals(id))) { // Remove policy if exists
 			saveToFile(policies); // Save updated list
@@ -128,7 +128,7 @@ public class PolicyRepositoryImp implements PolicyRepository {
 	}
 
 	// Method to save policies to the JSON file
-	private void saveToFile(List<Policy> policies) {
+	private synchronized void saveToFile(List<Policy> policies) {
 		StringBuilder json = new StringBuilder("["); // Start JSON array
 
 		StringJoiner policyJoiner = new StringJoiner(","); // Join policies as JSON

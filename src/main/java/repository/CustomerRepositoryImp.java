@@ -31,7 +31,7 @@ public class CustomerRepositoryImp implements CustomerRepository {
 
 	// method to add customer
 	@Override
-	public void addCustomer(Customer customer) throws Exception {
+	public synchronized void  addCustomer(Customer customer) throws Exception {
 		List<Customer> customers = getAllCustomers();
 		List<Customer> customerCheck = customers.stream().filter(cust -> cust.getEmail().equals(customer.getEmail()))
 				.collect(Collectors.toList());
@@ -113,7 +113,7 @@ public class CustomerRepositoryImp implements CustomerRepository {
 
 	// method to update customer
 	@Override
-	public void updateCustomer(Customer customer) {
+	public synchronized void updateCustomer(Customer customer) {
 		List<Customer> customers = getAllCustomers();
 		boolean customerFound = false;
 
@@ -135,7 +135,7 @@ public class CustomerRepositoryImp implements CustomerRepository {
 
 	// method to delete customer
 	@Override
-	public void deleteCustomer(String id) throws Exception {
+	public synchronized void deleteCustomer(String id) throws Exception {
 		List<Customer> customers = getAllCustomers();
 		if (customers.removeIf(customer -> customer.getId().equals(id)))
 			saveToFile(customers);
@@ -147,7 +147,7 @@ public class CustomerRepositoryImp implements CustomerRepository {
 	}
 
 	// method to save customer data in json file by converting it in JSON format
-	private void saveToFile(List<Customer> customers) {
+	private synchronized void saveToFile(List<Customer> customers) {
 		StringBuilder json = new StringBuilder("[");
 
 		StringJoiner customerJoiner = new StringJoiner(",");

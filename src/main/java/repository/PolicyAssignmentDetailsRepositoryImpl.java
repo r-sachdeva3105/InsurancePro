@@ -27,7 +27,7 @@ public class PolicyAssignmentDetailsRepositoryImpl implements PolicyAssignmentDe
 
 	// method to get policy details for a customer using customer Id
 	@Override
-	public List<PolicyDetails> getAssignedPolicyForCustomer(String id) {
+	public  List<PolicyDetails> getAssignedPolicyForCustomer(String id) {
 		// TODO Auto-generated method stub
 		List<PolicyDetails> policyDetails = getAllPolicies();
 		return policyDetails.stream().filter(det -> det.getCustomerId().equals(id)).collect(Collectors.toList());
@@ -37,7 +37,7 @@ public class PolicyAssignmentDetailsRepositoryImpl implements PolicyAssignmentDe
 	// method to add policy detail
 
 	@Override
-	public void addPolicyDetails(PolicyDetails details) {
+	public synchronized void addPolicyDetails(PolicyDetails details) {
 		// TODO Auto-generated method stub
 
 		List<PolicyDetails> policyDetails = getAllPolicies();
@@ -49,7 +49,7 @@ public class PolicyAssignmentDetailsRepositoryImpl implements PolicyAssignmentDe
 
 	// method to getALLpolicy details from file
 
-	private List<PolicyDetails> getAllPolicies() {
+	private  List<PolicyDetails> getAllPolicies() {
 		// TODO Auto-generated method stub
 		List<PolicyDetails> assignmentDetails = new ArrayList<>();
 		// File file = new File(context.getRealPath(FILE_PATH));
@@ -107,7 +107,7 @@ public class PolicyAssignmentDetailsRepositoryImpl implements PolicyAssignmentDe
 	}
 
 	// method to save data in json file by converting it to json format
-	private void saveToFile(List<PolicyDetails> details) {
+	private synchronized void saveToFile(List<PolicyDetails> details) {
 		StringBuilder json = new StringBuilder("[");
 
 		StringJoiner policyJoiner = new StringJoiner(",");
