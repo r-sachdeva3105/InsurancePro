@@ -16,7 +16,8 @@ import entity.PolicyDetails;
 
 public class PolicyAssignmentDetailsRepositoryImpl implements PolicyAssignmentDetailsRepository {
 	
-	 private static final String FILE_PATH = "C:\\Users\\samch\\OneDrive\\Documents\\Humber\\Sem3\\J2EE\\InsurancePro\\PolicyAssignmentDetails.json";
+	private static final String FILE_PATH = "C:\\j2ee\\Assignment 1\\InsurancePro\\PolicyAssignmentDetails.json";
+
 
 	@Override
 	public List<PolicyDetails> getAssignedPolicyForCustomer(String id) {

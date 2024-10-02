@@ -13,13 +13,16 @@ import java.util.StringJoiner;
 import entity.Policy;
 
 public class PolicyRepositoryImp implements PolicyRepository {
-    private static final String FILE_PATH = "C:\\\\Users\\\\samch\\\\OneDrive\\\\Documents\\\\Humber\\\\Sem3\\\\J2EE\\\\InsurancePro\\\\policy.json"; // Adjust this path
+	private static final String FILE_PATH = "C:\\j2ee\\Assignment 1\\InsurancePro\\policy.json";
+
+
 
     @Override
     public void addPolicy(Policy policy) throws Exception {
         List<Policy> policies = getAllPolicies();
         policies.add(policy);
         saveToFile(policies);
+        System.out.println("Adding policy: " + policy.getId() + ", " + policy.getName());
     }
 
     @Override
@@ -136,7 +139,7 @@ public class PolicyRepositoryImp implements PolicyRepository {
         }
         
         json.append(policyJoiner.toString()).append("]");
-        
+        System.out.println("Saving to file: " + json.toString());
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             writer.write(json.toString());
         } catch (IOException e) {

@@ -1,224 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-	<title>InsurancePro - Customer Management</title>
-	<script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>InsurancePro - Customer Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
 <body class="bg-gray-100 text-gray-900">
-	<!-- Header -->
-	<header class="bg-gray-800 text-white shadow-md">
-		<div class="container mx-auto px-6 py-4 flex justify-between items-center">
-			<a href="dashboard.html" class="text-2xl font-bold text-white">InsurancePro</a>
-			<nav class="space-x-4">
-				<span>Welcome, John Doe</span>
-				<a href="login.html" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Logout</a>
-			</nav>
-		</div>
-	</header>
+    <!-- Header -->
+    <header class="bg-gray-800 text-white shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="dashboard.html" class="text-2xl font-bold text-white">InsurancePro</a>
+            <nav class="space-x-4">
+                <span>Welcome, John Doe</span>
+                <a href="login.html" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Logout</a>
+            </nav>
+        </div>
+    </header>
 
-	<!-- Sidebar and Main Content Wrapper -->
-	<div class="flex">
-		<!-- Sidebar -->
-		<aside class="w-64 bg-gray-800 text-white h-screen hidden md:block">
-			<div class="px-6 py-6">
-				<ul>
-					<li class="mb-4">
-						<a href="dashboard.html"
-							class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded">Dashboard</a>
-					</li>
-					<li class="mb-4">
-						<a href="customers.html"
-							class="text-white font-semibold block bg-gray-900 hover:bg-gray-700 px-4 py-2 rounded">Customers</a>
-					</li>
-					<li class="mb-4">
-						<a href="policies.html"
-							class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded">Policies</a>
-					</li>
-				</ul>
-			</div>
-		</aside>
+    <!-- Sidebar and Main Content Wrapper -->
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-gray-800 text-white h-screen hidden md:block">
+            <div class="px-6 py-6">
+                <ul>
+                    <li class="mb-4">
+                        <a href="dashboard.html" class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded">Dashboard</a>
+                    </li>
+                    <li class="mb-4">
+                        <a href="customers.html" class="text-white font-semibold block bg-gray-900 hover:bg-gray-700 px-4 py-2 rounded">Customers</a>
+                    </li>
+                    <li class="mb-4">
+                        <a href="policies.html" class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded">Policies</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
 
-		<!-- Main Content -->
-		<main class="flex-1 p-6">
-			<h1 class="text-4xl font-bold mb-6">Customer Management</h1>
+        <!-- Main Content -->
+        <main class="flex-1 p-6">
+            <h1 class="text-4xl font-bold mb-6">Customer Management</h1>
 
-			<!-- Add Customer Button -->
-			<div class="flex justify-end mb-4">
-				<button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-					onclick="toggleAddCustomerForm()">
-					Add New Customer
-				</button>
-			</div>
+            <!-- Add Customer Button -->
+            <div class="flex justify-end mb-4">
+                <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" onclick="toggleAddCustomerForm()">
+                    Add New Customer
+                </button>
+            </div>
 
-			<!-- Customer List Table -->
-			<div class="overflow-x-auto bg-white rounded-lg shadow-md">
-				<table class="min-w-full leading-normal">
-					<thead>
-						<tr>
-							<th
-								class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs bold text-gray-600 uppercase tracking-wider">
-								ID</th>
-							<th
-								class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-								Name</th>
-							<th
-								class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-								Email</th>
-							<th
-								class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-								Phone</th>
-							<th
-								class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-								Actions</th>
-						</tr>
-					</thead>
-					<tbody id="customerTableBody">
-						<!-- Data will be inserted here -->
-					</tbody>
-				</table>
-			</div>
+            <!-- Customer List Table -->
+            <div class="overflow-x-auto bg-white rounded-lg shadow-md">
+                <table class="min-w-full leading-normal">
+                    <thead>
+                        <tr>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs bold text-gray-600 uppercase tracking-wider">ID</th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Name</th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Email</th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Phone</th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customerTableBody">
+                        <!-- Data will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
 
-			<!-- Customer Form  -->
-			<div id="addCustomerForm" class="hidden mt-6">
-				<h2 class="text-2xl font-bold mb-4">Add New Customer</h2>
-				<form class="bg-white p-6 rounded-lg shadow-md space-y-4" action="AddCustomerServlet" method="POST">
-					<div>
-						<label for="id" class="block text-sm font-medium text-gray-700">Customer Id</label>
-						<input type="text" id="id" class="mt-1 p-2 w-full border border-gray-300 rounded-lg"
-							placeholder="1" name="id" />
-					</div>
-					<div>
-						<label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
-						<input type="text" id="name" class="mt-1 p-2 w-full border border-gray-300 rounded-lg"
-							placeholder="John Doe" name="name" />
-					</div>
-					<div>
-						<label for="email" class="block text-sm font-medium text-gray-700">Email</label>
-						<input type="email" id="email" class="mt-1 p-2 w-full border border-gray-300 rounded-lg"
-							placeholder="johndoe@example.com" name="email" />
-					</div>
-					<div>
-						<label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
-						<input type="text" id="phone" class="mt-1 p-2 w-full border border-gray-300 rounded-lg"
-							placeholder="+1 123 456 7890" name="phone" />
-					</div>
-					<div>
-						<button type="submit"
-							class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
-							Save
-						</button>
-					</div>
-				</form>
-			</div>
+            <!-- Add Customer Form  -->
+            <div id="addCustomerForm" class="hidden mt-6">
+                <h2 class="text-2xl font-bold mb-4">Add New Customer</h2>
+                <form id="addCustomer" class="bg-white p-6 rounded-lg shadow-md space-y-4" action="AddCustomerServlet" method="POST" onsubmit="addCustomer(event)">
+                    <div>
+                        <label for="id" class="block text-sm font-medium text-gray-700">Customer Id</label>
+                        <input type="text" id="id" name="id" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" placeholder="1" />
+                    </div>
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input type="text" id="name" name="name" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" placeholder="John Doe" />
+                    </div>
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" name="email" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" placeholder="johndoe@example.com" />
+                    </div>
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-700">Phone</label>
+                        <input type="text" id="phone" name="phone" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" placeholder="+1 123 456 7890" />
+                    </div>
+                    <div>
+                        <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Save</button>
+                    </div>
+                </form>
+            </div>
 
-			<!-- Edit Customer Form  -->
-			<div id="editCustomerForm" action="UpdateCustomerServlet" class="hidden mt-6">
-				<h2 class="text-2xl font-bold mb-4">Edit Customer</h2>
-				<form class="bg-white p-6 rounded-lg shadow-md space-y-4" action="UpdateCustomerServlet" method="POST">
-					<div>
-						<label for="edit-id" class="block text-sm font-medium text-gray-700">Customer Id</label>
-						<input type="text" id="edit-id" name="id" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" readonly>
-					</div>
-					<div>
-						<label for="edit-name" class="block text-sm font-medium text-gray-700">Full Name</label>
-						<input type="text" id="edit-name" name="name" class="mt-1 p-2 w-full border border-gray-300 rounded-lg">
-					</div>
-					<div>
-						<label for="edit-email" class="block text-sm font-medium text-gray-700">Email</label>
-						<input type="email" id="edit-email" name="email" class="mt-1 p-2 w-full border border-gray-300 rounded-lg">
-					</div>
-					<div>
-						<label for="edit-phone" class="block text-sm font-medium text-gray-700">Phone</label>
-						<input type="text" id="edit-phone" name="phone" class="mt-1 p-2 w-full border border-gray-300 rounded-lg">
-					</div>
-					<div>
-						<button type="submit"
-							class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
-							Update
-						</button>
-					</div>
-				</form>
-			</div>
+            <!-- View Policies Form -->
+            <div id="policyDetailsForm" class="hidden mt-6">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold">Assigned Policies</h2>
+                    <button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" onclick="showAssignPolicyForm(currentCustomerId)">
+                        Assign Policy
+                    </button>
+                </div>
+                <table class="min-w-full leading-normal">
+                    <thead>
+                        <tr>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Policy Name</th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Broker ID</th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Premium Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="assignedPoliciesBody">
+                        <!-- Policy details will be dynamically loaded here -->
+                    </tbody>
+                </table>
+            </div>
 
-		</main>
-	</div>
+            <!-- Assign Policy Form -->
+            <div id="assignPolicyForm" class="hidden mt-6">
+                <h2 class="text-2xl font-bold mb-4">Assign Policy to Customer</h2>
+                <form id="assignPolicy" class="bg-white p-6 rounded-lg shadow-md space-y-4">
+                    <div>
+                        <label for="policyName" class="block text-sm font-medium text-gray-700">Policy Name</label>
+                        <select id="policyName" name="policyName" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" required>
+                            <option value="Life Insurance">Life Insurance</option>
+                            <option value="Health Insurance">Health Insurance</option>
+                            <option value="Auto Insurance">Auto Insurance</option>
+                            <option value="Home Insurance">Home Insurance</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="premiumAmount" class="block text-sm font-medium text-gray-700">Premium Amount</label>
+                        <input type="text" id="premiumAmount" name="premiumAmount" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" placeholder="$0.00/month" required>
+                    </div>
+                    <div>
+                        <label for="customerId" class="block text-sm font-medium text-gray-700">Customer ID</label>
+                        <input type="text" id="customerId" name="customerId" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" readonly>
+                    </div>
+                    <div>
+                        <label for="brokerId" class="block text-sm font-medium text-gray-700">Broker ID</label>
+                        <input type="text" id="brokerId" name="brokerId" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" required>
+                    </div>
+                    <div>
+                        <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-green-700">Save</button>
+                    </div>
+                </form>
+            </div>
 
-	<script>
-		// Function to toggle the visibility of Add Customer form
-		function toggleAddCustomerForm() {
-			const form = document.getElementById("addCustomerForm");
-			form.classList.toggle("hidden");
-		}
+        </main>
+    </div>
 
-		// Function to show and populate the Edit Customer form
-		function editCustomer(id, name, email, phone) {
-			// Populate the form fields with customer data
-			document.getElementById('edit-id').value = id;
-			document.getElementById('edit-name').value = name;
-			document.getElementById('edit-email').value = email;
-			document.getElementById('edit-phone').value = phone;
+    <script>
+        let currentCustomerId;
 
-			// Show the edit form
-			document.getElementById('editCustomerForm').classList.remove('hidden');
-		}
+        // Function to toggle the visibility of Add Customer form
+        function toggleAddCustomerForm() {
+            const form = document.getElementById("addCustomerForm");
+            form.classList.toggle("hidden");
+        }
 
-		// Fetch customer data from the ViewCustomerServlet and populate the table
-		window.addEventListener("load", function () {
-			fetch('ViewCustomerServlet')
-				.then(response => response.json()) 
-				.then(data => {
-					const tableBody = document.getElementById("customerTableBody");
+        // Fetch customer data from the ViewCustomerServlet and populate the table
+        window.addEventListener("load", function () {
+            fetch('ViewCustomerServlet')
+                .then(response => response.json())  
+                .then(data => {
+                    const tableBody = document.getElementById("customerTableBody");
 
-					if (data.length > 0) {
-						tableBody.innerHTML = data.map(customer => `
+                    if (data.length > 0) {
+                        tableBody.innerHTML = data.map(customer => `
                             <tr>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm bold">${customer.id}</td>
+                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${customer.id}</td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${customer.name}</td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${customer.email}</td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${customer.phone}</td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm space-x-2">
+                                    <button class="text-blue-600 hover:text-blue-900" onclick="viewPolicies('${customer.id}')">View</button>
                                     <button class="text-green-600 hover:text-green-900" onclick="editCustomer('${customer.id}', '${customer.name}', '${customer.email}', '${customer.phone}')">Edit</button>
-                                    <button class="text-red-600 hover:text-red-900" onclick="deleteCustomer(${customer.id})">Delete</button>
+                                    <button class="text-red-600 hover:text-red-900" onclick="deleteCustomer('${customer.id}')">Delete</button>
                                 </td>
                             </tr>
                         `).join('');
-					} else {
-						tableBody.innerHTML = `<tr><td colspan="5" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">No customers found.</td></tr>`;
-					}
-				})
-				.catch(error => {
-					console.error('Error fetching customers:', error);
-					document.getElementById("customerTableBody").innerHTML = `<tr><td colspan="5" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Error loading customers.</td></tr>`;
-				});
-		});
+                    } else {
+                        tableBody.innerHTML = `<tr><td colspan="5" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">No customers found.</td></tr>`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching customers:', error);
+                    document.getElementById("customerTableBody").innerHTML = `<tr><td colspan="5" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Error loading customers.</td></tr>`;
+                });
+        });
 
-		// Function to delete a customer
-		function deleteCustomer(customerId) {
-			fetch('DeleteCustomerServlet', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/x-www-form-urlencoded',
-				},
-				body: `id=${customerId}` 
-			})
-				.then(response => {
-					if (response.ok) {
-						console.log('Customer deleted successfully');
-						window.location.reload(); 
-					} else {
-						console.error('Failed to delete customer');
-					}
-				})
-				.catch(error => {
-					console.error('Error deleting customer:', error);
-				});
-		}
-	</script>
+        // Add customer using the AddCustomerServlet
+        function addCustomer(event) {
+            event.preventDefault(); // Prevent form from submitting the traditional way
+
+            const formData = new FormData(document.getElementById("addCustomer"));
+
+            fetch('AddCustomerServlet', {
+                method: 'POST',
+                body: new URLSearchParams(formData) // Send data in URL-encoded format
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Customer added successfully");
+                    window.location.reload();
+                } else {
+                    alert("Failed to add customer");
+                }
+            })
+            .catch(error => console.error('Error adding customer:', error));
+        }
+
+        // Function to delete a customer
+        function deleteCustomer(customerId) {
+            if (confirm('Are you sure you want to delete this customer?')) {
+                fetch('DeleteCustomerServlet', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `id=${customerId}`
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Customer deleted successfully');
+                        window.location.reload(); // Reload to update the customer list
+                    } else {
+                        alert('Failed to delete customer');
+                    }
+                })
+                .catch(error => console.error('Error deleting customer:', error));
+            }
+        }
+
+        // Function to display policies for the customer
+       
+function viewPolicies(customerId) {
+    currentCustomerId = customerId; // Store the current customer ID for assigning policy
+
+    // Fetch assigned policies from the backend servlet
+    fetch(`ViewAssignedPolicesServlet?customerId=${customerId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch policies');
+            }
+            return response.json();  // Assuming the servlet returns JSON data
+        })
+        .then(policies => {
+            const policiesTableBody = document.getElementById('assignedPoliciesBody');
+            policiesTableBody.innerHTML = '';  // Clear previous data
+
+            if (policies.length > 0) {
+                // Loop through and display each assigned policy
+                console.log(policies);
+                policies.forEach(policy => {
+                    policiesTableBody.innerHTML += `
+                        <tr>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.policyName}</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.brokerId}</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.premiumAmount}</td>
+                        </tr>
+                    `;
+                });
+            } else {
+                policiesTableBody.innerHTML = '<tr><td colspan="3" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">No policies assigned.</td></tr>';
+            }
+
+            // Show the policy details form
+            document.getElementById('policyDetailsForm').classList.remove('hidden');
+        })
+        .catch(error => {
+            console.error('Error loading policies:', error);
+            document.getElementById('assignedPoliciesBody').innerHTML = '<tr><td colspan="3" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Error loading policies.</td></tr>';
+        });
+}
+
+        // Function to show the Assign Policy form
+        function showAssignPolicyForm(customerId) {
+            document.getElementById('customerId').value = customerId; // Pre-fill customer ID
+            document.getElementById('assignPolicyForm').classList.remove('hidden');
+        }
+
+        document.getElementById('premiumAmount').addEventListener('input', function (event) {
+            let value = event.target.value;
+
+            // Remove all characters except digits and the decimal point
+            value = value.replace(/[^0-9.]/g, '');
+
+            // Format the value as currency with two decimal places
+            if (value) {
+                value = parseFloat(value).toFixed(2); // Ensure two decimal places
+                event.target.value = `$${value}/month`; // Add $ sign and /month
+            }
+        });
+
+    </script>
+
 </body>
-
 </html>

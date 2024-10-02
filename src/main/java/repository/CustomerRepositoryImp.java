@@ -19,8 +19,7 @@ import entity.PolicyDetails;
 public class CustomerRepositoryImp implements CustomerRepository {
 	//facing issue with relative path
 	//will figure out later
-    private static final String FILE_PATH = "C:\\Users\\samch\\OneDrive\\Documents\\Humber\\Sem3\\J2EE\\InsurancePro\\customer.json";
-    
+	private static final String FILE_PATH = "C:\\j2ee\\Assignment 1\\InsurancePro\\customer.json";
 
     
 
