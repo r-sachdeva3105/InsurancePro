@@ -15,11 +15,18 @@ import java.util.stream.Collectors;
 
 import entity.Customer;
 import entity.PolicyDetails;
+import jakarta.servlet.ServletContext;
 
 public class CustomerRepositoryImp implements CustomerRepository {
 	//facing issue with relative path
 	//will figure out later
-	private static final String FILE_PATH = "C:\\j2ee\\Assignment 1\\InsurancePro\\customer.json";
+	  private static final String FILE_PATH = "/customer.json";// Relative to WebContent
+	    ServletContext context;
+
+	    // Get the file as an InputStream using ServletContext
+	    public CustomerRepositoryImp(ServletContext context) {
+	    	this.context = context;
+	    }
 
     
 
@@ -47,7 +54,7 @@ public class CustomerRepositoryImp implements CustomerRepository {
     @Override
     public List<Customer> getAllCustomers() {
         List<Customer> customers = new ArrayList<>();
-        File file = new File(FILE_PATH);
+        File file = new File(context.getRealPath(FILE_PATH));
         System.out.println("Looking for file at: " + file.getAbsolutePath());
         
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -198,8 +205,8 @@ public class CustomerRepositoryImp implements CustomerRepository {
         }
         
         json.append(customerJoiner.toString()).append("]");
-        
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+        File file = new File(context.getRealPath(FILE_PATH));
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(json.toString());
         } catch (IOException e) {
             e.printStackTrace();

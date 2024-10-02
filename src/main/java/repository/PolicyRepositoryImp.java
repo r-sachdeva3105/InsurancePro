@@ -11,9 +11,15 @@ import java.util.List;
 import java.util.StringJoiner;
 
 import entity.Policy;
+import jakarta.servlet.ServletContext;
 
 public class PolicyRepositoryImp implements PolicyRepository {
-	private static final String FILE_PATH = "C:\\j2ee\\Assignment 1\\InsurancePro\\policy.json";
+	 private static final String FILE_PATH = "/policy.json"; // Adjust this path
+	    private ServletContext context;
+	    
+	    public PolicyRepositoryImp(ServletContext context) {
+	    	this.context = context;
+	    }
 
 
 

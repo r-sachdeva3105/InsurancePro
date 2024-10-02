@@ -5,6 +5,7 @@ import java.util.List;
 import entity.Customer;
 import entity.Policy;
 import entity.PolicyDetails;
+import jakarta.servlet.ServletContext;
 import repository.PolicyAssignmentDetailsRepositoryImpl;
 
 public class PolicyAssignmentService {
@@ -12,10 +13,10 @@ public class PolicyAssignmentService {
 	PolicyAssignmentDetailsRepositoryImpl assignmentRepo;
 	PolicyService policyService;
 	
-	public PolicyAssignmentService() {
+	public PolicyAssignmentService(ServletContext context) {
 		
-		assignmentRepo = new PolicyAssignmentDetailsRepositoryImpl();
-		policyService = new PolicyService();
+		assignmentRepo = new PolicyAssignmentDetailsRepositoryImpl(context);
+		policyService = new PolicyService(context);
 	}
 	
 

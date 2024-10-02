@@ -24,7 +24,7 @@ public class DeleteCustomerServlet extends HttpServlet {
 
 	    @Override
 	    public void init() {
-	    	customerService = new CustomerService();
+	    	customerService = new CustomerService(getServletContext());
 	    }
     public DeleteCustomerServlet() {
         super();

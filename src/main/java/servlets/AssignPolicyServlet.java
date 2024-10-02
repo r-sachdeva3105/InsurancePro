@@ -33,7 +33,7 @@ public class AssignPolicyServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     public void init() {
-    	assignmentService = new PolicyAssignmentService();
+    	assignmentService = new PolicyAssignmentService(getServletContext());
         
     }
 

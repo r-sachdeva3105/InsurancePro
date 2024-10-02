@@ -26,7 +26,7 @@ public class AddCustomerServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     public void init() {
-        customerService = new CustomerService();
+        customerService = new CustomerService(getServletContext());
     }
 
 	/**

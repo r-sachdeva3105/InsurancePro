@@ -36,8 +36,8 @@ public class ViewAssignedPolicesServlet extends HttpServlet {
 	}
  
 	public void init() {
-		assignmentService = new PolicyAssignmentService();
-		policyService = new PolicyService();
+		assignmentService = new PolicyAssignmentService(getServletContext());
+		policyService = new PolicyService(getServletContext());
 	}
  
 	/**

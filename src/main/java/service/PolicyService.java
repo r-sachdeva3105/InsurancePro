@@ -3,14 +3,15 @@ package service;
 import java.util.List;
 
 import entity.Policy;
+import jakarta.servlet.ServletContext;
 import repository.PolicyRepository;
 import repository.PolicyRepositoryImp;
 
 public class PolicyService {
     private PolicyRepository policyRepository;
 
-    public PolicyService() {
-        this.policyRepository = new PolicyRepositoryImp();
+    public PolicyService(ServletContext context) {
+        this.policyRepository = new PolicyRepositoryImp(context);
     }
 
     public void addPolicy(Policy policy) throws Exception {

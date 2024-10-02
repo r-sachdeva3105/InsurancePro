@@ -29,7 +29,7 @@ public class UpdateCustomerServlet extends HttpServlet {
 	}
 
 	public void init() {
-		customerService = new CustomerService();
+		customerService = new CustomerService(getServletContext());
 	}
 
 	/**

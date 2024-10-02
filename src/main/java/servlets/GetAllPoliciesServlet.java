@@ -21,7 +21,7 @@ public class GetAllPoliciesServlet extends HttpServlet {
     }
 
     public void init() {
-        policyService = new PolicyService();
+        policyService = new PolicyService(getServletContext());
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

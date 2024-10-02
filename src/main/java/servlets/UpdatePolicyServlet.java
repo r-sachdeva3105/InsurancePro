@@ -18,7 +18,7 @@ public class UpdatePolicyServlet extends HttpServlet {
     }
 
     public void init() {
-        policyService = new PolicyService();
+        policyService = new PolicyService(getServletContext());
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

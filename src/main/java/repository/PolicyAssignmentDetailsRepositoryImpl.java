@@ -13,10 +13,16 @@ import java.util.stream.Collectors;
 
 import entity.Customer;
 import entity.PolicyDetails;
+import jakarta.servlet.ServletContext;
 
 public class PolicyAssignmentDetailsRepositoryImpl implements PolicyAssignmentDetailsRepository {
 	
-	private static final String FILE_PATH = "C:\\j2ee\\Assignment 1\\InsurancePro\\PolicyAssignmentDetails.json";
+	 private static final String FILE_PATH = "/policyAssignmentDetails.json";
+	 ServletContext context;
+	 
+	 public PolicyAssignmentDetailsRepositoryImpl(ServletContext context) {
+		 this.context = context;
+	 }
 
 
 	@Override

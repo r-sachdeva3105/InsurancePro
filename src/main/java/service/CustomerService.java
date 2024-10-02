@@ -5,6 +5,7 @@ import java.util.List;
 import entity.Customer;
 import entity.Policy;
 import entity.PolicyDetails;
+import jakarta.servlet.ServletContext;
 import repository.CustomerRepository;
 import repository.CustomerRepositoryImp;
 
@@ -12,9 +13,9 @@ public class CustomerService {
 	private CustomerRepository customerRepository;
 	private PolicyService policyService;
 
-	public CustomerService() {
-		this.customerRepository = new CustomerRepositoryImp();
-		policyService = new PolicyService();
+	public CustomerService(ServletContext context) {
+		this.customerRepository = new CustomerRepositoryImp(context);
+		policyService = new PolicyService(context);
 	}
 
 	public void addCustomer(Customer customer) throws Exception {
