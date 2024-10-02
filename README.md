@@ -3,7 +3,7 @@ InsurancePro is a web-based Insurance Broker Management System developed using J
 
 ## Team Members
 - Rajat Sachdeva
-- Samruddhi Suryakant Chavan
+- Samruddhi Chavan
 - Sruthi Jayaprakash Pandiath
 - Manpreet Kaur Gulati
 - Shrabani Sagareeka
@@ -25,4 +25,7 @@ To get a copy of the project up and running on your local machine, follow these 
 ## Requirements
 - Java JDK 11 or higher
 - Apache Tomcat or any Java servlet container
-- XML/JSON libraries for file handling
+
+## Access the Application
+- Run the application and login into the application.
+- Login using dummy username and password to access the dashboard and other functionality.
