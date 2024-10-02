@@ -21,7 +21,7 @@ public class CustomerRepositoryImp implements CustomerRepository {
 	//facing issue with relative path
 	//will figure out later
 	  private static final String FILE_PATH = "/customer.json";// Relative to WebContent
-	    ServletContext context;
+	    private ServletContext context;
 
 	    // Get the file as an InputStream using ServletContext
 	    public CustomerRepositoryImp(ServletContext context) {

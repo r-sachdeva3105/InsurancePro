@@ -42,8 +42,8 @@ public class PolicyRepositoryImp implements PolicyRepository {
     @Override
     public List<Policy> getAllPolicies() {
         List<Policy> policies = new ArrayList<>();
-        File file = new File(FILE_PATH);
-        
+     
+        File file = new File(context.getRealPath(FILE_PATH));
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             StringBuilder json = new StringBuilder();
             String line;
@@ -146,7 +146,8 @@ public class PolicyRepositoryImp implements PolicyRepository {
         
         json.append(policyJoiner.toString()).append("]");
         System.out.println("Saving to file: " + json.toString());
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+        File file = new File(context.getRealPath(FILE_PATH));
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
             writer.write(json.toString());
         } catch (IOException e) {
             e.printStackTrace();

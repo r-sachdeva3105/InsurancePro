@@ -44,7 +44,7 @@ public class AssignPolicyServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
+		//PrintWriter out = response.getWriter();
 		
 		String customerId = request.getParameter("customerId");
 		String policyName = request.getParameter("policyName");
@@ -55,15 +55,16 @@ public class AssignPolicyServlet extends HttpServlet {
 			
         	if(!assignmentService.addPolicyDetails(customerId, policyName, brokerId, premiumAmount))
         		throw new Exception ("asdfgh");
-        	
-			out.println("  <p>asdfghju765rdfc</p>");
+        	response.sendRedirect("customers.html");
+			System.out.println("  <p>asdfghju765rdfc</p>");
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
-			out.println(" <p>sadfgh</p>");
+			//out.println(" <p>sadfgh</p>");
 			
 		}
+        
 	}
 
 }
