@@ -1,11 +1,12 @@
-package entity;
+package entity; // Package for related classes
 
-public class Policy{
-	private String id;
-    private String name;
-    private String description;
-    private String type;
-    
+public class Policy {
+	private String id; // Policy ID
+    private String name; // Policy name
+    private String description; // Policy description
+    private String type; // Policy type
+
+    // Constructor to initialize Policy attributes
     public Policy(String id, String name, String description, String type) {
         this.id = id;
         this.name = name;
@@ -24,5 +25,5 @@ public class Policy{
     public void setDescription(String description) { this.description = description; }
 
     public String getType() { return type; }
-    public void setType(String brokers) { this.type = brokers; }
+    public void setType(String type) { this.type = type; }
 }
