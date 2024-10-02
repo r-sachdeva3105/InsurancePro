@@ -14,7 +14,7 @@ import entity.Policy;
 import jakarta.servlet.ServletContext;
 
 public class PolicyRepositoryImp implements PolicyRepository {
-	 private static final String FILE_PATH = "C:\\Users\\samch\\OneDrive\\Documents\\Humber\\Sem3\\J2EE\\InsurancePro\\policy.json"; // Adjust this path
+	 private static final String FILE_PATH = "C:\\Users\\sruth\\OneDrive\\Desktop\\Humber\\Sem3\\J2ee\\InsurancePro\\policy.json"; // Adjust this path
 	    private ServletContext context;
 	    
 	    public PolicyRepositoryImp(ServletContext context) {
@@ -146,7 +146,7 @@ public class PolicyRepositoryImp implements PolicyRepository {
         
         json.append(policyJoiner.toString()).append("]");
         System.out.println("Saving to file: " + json.toString());
-        File file = new File(context.getRealPath(FILE_PATH));
+//        File file = new File(context.getRealPath(FILE_PATH));
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
             writer.write(json.toString());
         } catch (IOException e) {

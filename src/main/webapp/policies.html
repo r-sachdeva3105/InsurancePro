@@ -57,7 +57,7 @@
 
 			<!-- Policy List Table -->
 			<div class="overflow-x-auto bg-white rounded-lg shadow-md">
-				<table id="policyTable" class="min-w-full leading-normal">
+				<table  class="min-w-full leading-normal">
 					<thead>
 						<tr>
 							<th
@@ -70,11 +70,11 @@
 							</th>
 							<th
 								class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-								Policy Type
+								Policy Description
 							</th>
 							<th
 								class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-								Policy Description
+								Policy Type
 							</th>
 							<th
 								class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
@@ -82,7 +82,7 @@
 							</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="policyTable">
 						<!-- Add more rows as necessary -->
 					</tbody>
 				</table>
@@ -93,25 +93,25 @@
 				<h2 class="text-2xl font-bold mb-4">Add New Policy</h2>
 				<form class="bg-white p-6 rounded-lg shadow-md space-y-4" action="AddPolicyServlet" method="POST">
 					<div>
-						<label for="policyNumber" class="block text-sm font-medium text-gray-700">Policy Number</label>
-						<input type="text" id="policyNumber" class="mt-1 p-2 w-full border border-gray-300 rounded-lg"
-							placeholder="P-12345" name="policyNumber" />
+						<label for="id" class="block text-sm font-medium text-gray-700">Policy Number</label>
+						<input type="text" id="id" class="mt-1 p-2 w-full border border-gray-300 rounded-lg"
+							placeholder="P-12345" name="id" />
 					</div>
 					<div>
-						<label for="customerName" class="block text-sm font-medium text-gray-700">Customer Name</label>
-						<input type="text" id="customerName" class="mt-1 p-2 w-full border border-gray-300 rounded-lg"
-							placeholder="John Doe" name="customerName" />
+						<label for="name" class="block text-sm font-medium text-gray-700">Policy Name</label>
+						<input type="text" id="name" class="mt-1 p-2 w-full border border-gray-300 rounded-lg"
+							placeholder="John Doe" name="name" />
 					</div>
 					<div>
-						<label for="policyType" class="block text-sm font-medium text-gray-700">Policy Type</label>
-						<input type="text" id="policyType" class="mt-1 p-2 w-full border border-gray-300 rounded-lg"
-							placeholder="Health Insurance" name="policyType" />
+						<label for="description" class="block text-sm font-medium text-gray-700">Policy Description</label>
+						<input type="text" id="description" class="mt-1 p-2 w-full border border-gray-300 rounded-lg"
+							 name="description" />
 					</div>
 					<div>
-						<label for="premiumAmount" class="block text-sm font-medium text-gray-700">Premium
-							Amount</label>
-						<input type="text" id="premiumAmount" class="mt-1 p-2 w-full border border-gray-300 rounded-lg"
-							placeholder="$120.50/month" name="premiumAmount" />
+						<label for="type" class="block text-sm font-medium text-gray-700">Policy
+							Type</label>
+						<input type="text" id="type" class="mt-1 p-2 w-full border border-gray-300 rounded-lg"
+							placeholder="Health Insurance" name="type" />
 					</div>
 					<div>
 						<button type="submit"
@@ -131,20 +131,20 @@
 							class="mt-1 p-2 w-full border border-gray-300 rounded-lg" readonly>
 					</div>
 					<div>
-						<label for="edit-customerName" class="block text-sm font-medium text-gray-700">Customer
+						<label for="edit-policyName" class="block text-sm font-medium text-gray-700">Policy
 							Name</label>
-						<input type="text" id="edit-customerName" name="customerName"
+						<input type="text" id="edit-policyName" name="policyName"
 							class="mt-1 p-2 w-full border border-gray-300 rounded-lg">
 					</div>
 					<div>
-						<label for="edit-policyType" class="block text-sm font-medium text-gray-700">Policy Type</label>
+						<label for="edit-policyDescription" class="block text-sm font-medium text-gray-700">Policy Description</label>
+						<input type="text" id="edit-policyDescription" name="policyDescription"
+							class="mt-1 p-2 w-full border border-gray-300 rounded-lg">
+					</div>
+					<div>
+						<label for="edit-policyType" class="block text-sm font-medium text-gray-700">Policy
+							Type</label>
 						<input type="text" id="edit-policyType" name="policyType"
-							class="mt-1 p-2 w-full border border-gray-300 rounded-lg">
-					</div>
-					<div>
-						<label for="edit-premiumAmount" class="block text-sm font-medium text-gray-700">Premium
-							Amount</label>
-						<input type="text" id="edit-premiumAmount" name="premiumAmount"
 							class="mt-1 p-2 w-full border border-gray-300 rounded-lg">
 					</div>
 					<div>
@@ -179,41 +179,44 @@
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.type}</td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm space-x-2">
                                     <button class="text-blue-600 hover:text-blue-900" onclick="viewPolicies('${policy.id}')">View</button>
-                                    <button class="text-green-600 hover:text-green-900" onclick="editPolicy('${policy.id}', '${customer.name}', '${customer.email}', '${policy.description}', '${policy.type}')">Edit</button>
+                                    <button class="text-green-600 hover:text-green-900" onclick="editPolicy('${policy.id}', '${policy.name}', '${policy.description}', '${policy.type}')">Edit</button>
                                     <button class="text-red-600 hover:text-red-900" onclick="deletePolicy('${policy.id}')">Delete</button>
                                 </td>
                             </tr>
                         `).join('');
 					} else {
-						tableBody.innerHTML = `<tr><td colspan="5" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">No customers found.</td></tr>`;
+						tableBody.innerHTML = `<tr><td colspan="5" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">No policy found.</td></tr>`;
 					}
 				})
 				.catch(error => {
-					console.error('Error fetching customers:', error);
-					document.getElementById("customerTableBody").innerHTML = `<tr><td colspan="5" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Error loading customers.</td></tr>`;
+					console.error('Error fetching policy:', error);
+					document.getElementById("policyTableBody").innerHTML = `<tr><td colspan="5" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Error loading policy.</td></tr>`;
 				});
 		});
 
 		
 
 		// Function to show and populate the Edit Policy form
-		function editPolicy(policyNumber, customerName, policyType, premiumAmount) {
-
+		function editPolicy(policyNumber, policyName, policyDescription, policyType) {
+			
 			document.getElementById('edit-policyNumber').value = policyNumber;
-			document.getElementById('edit-customerName').value = customerName;
+			document.getElementById('edit-policyName').value = policyName;
+			document.getElementById('edit-policyDescription').value = policyDescription;
 			document.getElementById('edit-policyType').value = policyType;
-			document.getElementById('edit-premiumAmount').value = premiumAmount;
 
 
 			document.getElementById('editPolicyForm').classList.remove('hidden');
 		}
 
 		// Function to delete a policy
+		
 		function deletePolicy(policyNumber) {
+			const data = new URLSearchParams(); // To send data in application/x-www-form-urlencoded format
+				    data.append('policyId', policyNumber);
 			fetch('DeletePolicyServlet', {
 				method: 'POST',
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				body: `policyNumber=${encodeURIComponent(policyNumber)}` // Sending policy number in the request body
+				body: data
 			})
 				.then(response => {
 					if (response.ok) {
@@ -237,40 +240,30 @@
 
 			// Get updated form data
 			const policyNumber = document.getElementById('edit-policyNumber').value;
-			const customerName = document.getElementById('edit-customerName').value;
+			const policyName = document.getElementById('edit-policyName').value;
+			const policyDescription = document.getElementById('edit-policyDescription').value;
 			const policyType = document.getElementById('edit-policyType').value;
-			const premiumAmount = document.getElementById('edit-premiumAmount').value;
 
 
-			console.log(`Updating policy: ${policyNumber}, ${customerName}, ${policyType}, ${premiumAmount}`);
+			console.log(`Updating policy: ${policyNumber}, ${policyName}, ${policyDescription}, ${policyType}`);
 
 			// Send updated data to the UpdatePolicyServlet
+			const data = new URLSearchParams(); // To send data in application/x-www-form-urlencoded format
+			    data.append('policyId', policyNumber);
+				data.append('name', policyName);
+				data.append('description', policyDescription);
+
+				data.append('type', policyType);
+
+
 			fetch('UpdatePolicyServlet', {
 				method: 'POST',
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				body: `policyNumber=${encodeURIComponent(policyNumber)}&customerName=${encodeURIComponent(customerName)}&policyType=${encodeURIComponent(policyType)}&premiumAmount=${encodeURIComponent(premiumAmount)}`
+				body: data
 			}).then(response => {
 				if (response.ok) {
 					console.log("Policy updated successfully");
-
-					// Find the row corresponding to the updated policyNumber
-					const rows = document.querySelectorAll('#policyTableBody tr');
-					rows.forEach(row => {
-						const policyCell = row.querySelector('td:first-child'); // The first cell should contain the policy number
-						if (policyCell && policyCell.textContent === policyNumber) {
-							// Update the row with the new data
-							row.innerHTML = `
-                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policyNumber}</td>
-                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${customerName}</td>
-                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policyType}</td>
-                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${premiumAmount}</td>
-                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm space-x-2">
-                                <button class="text-green-600 hover:text-green-900" onclick="editPolicy('${policyNumber}', '${customerName}', '${policyType}', '${premiumAmount}')">Edit</button>
-                                <button class="text-red-600 hover:text-red-900" onclick="deletePolicy('${policyNumber}')">Delete</button>
-                            </td>
-                        `;
-						}
-					});
+					window.location.reload();
 
 					// Hide the edit form after successful update
 					document.getElementById('editPolicyForm').classList.add('hidden');
