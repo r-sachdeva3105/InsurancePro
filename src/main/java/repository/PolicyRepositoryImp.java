@@ -16,7 +16,7 @@ import jakarta.servlet.ServletContext; // Servlet context for web application
 // Implementation of the PolicyRepository interface
 public class PolicyRepositoryImp implements PolicyRepository {
 	// File path for the JSON file to store policies
-	private static final String FILE_PATH = "C:\\\\Users\\\\samch\\\\OneDrive\\\\Documents\\\\Humber\\\\Sem3\\\\J2EE\\\\InsurancePro\\\\policy.json"; // Adjust this path
+	private static final String FILE_PATH = "/policy.json"; // Adjust this path
 	private ServletContext context; // Servlet context
 
 	// Constructor to initialize PolicyRepository with ServletContext
@@ -48,7 +48,9 @@ public class PolicyRepositoryImp implements PolicyRepository {
 		List<Policy> policies = new ArrayList<>(); // List to hold policies
 
 		// Reading the policies from the JSON file
-		try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+		File file = new File(context.getRealPath(FILE_PATH));
+		System.out.println("Looking for file at: " + file.getAbsolutePath());
+		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 			StringBuilder json = new StringBuilder();
 			String line;
 			while ((line = reader.readLine()) != null) {
@@ -147,7 +149,8 @@ public class PolicyRepositoryImp implements PolicyRepository {
 		json.append(policyJoiner.toString()).append("]"); // Complete JSON array
 		System.out.println("Saving to file: " + json.toString());
 		// Write JSON string to file
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+		File file = new File(context.getRealPath(FILE_PATH));
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
 			writer.write(json.toString());
 		} catch (IOException e) {
 			e.printStackTrace(); // Print stack trace on error

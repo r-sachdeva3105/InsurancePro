@@ -19,7 +19,7 @@ import jakarta.servlet.ServletContext;
 public class CustomerRepositoryImp implements CustomerRepository {
 	// facing issue with relative path
 	// will figure out later
-	private static final String FILE_PATH = "C:/Users/samch/OneDrive/Documents/Humber/Sem3/J2EE/InsurancePro/customer.json";
+	private static final String FILE_PATH = "customer.json";
 
 	private ServletContext context;
 
@@ -53,11 +53,11 @@ public class CustomerRepositoryImp implements CustomerRepository {
 	@Override
 	public List<Customer> getAllCustomers() {
 		List<Customer> customers = new ArrayList<>();
-		File file = new File(FILE_PATH);
+		File file = new File(context.getRealPath(FILE_PATH));
 		System.out.println("Looking for file at: " + file.getAbsolutePath());
 
 		// reading from file
-		try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 			StringBuilder json = new StringBuilder();
 			String line;
 			while ((line = reader.readLine()) != null) {
@@ -166,8 +166,8 @@ public class CustomerRepositoryImp implements CustomerRepository {
 		}
 
 		json.append(customerJoiner.toString()).append("]");
-		// File file = new File(context.getRealPath(FILE_PATH));
-		try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
+		File file = new File(context.getRealPath(FILE_PATH));
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
 			writer.write(json.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
