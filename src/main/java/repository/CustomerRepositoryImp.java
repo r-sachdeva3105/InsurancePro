@@ -64,7 +64,7 @@ public class CustomerRepositoryImp implements CustomerRepository {
 				json.append(line);
 			}
 
-			// removing extra [,{,},] and , to read the data accordingly
+			// removing extra [,{,},] and , to read the data 
 			String jsonString = json.toString().trim();
 			jsonString = jsonString.substring(1, jsonString.length() - 1);
 

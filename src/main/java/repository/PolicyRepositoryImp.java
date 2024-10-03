@@ -42,7 +42,7 @@ public class PolicyRepositoryImp implements PolicyRepository {
 				.orElse(null); // Return null if not found
 	}
 
-	// Method to retrieve all policies from the file accordingly
+	// Method to retrieve all policies from the file 
 	@Override
 	public List<Policy> getAllPolicies() {
 		List<Policy> policies = new ArrayList<>(); // List to hold policies
