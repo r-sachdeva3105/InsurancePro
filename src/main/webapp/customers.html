@@ -184,10 +184,10 @@
 						<label for="policyName" class="block text-sm font-medium text-gray-700">Policy Name</label>
 						<select id="policyName" name="policyName"
 							class="mt-1 p-2 w-full border border-gray-300 rounded-lg" required>
-							<option value="Life Insurance">Life Insurance</option>
+							<!-- <option value="Life Insurance">Life Insurance</option>
 							<option value="Health Insurance">Health Insurance</option>
 							<option value="Auto Insurance">Auto Insurance</option>
-							<option value="Home Insurance">Home Insurance</option>
+							<option value="Home Insurance">Home Insurance</option> -->
 						</select>
 					</div>
 					<div>
@@ -343,6 +343,22 @@
 		function showAssignPolicyForm(customerId) {
 			document.getElementById('customer_Id').value = customerId; // Pre-fill customer ID
 			document.getElementById('assignPolicyForm').classList.remove('hidden');
+			fetch('GetAllPoliciesServlet')
+			.then(response => response.json())
+			.then(data => {
+				const selectBody = document.getElementById("policyName");
+
+				console.log(data);
+				data.map(policy => {
+					const option = document.createElement("option");
+					option.value = policy.id;
+					option.text = policy.name;
+					selectBody.appendChild(option);
+				});
+			})
+			.catch(error => {
+				console.error('Error fetching customers:', error);
+			});
 		}
 
 		document.getElementById('premiumAmount').addEventListener('input', function (event) {
