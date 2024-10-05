@@ -32,5 +32,5 @@ To get a copy of the project up and running on your local machine, follow these 
 
 ## Limitations
 - Utilizing ServletContext to obtain the real path of the JSON files instead of depending on absolute paths. This ensures that the application accesses the JSON files located in the .metadata folder of the Eclipse workspace rather than those in the webapp folder.
-- To verify the contents of the JSON files, check the console for path information.
+- To verify the contents of the JSON files, check the eclipse console for path information.
 - To address this inconsistency, the application will be migrated to a database.
