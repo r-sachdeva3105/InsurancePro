@@ -50,6 +50,7 @@ public class AssignPolicyServlet extends HttpServlet {
 
 		String customerId = request.getParameter("customerId");
 		String policyName = request.getParameter("policyName");
+		System.out.println("policyname" + policyName);
 		String brokerId = request.getParameter("brokerId");
 		String premiumAmount = request.getParameter("premiumAmount");
 

@@ -351,7 +351,7 @@
 				console.log(data);
 				data.map(policy => {
 					const option = document.createElement("option");
-					option.value = policy.id;
+					option.value = policy.name;
 					option.text = policy.name;
 					selectBody.appendChild(option);
 				});
