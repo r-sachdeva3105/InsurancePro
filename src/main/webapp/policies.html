@@ -157,124 +157,137 @@
 	</div>
 
 	<script>
-		// Function to toggle the visibility of Add Policy form
-		function toggleAddPolicyForm() {
-		
-			const form = document.getElementById("addPolicyForm");
-			form.classList.toggle("hidden");
-		}
-		
-		// Fetch customer data from the ViewCustomerServlet and populate the table
-		window.addEventListener("load", function () {
-			fetch('GetAllPoliciesServlet')
-				.then(response => response.json())
-				.then(data => {
-					const tableBody = document.getElementById("policyTable");
+	// Function to toggle the visibility of Add Policy form
+	function toggleAddPolicyForm() {
+	    // Hide the Edit Policy form when Add Policy is clicked
+	    document.getElementById('editPolicyForm').classList.add('hidden');
 
-					if (data.length > 0) {
-						tableBody.innerHTML = data.map(policy => `
-                            <tr>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.id}</td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.name}</td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.description}</td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.type}</td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm space-x-2">
-                                    <button class="text-green-600 hover:text-green-900" onclick="editPolicy('${policy.id}', '${policy.name}', '${policy.description}', '${policy.type}')">Edit</button>
-                                    <button class="text-red-600 hover:text-red-900" onclick="deletePolicy('${policy.id}')">Delete</button>
-                                </td>
-                            </tr>
-                        `).join('');
-					} else {
-						tableBody.innerHTML = `<tr><td colspan="5" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">No policy found.</td></tr>`;
-					}
-				})
-				.catch(error => {
-					console.error('Error fetching policy:', error);
-					document.getElementById("policyTableBody").innerHTML = `<tr><td colspan="5" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Error loading policy.</td></tr>`;
-				});
-		});
+	    // Toggle the visibility of Add Policy form
+	    const form = document.getElementById("addPolicyForm");
+	    form.classList.toggle("hidden");
+	}
 
-		
+	// Fetch policy data from the GetAllPoliciesServlet and populate the table
+	window.addEventListener("load", function () {
+	    fetch('GetAllPoliciesServlet')
+	        .then(response => response.json())
+	        .then(data => {
+	            const tableBody = document.getElementById("policyTable");
 
-		// Function to show and populate the Edit Policy form
-		function editPolicy(policyNumber, policyName, policyDescription, policyType) {
-			
-			document.getElementById('edit-policyNumber').value = policyNumber;
-			document.getElementById('edit-policyName').value = policyName;
-			document.getElementById('edit-policyDescription').value = policyDescription;
-			document.getElementById('edit-policyType').value = policyType;
+	            if (data.length > 0) {
+	                tableBody.innerHTML = data.map(policy => `
+	                    <tr>
+	                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.id}</td>
+	                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.name}</td>
+	                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.description}</td>
+	                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.type}</td>
+	                        <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+	                            <div class="flex space-x-2">
+	                                <button class="text-green-600 hover:text-green-900" onclick="editPolicy('${policy.id}', '${policy.name.replace(/'/g, "\\'")}', '${policy.description.replace(/'/g, "\\'")}', '${policy.type}')">Edit</button>
+	                                <button class="text-red-600 hover:text-red-900" onclick="deletePolicy('${policy.id}')">Delete</button>
+	                            </div>
+	                        </td>
+	                    </tr>
+	                `).join('');
 
+	                // Log all policy IDs to verify if they are fetched correctly
+	                data.forEach(policy => {
+	                    console.log("Policy ID fetched:", policy.id);
+	                });
+	            } else {
+	                tableBody.innerHTML = `<tr><td colspan="5" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">No policy found.</td></tr>`;
+	            }
+	        })
+	        .catch(error => {
+	            console.error('Error fetching policy:', error);
+	            document.getElementById("policyTableBody").innerHTML = `<tr><td colspan="5" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Error loading policy.</td></tr>`;
+	        });
+	});
 
-			document.getElementById('editPolicyForm').classList.remove('hidden');
-		}
+	// Function to show and populate the Edit Policy form
+	function editPolicy(policyNumber, policyName, policyDescription, policyType) {
+	    // Log the policy number to ensure the correct policy is being edited
+	    console.log("Editing policy with number:", policyNumber);
 
-		// Function to delete a policy
-		
-		function deletePolicy(policyNumber) {
-			const data = new URLSearchParams(); // To send data in application/x-www-form-urlencoded format
-				    data.append('policyId', policyNumber);
-			fetch('DeletePolicyServlet', {
-				method: 'POST',
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				body: data
-			})
-				.then(response => {
-					if (response.ok) {
-						console.log('Policy deleted successfully');
-						window.location.reload();
-					} else {
-						console.error('Failed to delete policy');
-					}
-				})
-				.catch(error => {
-					console.error('Error deleting policy:', error);
-				});
-		}
+	    // Hide the Add Policy form when Edit Policy is clicked
+	    document.getElementById('addPolicyForm').classList.add('hidden');
 
-		// Handle Edit Policy form submission using Fetch API
-		document.getElementById('editPolicyFormElement').addEventListener('submit', function (event) {
-			event.preventDefault();
+	    // Populate the form fields with the policy data
+	    document.getElementById('edit-policyNumber').value = policyNumber;
+	    document.getElementById('edit-policyName').value = policyName;
+	    document.getElementById('edit-policyDescription').value = policyDescription;
+	    document.getElementById('edit-policyType').value = policyType;
 
-			// Log to check if form submission is triggered
-			console.log("Edit form submitted");
+	    // Show the Edit Policy form
+	    document.getElementById('editPolicyForm').classList.remove('hidden');
+	}
 
-			// Get updated form data
-			const policyNumber = document.getElementById('edit-policyNumber').value;
-			const policyName = document.getElementById('edit-policyName').value;
-			const policyDescription = document.getElementById('edit-policyDescription').value;
-			const policyType = document.getElementById('edit-policyType').value;
+	// Function to delete a policy
+	function deletePolicy(policyNumber) {
+	    const data = new URLSearchParams(); // To send data in application/x-www-form-urlencoded format
+	    data.append('policyId', policyNumber);
+	    fetch('DeletePolicyServlet', {
+	        method: 'POST',
+	        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+	        body: data
+	    })
+	        .then(response => {
+	            if (response.ok) {
+	                console.log('Policy deleted successfully');
+	                window.location.reload();
+	            } else {
+	                console.error('Failed to delete policy');
+	            }
+	        })
+	        .catch(error => {
+	            console.error('Error deleting policy:', error);
+	        });
+	}
 
+	// Handle Edit Policy form submission using Fetch API
+	document.getElementById('editPolicyFormElement').addEventListener('submit', function (event) {
+	    event.preventDefault();
 
-			console.log(`Updating policy: ${policyNumber}, ${policyName}, ${policyDescription}, ${policyType}`);
+	    // Log to check if form submission is triggered
+	    console.log("Edit form submitted");
 
-			// Send updated data to the UpdatePolicyServlet
-			const data = new URLSearchParams(); // To send data in application/x-www-form-urlencoded format
-			    data.append('policyId', policyNumber);
-				data.append('name', policyName);
-				data.append('description', policyDescription);
+	    // Get updated form data
+	    const policyNumber = document.getElementById('edit-policyNumber').value;
+	    const policyName = document.getElementById('edit-policyName').value;
+	    const policyDescription = document.getElementById('edit-policyDescription').value;
+	    const policyType = document.getElementById('edit-policyType').value;
 
-				data.append('type', policyType);
+	    // Log the updated values to ensure they are being captured correctly
+	    console.log(`Updating policy: ${policyNumber}, ${policyName}, ${policyDescription}, ${policyType}`);
 
+	    // Send updated data to the UpdatePolicyServlet
+	    const data = new URLSearchParams(); // To send data in application/x-www-form-urlencoded format
+	    data.append('policyId', policyNumber);
+	    data.append('name', policyName);
+	    data.append('description', policyDescription);
+	    data.append('type', policyType);
 
-			fetch('UpdatePolicyServlet', {
-				method: 'POST',
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				body: data
-			}).then(response => {
-				if (response.ok) {
-					console.log("Policy updated successfully");
-					window.location.reload();
+	    fetch('UpdatePolicyServlet', {
+	        method: 'POST',
+	        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+	        body: data
+	    }).then(response => {
+	        if (response.ok) {
+	            console.log("Policy updated successfully");
+	            window.location.reload();
 
-					// Hide the edit form after successful update
-					document.getElementById('editPolicyForm').classList.add('hidden');
-				} else {
-					console.error('Failed to update policy');
-				}
-			}).catch(error => {
-				console.error('Error updating policy:', error);
-			});
-		});
-	</script>
+	            // Hide the edit form after successful update
+	            document.getElementById('editPolicyForm').classList.add('hidden');
+	        } else {
+	            console.error('Failed to update policy');
+	        }
+	    }).catch(error => {
+	        console.error('Error updating policy:', error);
+	    });
+	});
+
+</script>
+	
 
 </body>
 
