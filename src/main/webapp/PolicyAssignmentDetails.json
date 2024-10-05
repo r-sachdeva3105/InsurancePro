@@ -1,1 +1,1 @@
-[{"policyId":"2","brokerId":"2","premiumAmount":"3435","customerId":"2"},{"policyId":"3","brokerId":"2","premiumAmount":"2345","customerId":"2"},{"policyId":"2","brokerId":"3","premiumAmount":"$152.00/month","customerId":"5"},{"policyId":"2","brokerId":"2","premiumAmount":"$152.00/month","customerId":"6"}]
+[{"policyId":"2","brokerId":"2","premiumAmount":"3435","customerId":"1"},{"policyId":"1","brokerId":"2","premiumAmount":"$152.00/month","customerId":"1"},{"policyId":"1","brokerId":"4","premiumAmount":"$152.00/month","customerId":"2"}]
