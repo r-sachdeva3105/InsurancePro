@@ -3,56 +3,57 @@ package service;
 import java.util.List;
 
 import entity.Customer;
-import entity.Policy;
-import entity.PolicyDetails;
 import jakarta.servlet.ServletContext;
 import repository.CustomerRepository;
 import repository.CustomerRepositoryImp;
 
-// defining service class
+// Defining service class
 public class CustomerService {
-	private CustomerRepository customerRepository;
-	private PolicyService policyService;
+    private CustomerRepository customerRepository;
+    private PolicyService policyService;
 
-	// performing dependency injection using constructor
-	public CustomerService(ServletContext context) {
-		this.customerRepository = new CustomerRepositoryImp(context);
-		policyService = new PolicyService(context);
-	}
+    // Performing dependency injection using constructor
+    public CustomerService(ServletContext context) {
+        this.customerRepository = new CustomerRepositoryImp();  // Passing context to repository
+        this.policyService = new PolicyService(context);
+    }
 
-	// add customer
-	public void addCustomer(Customer customer) throws Exception {
+    // Add customer
+    public void addCustomer(Customer customer) throws Exception {
+        try {
+            customerRepository.addCustomer(customer);
+        } catch (Exception e) {
+            throw new Exception("Error while adding customer: " + e.getMessage(), e);
+        }
+    }
 
-		customerRepository.addCustomer(customer);
-	}
+    // Get customer by ID
+    public Customer getCustomerById(String id) {
+        return customerRepository.getCustomerById(id);
+    }
 
-	// get customer by ID
-	public Customer getCustomerById(String id) {
-		return customerRepository.getCustomerById(id);
-	}
+    // Get all customers
+    public List<Customer> getAllCustomers() {
+        return customerRepository.getAllCustomers();
+    }
 
-	// get all customer
-	public List<Customer> getAllCustomers() {
-		return customerRepository.getAllCustomers();
-	}
+    // Update customer
+    public void updateCustomer(Customer customer) {
+        try {
+            customerRepository.updateCustomer(customer);
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Error while updating customer: " + e.getMessage(), e);
+        }
+    }
 
-	// update Customer
-	public void updateCustomer(Customer customer) {
-
-		customerRepository.updateCustomer(customer);
-
-	}
-
-	// delete Customer
-	public boolean deleteCustomer(String id) {
-		try {
-			customerRepository.deleteCustomer(id);
-			return true;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
-	}
-
+    // Delete customer
+    public boolean deleteCustomer(String id) {
+        try {
+            customerRepository.deleteCustomer(id);
+            return true;
+        } catch (Exception e) {
+            System.err.println("Error deleting customer: " + e.getMessage());
+            return false;
+        }
+    }
 }

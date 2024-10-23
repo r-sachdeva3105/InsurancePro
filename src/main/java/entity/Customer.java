@@ -1,77 +1,80 @@
-
-/**
- * 
- */
 package entity;
 
-/**
- * 
- */
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+
+@Entity
+@Table(name = "Customer")  // Optional: specify the table name
 public class Customer {
 
-	// decalring fields
-	private String id;
-	private String name;
-	private String email;
-	private String phone;
-	private String policys;
+    // Declaring fields
 
-	// defining constructors
+    @Id
+    @Column(name = "id", nullable = false, length = 50)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	public Customer(String id, String name, String email, String phone, String policys) {
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.phone = phone;
-		this.policys = policys;
-	}
+    @Column(name = "name", nullable = false, length = 100)
+    private String name;
 
-	public Customer(String id, String name, String email, String phone) {
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.phone = phone;
-		this.policys = "[]";
-	}
+    @Column(name = "email", nullable = false, length = 100)
+    private String email;
 
-	// Getters and Setters
-	public String getId() {
-		return id;
-	}
+    @Column(name = "phone", length = 15)
+    private String phone;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    // Defining constructors
+    public Customer() {
+        // Default constructor required by JPA
+    }
 
-	public String getName() {
-		return name;
-	}
+    public Customer(Integer id, String name, String email, String phone) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+    }
+    
+    public Customer(String name, String email, String phone) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    // Getters and Setters
+    public Integer getId() {
+        return id;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getPolicys() {
-		return policys;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setPolicys(String policys) {
-		this.policys = policys;
-	}
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 }

@@ -14,47 +14,54 @@ import entity.Customer;
 /**
  * Servlet implementation class AddCustomerServlet
  */
+
 public class AddCustomerServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private CustomerService customerService;
+    private static final long serialVersionUID = 1L;
+    private CustomerService customerService;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public AddCustomerServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public AddCustomerServlet() {
+        super();
+    }
 
-	// Initializing the servlet
-	public void init() {
-		customerService = new CustomerService(getServletContext());
-	}
+    // Initializing the servlet
+    @Override
+    public void init() throws ServletException {
+        customerService = new CustomerService(getServletContext());
+    }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+    /**
+     * Handles the POST request for adding a new customer.
+     * 
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
 
-	// handles add customer request
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+        
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String phone = request.getParameter("phone");
 
-		// TODO Auto-generated method stub
-		String id = request.getParameter("id");
-		String name = request.getParameter("name");
-		String email = request.getParameter("email");
-		String phone = request.getParameter("phone");
+        // Creating a new customer object
+        Customer customer = new Customer(name, email, phone);
 
-		Customer customer = new Customer(id, name, email, phone);
-		try {
-			customerService.addCustomer(customer);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
-		}
+        try {
+            // Adding the customer using CustomerService
+            customerService.addCustomer(customer);
 
-		response.sendRedirect("customers.html");
-	}
+            // Redirecting to a success page or showing a success message
+            request.setAttribute("successMessage", "Customer added successfully!");
+           
 
+        } catch (Exception e) {
+            // Handling exceptions and showing an error message
+            request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
+        }
+        response.sendRedirect("customers.html");
+    }
 }

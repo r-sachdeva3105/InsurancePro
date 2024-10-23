@@ -48,10 +48,10 @@ public class AssignPolicyServlet extends HttpServlet {
 
 		response.setContentType("text/html");
 
-		String customerId = request.getParameter("customerId");
+		int customerId = Integer.parseInt(request.getParameter("customerId"));
 		String policyName = request.getParameter("policyName");
 		System.out.println("policyname" + policyName);
-		String brokerId = request.getParameter("brokerId");
+		int brokerId = Integer.parseInt(request.getParameter("brokerId"));
 		String premiumAmount = request.getParameter("premiumAmount");
 
 		try {

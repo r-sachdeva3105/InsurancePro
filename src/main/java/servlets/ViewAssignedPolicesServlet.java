@@ -73,7 +73,7 @@ public class ViewAssignedPolicesServlet extends HttpServlet {
 		StringJoiner policyJoiner = new StringJoiner(",");
 		for (PolicyDetails policyDetails : details) {
 			policyName = policyService.getAllPolicies().stream()
-					.filter(policy -> policy.getId().equals(policyDetails.getPolicyId())).map(Policy::getName)
+					.filter(policy -> policy.getId().equals(String.valueOf(policyDetails.getPolicyId()))).map(Policy::getName)
 					.findFirst().orElse("");
 			StringBuilder policyJson = new StringBuilder();
 			policyJson.append("{").append("\"policyName\":\"").append(policyName).append("\",")

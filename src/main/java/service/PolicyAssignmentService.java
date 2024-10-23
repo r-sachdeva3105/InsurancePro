@@ -17,26 +17,26 @@ public class PolicyAssignmentService {
 	// performing dependency injection using constructor
 	public PolicyAssignmentService(ServletContext context) {
 
-		assignmentRepo = new PolicyAssignmentDetailsRepositoryImpl(context);
+		assignmentRepo = new PolicyAssignmentDetailsRepositoryImpl();
 		policyService = new PolicyService(context);
 	}
 
 // add policy details
-	public boolean addPolicyDetails(String customerId, String policyName, String brokerId, String premiumAmount)
+	public boolean addPolicyDetails(int customerId, String policyName, int brokerId, String premiumAmount)
 			throws Exception {
 
-		String policyId = "";
+		int policyId = 0;
 		for (Policy policy : policyService.getAllPolicies()) {
 
 			if (policy.getName().equals(policyName)) {
 
-				policyId = policy.getId();
+				policyId = Integer.parseInt(policy.getId());
 				System.out.println(policyId);
 				break;
 			}
 
 		}
-		if (policyId != "") {
+		if (policyId != 0) {
 
 			PolicyDetails details = new PolicyDetails(customerId, policyId, brokerId, premiumAmount);
 			assignmentRepo.addPolicyDetails(details);
