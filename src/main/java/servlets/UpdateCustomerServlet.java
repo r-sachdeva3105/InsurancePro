@@ -49,12 +49,11 @@ public class UpdateCustomerServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
-		Customer updatedCustomer = new Customer(id, name, email, phone);
+		Customer updatedCustomer = new Customer(id, name, email, phone,1);
 		try {
 			customerService.updateCustomer(updatedCustomer);
 			response.sendRedirect("customers.html");
 		} catch (IllegalArgumentException e) {
-
 			request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
 
 		}

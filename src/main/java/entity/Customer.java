@@ -26,23 +26,28 @@ public class Customer {
 
     @Column(name = "phone", length = 15)
     private String phone;
+    
+    @Column(name = "broker_id", nullable = false)
+    private Integer brokerId; // Changed to Integer for foreign key reference
 
-    // Defining constructors
+	// Defining constructors
     public Customer() {
         // Default constructor required by JPA
     }
 
-    public Customer(Integer id, String name, String email, String phone) {
+    public Customer(Integer id, String name, String email, String phone,Integer brokerId ) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.brokerId = brokerId;
     }
     
-    public Customer(String name, String email, String phone) {
+    public Customer(String name, String email, String phone, Integer brokerId) {
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.brokerId = brokerId;
     }
 
     // Getters and Setters
@@ -77,4 +82,14 @@ public class Customer {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+    
+
+    public Integer getBrokerId() {
+		return brokerId;
+	}
+
+	public void setBrokerId(Integer brokerId) {
+		this.brokerId = brokerId;
+	}
+
 }

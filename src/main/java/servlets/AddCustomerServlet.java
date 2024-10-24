@@ -47,7 +47,7 @@ public class AddCustomerServlet extends HttpServlet {
         String phone = request.getParameter("phone");
 
         // Creating a new customer object
-        Customer customer = new Customer(name, email, phone);
+        Customer customer = new Customer(name, email, phone,1);
 
         try {
             // Adding the customer using CustomerService
