@@ -27,13 +27,13 @@ public class AddPolicyServlet extends HttpServlet {
     // Handles POST requests to add a new policy
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // Retrieve parameters from the request
-        String id = request.getParameter("policyId");
+//        Integer id = Integer.parseInt(request.getParameter("policyId"));
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String type = request.getParameter("type");
 
         // Create a new Policy object
-        Policy policy = new Policy(id, name, description, type);
+        Policy policy = new Policy( name, description, type);
         try {
             policyService.addPolicy(policy); // Add policy using the service
         } catch (Exception e) {

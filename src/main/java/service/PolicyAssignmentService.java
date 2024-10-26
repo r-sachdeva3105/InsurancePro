@@ -30,7 +30,7 @@ public class PolicyAssignmentService {
 
 			if (policy.getName().equals(policyName)) {
 
-				policyId = Integer.parseInt(policy.getId());
+				policyId = policy.getId();
 				System.out.println(policyId);
 				break;
 			}

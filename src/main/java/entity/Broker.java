@@ -1,42 +1,52 @@
 package entity;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "brokers")
 public class Broker {
 
-	// decalring fields
-	private String id;
-	private String name;
-	private String email;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id; // Changed to Integer for auto-generation
 
-	// Constructor
-	public Broker(String id, String name, String email) {
-		this.id = id;
-		this.name = name;
-		this.email = email;
-	}
+    @Column(name = "name", nullable = false)
+    private String name;
 
-	// Getters and Setters
-	public String getId() {
-		return id;
-	}
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    // Default constructor for Hibernate
+    public Broker() {}
 
-	public String getName() {
-		return name;
-	}
+    // Constructor with parameters
+    public Broker(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    // Getters and Setters
+    public Integer getId() {
+        return id;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

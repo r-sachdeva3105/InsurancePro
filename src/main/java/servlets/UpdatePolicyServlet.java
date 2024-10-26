@@ -33,7 +33,11 @@ public class UpdatePolicyServlet extends HttpServlet {
         String type = request.getParameter("type");
 
         // Create a new Policy object with the updated details
-        Policy policy = new Policy(id, name, description, type);
+        Policy policy = new Policy(); // Assuming you have a default constructor
+        policy.setId(Integer.parseInt(id)); // Set the policy ID (ensure id is an integer)
+        policy.setName(name);
+        policy.setDescription(description);
+        policy.setType(type);
         try {
             policyService.updatePolicy(policy); // Update the policy using the service
         } catch (Exception e) {
