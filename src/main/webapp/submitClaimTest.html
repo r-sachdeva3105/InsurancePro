@@ -1,0 +1,24 @@
+
+<html>
+<head>
+    <title>Submit Claim</title>
+</head>
+<body>
+    <h1>Submit New Claim</h1>
+    <form action="SubmitClaimServlet" method="post">
+        <label for="policyId">Policy ID:</label>
+        <input type="text" name="policyName" required/><br/>
+        
+         <label for="customerId">cust ID:</label>
+        <input type="text" name="customerId" required/><br/>
+
+        <label for="brokerId">Broker ID:</label>
+        <input type="text" name="brokerId" required/><br/>
+
+        <label for="description">Description:</label><br/>
+        <textarea name="description" required></textarea><br/>
+
+        <input type="submit" value="Submit Claim"/>
+    </form>
+</body>
+</html>

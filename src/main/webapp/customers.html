@@ -24,24 +24,24 @@
 	<!-- Sidebar and Main Content Wrapper -->
 	<div class="flex">
 		<!-- Sidebar -->
-		<aside class="w-64 bg-gray-800 text-white h-screen hidden md:block">
-			<div class="px-6 py-6">
-				<ul>
-					<li class="mb-4">
-						<a href="dashboard.html"
-							class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded">Dashboard</a>
-					</li>
-					<li class="mb-4">
-						<a href="customers.html"
-							class="text-white font-semibold block bg-gray-900 hover:bg-gray-700 px-4 py-2 rounded">Customers</a>
-					</li>
-					<li class="mb-4">
-						<a href="policies.html"
-							class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded">Policies</a>
-					</li>
-				</ul>
-			</div>
-		</aside>
+		<aside id="sidebar" class="sidebar w-64 bg-gray-800 text-white h-screen fixed md:relative sidebar-hidden md:block">
+	      <div class="px-6 py-6">
+	        <ul>
+	          <li class="mb-4">
+	            <a href="dashboard.html" class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded">Dashboard</a>
+	          </li>
+	          <li class="mb-4">
+	            <a href="customers.html" class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded">Customers</a>
+	          </li>
+	          <li class="mb-4">
+	            <a href="policies.html" class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded">Policies</a>
+	          </li>
+	          <li class="mb-4">
+	            <a href="claims.html" class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded">Claims</a>
+	          </li>
+	        </ul>
+	      </div>
+    	</aside>
 
 		<!-- Main Content -->
 		<main class="flex-1 p-6">
@@ -136,6 +136,7 @@
 							<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Policy Name</th>
 							<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Broker ID</th>
 							<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Premium Amount</th>
+							<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Claim</th>
 						</tr>
 					</thead>
 					<tbody id="assignedPoliciesBody">
@@ -277,6 +278,9 @@
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.policyName}</td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.brokerId}</td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.premiumAmount}</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                            	<button class="text-blue-600 hover:text-blue-900" onclick="submitClaim('${customerId}, ${policy.policyName}, ${policy.brokerId}')">Submit Claim</button>
+                            </td>
                         </tr>
                     `;
 						});
@@ -292,6 +296,41 @@
 					document.getElementById('assignedPoliciesBody').innerHTML = '<tr><td colspan="3" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Error loading policies.</td></tr>';
 				});
 		}
+		
+		async function submitClaim(customerId, policyName, brokerId) {
+
+		    const description = `Raising Claim for ${policyName} policy`;
+
+		    /* if (!policyName || !brokerId || !description) {
+		      alert("All fields are required!");
+		      return;
+		    } */
+
+		    try {
+		      const response = await fetch('SubmitClaimServlet', {
+		        method: 'POST',
+		        headers: {
+		          'Content-Type': 'application/x-www-form-urlencoded',
+		        },
+		        body: new URLSearchParams({
+		          policyName: policyName,
+		          brokerId: brokerId,
+		          customerId: customerId,
+		          description: description,
+		        }),
+		      });
+
+		      if (response.ok) {
+		        alert("Claim submitted successfully!");
+		        window.location.href = "customers.html"; // Redirect to customers page after successful submission
+		      } else {
+		        alert("Failed to submit claim.");
+		      }
+		    } catch (error) {
+		      console.error("Error submitting claim:", error);
+		      alert("An error occurred while submitting the claim.");
+		    }
+		  }
 
 		// Function to show the Assign Policy form
 		function showAssignPolicyForm(customerId) {

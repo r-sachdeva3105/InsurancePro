@@ -8,22 +8,53 @@ import jakarta.persistence.*;
 public class Claims {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String policyId;
-    private String brokerId;
-    private String status; // Approved, Pending, Rejected
+    private Integer id;
+
+    @Column(name = "policy_id", nullable = false)
+    private Integer policyId;
+
+    @Column(name = "broker_id", nullable = false)  // Map to the actual column name in the database
+    private Integer brokerId;
+
+    @Column(name = "customer_id", nullable = false)
+    private Integer customerId;
+
+    @Column(name = "description")
     private String description;
 
-    // Getters and Setters
+    @Column(name = "status")
+    private String status;
+    
+
+    public Claims() {
+		super();
+
+	}
+
+    public Claims(int policyId, int brokerId, int customerId, String description) {
+		super();
+		this.policyId = policyId;
+		this.brokerId = brokerId;
+		this.description = description;
+		this.customerId = customerId;
+		this.status = "Pending";
+	}
+	// Getters and Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
-    public String getPolicyId() { return policyId; }
-    public void setPolicyId(String policyId) { this.policyId = policyId; }
-    public String getBrokerId() { return brokerId; }
-    public void setBrokerId(String brokerId) { this.brokerId = brokerId; }
+    public int getPolicyId() { return policyId; }
+    public void setPolicyId(int policyId) { this.policyId = policyId; }
+    public int getBrokerId() { return brokerId; }
+    public void setBrokerId(int brokerId) { this.brokerId = brokerId; }
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
+	public int getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
 }
 

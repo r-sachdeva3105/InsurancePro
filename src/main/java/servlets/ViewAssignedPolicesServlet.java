@@ -50,10 +50,10 @@ public class ViewAssignedPolicesServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		String id = request.getParameter("customerId");
+		int id = Integer.parseInt(request.getParameter("customerId"));
 
 		// TODO Auto-generated method stub
-		List<PolicyDetails> details = assignmentService.getDetailsForCustomer(id);
+		List<Object[]> details = assignmentService.getDetailsForCustomer(id);
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
@@ -65,31 +65,28 @@ public class ViewAssignedPolicesServlet extends HttpServlet {
 
 	}
 
-	// method to convert the given list to JSON format
-	private String convertToJson(List<PolicyDetails> details) {
-		StringBuilder json = new StringBuilder("[");
+	public String convertToJson(List<Object[]> details) {
+	    StringBuilder json = new StringBuilder("[");
+	    StringJoiner policyJoiner = new StringJoiner(",");
 
-		String policyName = "";
-		StringJoiner policyJoiner = new StringJoiner(",");
-		for (PolicyDetails policyDetails : details) {
-			policyName = policyService.getAllPolicies().stream()
-					.filter(policy -> policy.getId().equals(String.valueOf(policyDetails.getPolicyId()))).map(Policy::getName)
-					.findFirst().orElse("");
-			StringBuilder policyJson = new StringBuilder();
-			policyJson.append("{").append("\"policyName\":\"").append(policyName).append("\",")
-					.append("\"brokerId\":\"").append(policyDetails.getBrokerId()).append("\",")
-					.append("\"premiumAmount\":\"").append(policyDetails.getPremiumAmount()).append("\",")
-					.append("\"customerId\":\"").append(policyDetails.getCustomerId()).append("\"");
+	    for (Object[] row : details) {
+	        String policyName = (String) row[0];
+	        int brokerId = (int) row[1];
+	        String premiumAmount = (String) row[2];
 
-			policyJson.append("}");
+	        StringBuilder policyJson = new StringBuilder();
+	        policyJson.append("{")
+	        		.append("\"policyName\":\"").append(policyName).append("\",")
+	                .append("\"brokerId\":\"").append(brokerId).append("\",")
+	                .append("\"premiumAmount\":\"").append(premiumAmount).append("\"")
+	                .append("}");
 
-			policyJoiner.add(policyJson.toString());
-		}
+	        policyJoiner.add(policyJson.toString());
+	    }
 
-		json.append(policyJoiner.toString()).append("]");
-
-		return json.toString();
-
+	    json.append(policyJoiner.toString()).append("]");
+	    return json.toString();
 	}
+
 
 }

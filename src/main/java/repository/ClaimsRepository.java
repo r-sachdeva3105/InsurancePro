@@ -6,9 +6,11 @@ import entity.Claims;
 
 public interface ClaimsRepository {
     void addClaim(Claims claim);
-    void updateClaim(Claims claim);
-    Claims getClaimById(int id);
-    List<Claims> getAllClaims();
-    List<Claims> getClaimsByBrokerId(String brokerId);
+    void updateClaim(int claimId, String description);
+    Claims getClaimById(String id);
+    List<Object[]> getAllClaims();
+    List<Object[]>  getClaimsByBrokerId(int brokerId);
+    void deleteClaim(String id) throws Exception;
+    void approveRejectClaim(int id, String status);
 }
 

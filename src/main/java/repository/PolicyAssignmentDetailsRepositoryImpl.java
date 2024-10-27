@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.NativeQuery;
 
 import java.util.List;
 
@@ -19,12 +20,34 @@ public class PolicyAssignmentDetailsRepositoryImpl implements PolicyAssignmentDe
 
     // Method to get policy details for a customer using customer Id
     @Override
-    public List<PolicyDetails> getAssignedPolicyForCustomer(String id) {
+    public List<Object[]> getAssignedPolicyForCustomer(int id) {
+        
+        
+        List<Object[]> policyDetails = null;
+        
         try (Session session = sessionFactory.openSession()) {
-            return session.createQuery("FROM PolicyDetails WHERE customerId = :customerId", PolicyDetails.class)
-                          .setParameter("customerId", id)
-                          .getResultList();
+            Transaction transaction = session.beginTransaction();
+            
+            // Define and set up the native query
+            String sql = "SELECT p.name As policyName, pd.broker_id, pd.premium_amount " +
+                         "FROM policy_details pd " +
+                         "JOIN policies p ON pd.policy_id = p.id "
+                         + "WHERE pd.customer_id = :id" ;
+            
+            NativeQuery<Object[]> query = session.createNativeQuery(sql);
+            query.setParameter("id", id);
+            
+            // Execute the query and retrieve results
+            policyDetails = query.getResultList();
+            
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Handle exceptions (e.g., log them)
         }
+       
+        return policyDetails;
+    
     }
 
     // Method to add policy detail
