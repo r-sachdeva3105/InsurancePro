@@ -49,7 +49,7 @@ public class PolicyAssignmentService {
 	}
 
 // get policy details for customer
-	public List<PolicyDetails> getDetailsForCustomer(String id) {
+	public List<Object[]> getDetailsForCustomer(int id) {
 		// TODO Auto-generated method stub
 		return assignmentRepo.getAssignedPolicyForCustomer(id);
 	}
