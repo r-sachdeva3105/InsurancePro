@@ -5,7 +5,7 @@
         <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/insurancePro</property>
         <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">SruPan#3</property>
+        <property name="hibernate.connection.password">S@mmy123</property>
 
         <!-- JDBC connection pool settings -->
         <property name="hibernate.c3p0.min_size">5</property>

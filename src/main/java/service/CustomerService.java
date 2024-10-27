@@ -33,8 +33,8 @@ public class CustomerService {
     }
 
     // Get all customers
-    public List<Customer> getAllCustomers() {
-        return customerRepository.getAllCustomers();
+    public List<Customer> getAllCustomers(int brokerId) {
+        return customerRepository.getAllCustomersByBrokerId(brokerId);
     }
 
     // Update customer

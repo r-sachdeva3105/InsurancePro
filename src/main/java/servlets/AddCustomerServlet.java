@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import service.CustomerService;
 
 import java.io.IOException;
@@ -41,13 +42,14 @@ public class AddCustomerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        
+    	 HttpSession session = request.getSession();
+         int brokerId = (int) session.getAttribute("brokerId");
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String phone = request.getParameter("phone");
 
         // Creating a new customer object
-        Customer customer = new Customer(name, email, phone,1);
+        Customer customer = new Customer(name, email, phone,brokerId);
 
         try {
             // Adding the customer using CustomerService

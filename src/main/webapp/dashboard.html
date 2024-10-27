@@ -83,7 +83,7 @@
 				.then(response => response.json())
 				.then(data => {
 					const totalCustomers = document.getElementById("totalCustomers");
-					totalCustomers.innerHTML = data.length
+					totalCustomers.innerHTML = data.length > 0 ? data.length : 0; 
 				})
 				.catch(error => {
 					console.error('Error fetching Customers:', error);
@@ -97,7 +97,7 @@
 				.then(response => response.json())
 				.then(data => {
 					const totalPolicies = document.getElementById("totalPolicies");
-					totalPolicies.innerHTML = data.length
+					totalPolicies.innerHTML = data.length > 0 ? data.length : 0
 				})
 				.catch(error => {
 					console.error('Error fetching Policies:', error);
@@ -107,11 +107,11 @@
 		
 		function getClaimCount(){
 			
-			fetch('GetAllClaimsServlet')
+			fetch('ViewAllClaimsByBrokerId')
 				.then(response => response.json())
 				.then(data => {
 					const totalClaims = document.getElementById("totalClaims");
-					totalClaims.innerHTML = data.length
+					totalClaims.innerHTML = data.length > 0 ? data.length : 0
 				})
 				.catch(error => {
 					console.error('Error fetching Claims:', error);

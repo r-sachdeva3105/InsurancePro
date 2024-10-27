@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import service.CustomerService;
 
 import java.io.IOException;
@@ -42,6 +43,8 @@ public class UpdateCustomerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		 HttpSession session = request.getSession();
+         int brokerId = (int) session.getAttribute("brokerId");
 		int id = Integer.parseInt(request.getParameter("id"));
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
@@ -49,7 +52,7 @@ public class UpdateCustomerServlet extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
-		Customer updatedCustomer = new Customer(id, name, email, phone,1);
+		Customer updatedCustomer = new Customer(id, name, email, phone,brokerId);
 		try {
 			customerService.updateCustomer(updatedCustomer);
 			response.sendRedirect("customers.html");

@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import service.CustomerService;
 
 import java.io.IOException;
@@ -42,8 +43,10 @@ public class ViewCustomerServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
+        	 HttpSession session = request.getSession();
+             int brokerId = (int) session.getAttribute("brokerId");
             // Retrieve all customers
-            List<Customer> customers = customerService.getAllCustomers();
+            List<Customer> customers = customerService.getAllCustomers(brokerId);
 
             // Set response type to JSON
             response.setContentType("application/json");
@@ -77,7 +80,8 @@ public class ViewCustomerServlet extends HttpServlet {
                     .append("\"id\":\"").append(customer.getId()).append("\",")
                     .append("\"name\":\"").append(customer.getName()).append("\",")
                     .append("\"email\":\"").append(customer.getEmail()).append("\",")
-                    .append("\"phone\":\"").append(customer.getPhone()).append("\"");
+                    .append("\"phone\":\"").append(customer.getPhone()).append("\",")
+                    .append("\"brokerId\":\"").append(customer.getBrokerId()).append("\"");
             
             customerJson.append("}");
 

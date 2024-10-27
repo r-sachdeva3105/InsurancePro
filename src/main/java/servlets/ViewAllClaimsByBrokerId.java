@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import service.ClaimService;
 
 import java.io.IOException;
@@ -42,9 +43,10 @@ public class ViewAllClaimsByBrokerId extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		int id = Integer.parseInt(request.getParameter("id"));
+		 HttpSession session = request.getSession();
+         int brokerId = (int) session.getAttribute("brokerId");
 		// TODO Auto-generated method stub
-		List<Object[]> details = claimService.getAllClaimsByBrokerId(id);
+		List<Object[]> details = claimService.getAllClaimsByBrokerId(brokerId);
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

@@ -126,7 +126,7 @@
 				<div class="flex justify-between items-center mb-4">
 					<h2 class="text-2xl font-bold">Assigned Policies</h2>
 					<button class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-						onclick="showAssignPolicyForm(currentCustomerId)">
+						onclick="showAssignPolicyForm(currentCustomerId, currentBrokerId)">
 						Assign Policy
 					</button>
 				</div>
@@ -177,6 +177,7 @@
 
 	<script>
 		let currentCustomerId;
+		let currentBrokerId;
 
 		// Function to toggle the visibility of Add Customer form
 		function toggleAddCustomerForm() {
@@ -202,7 +203,7 @@
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${customer.email}</td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${customer.phone}</td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm space-x-2">
-                                    <button class="text-blue-600 hover:text-blue-900" onclick="viewPolicies('${customer.id}')">View</button>
+                                    <button class="text-blue-600 hover:text-blue-900" onclick="viewPolicies('${customer.id}', '${customer.brokerId}')">View</button>
                                     <button class="text-green-600 hover:text-green-900" onclick="editCustomer('${customer.id}', '${customer.name}', '${customer.email}', '${customer.phone}')">Edit</button>
                                     <button class="text-red-600 hover:text-red-900" onclick="deleteCustomer('${customer.id}')">Delete</button>
                                 </td>
@@ -254,8 +255,9 @@
 		}
 
 		// Function to display policies for the customer
-		function viewPolicies(customerId) {
+		function viewPolicies(customerId, brokerId) {
 			currentCustomerId = customerId; // Store the current customer ID for assigning policy
+			currentBrokerId = brokerId;
 			hideAllForms(); // Hide other forms
 			// Fetch assigned policies from the backend servlet
 			fetch(`ViewAssignedPolicesServlet?customerId=${customerId}`)
@@ -333,9 +335,10 @@
 		  }
 
 		// Function to show the Assign Policy form
-		function showAssignPolicyForm(customerId) {
+		function showAssignPolicyForm(customerId, brokerId) {
 			hideAllForms(); // Hide other forms
 			document.getElementById('customer_Id').value = customerId; // Pre-fill customer ID
+			document.getElementById('brokerId').value = brokerId; 
 			document.getElementById('assignPolicyForm').classList.remove('hidden');
 			fetch('GetAllPoliciesServlet')
 			.then(response => response.json())
