@@ -185,6 +185,5 @@
 	<servlet-mapping>
 		<servlet-name>GetAllClaimsServlet</servlet-name>
 		<url-pattern>/GetAllClaimsServlet</url-pattern>
-		>>>>>>> 30f108dc8e0a48cb9e20288006e6be3d6e3c905b
 	</servlet-mapping>
 </web-app>

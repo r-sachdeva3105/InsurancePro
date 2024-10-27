@@ -28,7 +28,8 @@ public class LoginBrokerServlet extends HttpServlet {
 
         if (broker != null && BCrypt.checkpw(password, broker.getPassword())) {
             HttpSession session = request.getSession();
-            session.setAttribute("broker", broker);
+            session.setAttribute("brokerId", broker.getId());
+            System.out.println("brokerId"+ session.getAttribute("brokerId"));
             response.sendRedirect("dashboard.html");
         } else {
             response.sendRedirect("login.html?error=Invalid email or password.");
