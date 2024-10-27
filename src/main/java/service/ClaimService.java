@@ -58,7 +58,7 @@ public class ClaimService {
         return claimsRepository.getClaimsByBrokerId(id);
     }
     // Get all customers
-    public List<Claims> getAllClaims() {
+    public List<Object[]> getAllClaims() {
         return claimsRepository.getAllClaims();
     }
 
@@ -84,5 +84,15 @@ public class ClaimService {
         }
     }
 
+    public boolean approveRejectClaim(int id, String status) {
+    	 try {
+         	claimsRepository.approveRejectClaim(id, status);
+         	return true;
+         } catch (Exception e) {
+         	return false;
+             
+         }
+    	
+    }
 
 }

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Claims Management</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Claims Management</h1>
+    <table id="claimsTable" border="1">
+        <thead>
+            <tr>
+                <th>Claim ID</th>
+                <th>Broker Name</th>
+                <th>Customer Name</th>
+                <th>Policy Name</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Claims data will be loaded here via AJAX -->
+        </tbody>
+    </table>
+
+    <script>
+        $(document).ready(function() {
+            // Load all claims on page load
+            loadClaims();
+
+            // Function to load claims via AJAX
+            function loadClaims() {
+                $.ajax({
+                    url: "GetAllClaimsServlet",  // This should map to a servlet that returns claims data
+                    method: "GET",
+                    dataType: "json",
+                    success: function(data) {
+                        const tableBody = $("#claimsTable tbody");
+                        tableBody.empty();
+
+                        data.forEach(function(claim) {
+                            const row = `
+                                <tr>
+                                    <td>${claim.claimId}</td>
+                                    <td>${claim.brokerName}</td>
+                                    <td>${claim.customerName}</td>
+                                    <td>${claim.policyName}</td>
+                                    <td>${claim.status}</td>
+                                    <td>
+                                        <button onclick="updateClaimStatus(${claim.claimId}, 'approve')">Approve</button>
+                                        <button onclick="updateClaimStatus(${claim.claimId}, 'reject')">Reject</button>
+                                    </td>
+                                </tr>
+                            `;
+                            tableBody.append(row);
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error loading claims:", error);
+                    }
+                });
+            }
+
+            // Function to update claim status via AJAX
+            window.updateClaimStatus = function(claimId, action) {
+                $.ajax({
+                    url: "ApproveRejectClaim",
+                    method: "POST",
+                    data: {
+                        claimId: claimId,
+                        action: action
+                    },
+                    success: function() {
+                        alert("Claim has been " + (action === "approve" ? "approved" : "rejected") + " successfully.");
+                        loadClaims(); // Reload the claims list
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error updating claim status:", error);
+                    }
+                });
+            };
+        });
+    </script>
+</body>
+</html>

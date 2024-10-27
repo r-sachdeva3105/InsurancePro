@@ -143,4 +143,24 @@
     <servlet-name>ViewAllClaimsByBrokerId</servlet-name>
     <url-pattern>/ViewAllClaimsByBrokerId</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ApproveRejectClaim</display-name>
+    <servlet-name>ApproveRejectClaim</servlet-name>
+    <servlet-class>servlets.ApproveRejectClaim</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ApproveRejectClaim</servlet-name>
+    <url-pattern>/ApproveRejectClaim</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetAllClaimsServlet</display-name>
+    <servlet-name>GetAllClaimsServlet</servlet-name>
+    <servlet-class>servlets.GetAllClaimsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetAllClaimsServlet</servlet-name>
+    <url-pattern>/GetAllClaimsServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
