@@ -59,7 +59,8 @@ public class GetAllClaimsServlet extends HttpServlet {
 	        String brokerName = (String) row[1];
 	        String customerName = (String) row[2];
 	        String policyName = (String) row[3];
-	        String claimStatus = (String) row[4];
+	        String description = (String) row[4];
+	        String claimStatus = (String) row[5];
 
 	        StringBuilder claimJson = new StringBuilder();
 	        claimJson.append("{")
@@ -67,6 +68,7 @@ public class GetAllClaimsServlet extends HttpServlet {
 	                .append("\"brokerName\":\"").append(brokerName).append("\",")
 	                .append("\"customerName\":\"").append(customerName).append("\",")
 	                .append("\"policyName\":\"").append(policyName).append("\",")
+	                .append("\"claimDescription\":\"").append(description).append("\",")
 	                .append("\"status\":\"").append(claimStatus).append("\"")
 	                .append("}");
 

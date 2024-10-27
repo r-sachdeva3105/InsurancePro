@@ -14,6 +14,7 @@
                 <th>Broker Name</th>
                 <th>Customer Name</th>
                 <th>Policy Name</th>
+                <th>description</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -45,6 +46,7 @@
                                     <td>${claim.brokerName}</td>
                                     <td>${claim.customerName}</td>
                                     <td>${claim.policyName}</td>
+                                    <td>${claim.claimDescription}</td>
                                     <td>${claim.status}</td>
                                     <td>
                                         <button onclick="updateClaimStatus(${claim.claimId}, 'approve')">Approve</button>
