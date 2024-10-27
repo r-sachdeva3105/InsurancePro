@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd" version="6.0">
-
-<context-param>
+  <context-param>
     <param-name>jsonFilePath</param-name>
     <param-value>/WEB-INF/data/customer.json</param-value>
-</context-param>
-
+  </context-param>
   <servlet>
     <description></description>
     <display-name>ViewCustomerServlet</display-name>
@@ -114,5 +112,25 @@
   <servlet-mapping>
     <servlet-name>ViewAssignedPolicesServlet</servlet-name>
     <url-pattern>/ViewAssignedPolicesServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RegisterBrokerServlet</display-name>
+    <servlet-name>RegisterBrokerServlet</servlet-name>
+    <servlet-class>servlets.RegisterBrokerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RegisterBrokerServlet</servlet-name>
+    <url-pattern>/RegisterBrokerServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LoginBrokerServlet</display-name>
+    <servlet-name>LoginBrokerServlet</servlet-name>
+    <servlet-class>servlets.LoginBrokerServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginBrokerServlet</servlet-name>
+    <url-pattern>/LoginBrokerServlet</url-pattern>
   </servlet-mapping>
 </web-app>

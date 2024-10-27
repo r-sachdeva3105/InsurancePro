@@ -8,7 +8,7 @@ public class Broker {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // Changed to Integer for auto-generation
+    private Integer id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -16,13 +16,17 @@ public class Broker {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
+    @Column(name = "password", nullable = false)
+    private String password;
+
     // Default constructor for Hibernate
     public Broker() {}
 
     // Constructor with parameters
-    public Broker(String name, String email) {
+    public Broker(String name, String email, String password) {
         this.name = name;
         this.email = email;
+        this.password = password;
     }
 
     // Getters and Setters
@@ -48,5 +52,13 @@ public class Broker {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

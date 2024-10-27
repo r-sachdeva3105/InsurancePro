@@ -16,13 +16,8 @@
   <body class="bg-gray-100">
     <!-- Header -->
     <header class="bg-gray-800 text-white shadow-md">
-      <div
-        class="container mx-auto px-6 py-4 flex flex-wrap justify-between items-center"
-      >
-        <a href="index.html" class="text-2xl font-bold text-white"
-          >InsurancePro</a
-        >
-
+      <div class="container mx-auto px-6 py-4 flex flex-wrap justify-between items-center">
+        <a href="index.html" class="text-2xl font-bold text-white">InsurancePro</a>
         <div class="block lg:hidden">
           <button id="menu-btn" class="text-white focus:outline-none">
             <svg
@@ -41,63 +36,38 @@
             </svg>
           </button>
         </div>
-
         <nav
           id="menu"
           class="hidden lg:flex lg:space-x-6 w-full lg:w-auto mt-4 lg:mt-0"
         >
-          <a href="index.html" class="block py-2 text-white hover:text-gray-200"
-            >Home</a
-          >
-          <a href="about.html" class="block py-2 text-white hover:text-gray-200"
-            >About</a
-          >
-          <a
-            href="contact.html"
-            class="block py-2 text-white hover:text-gray-200"
-            >Contact</a
-          >
+          <a href="index.html" class="block py-2 text-white hover:text-gray-200">Home</a>
+          <a href="about.html" class="block py-2 text-white hover:text-gray-200">About</a>
+          <a href="contact.html" class="block py-2 text-white hover:text-gray-200">Contact</a>
         </nav>
-
         <div class="hidden lg:flex space-x-4">
-          <a
-            href="login.html"
-            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-            >Login</a
-          >
-          <a
-            href="register.html"
-            class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
-            >Register</a
-          >
+          <a href="login.html" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Login</a>
+          <a href="register.html" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">Register</a>
         </div>
       </div>
-
       <div class="flex justify-center lg:hidden py-4 space-x-4">
-        <a
-          href="login.html"
-          class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-          >Login</a
-        >
-        <a
-          href="register.html"
-          class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
-          >Register</a
-        >
+        <a href="login.html" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Login</a>
+        <a href="register.html" class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">Register</a>
       </div>
     </header>
 
     <!-- Login Form -->
     <main class="hero flex items-center justify-center">
       <div class="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
-        <h2 class="text-3xl font-bold text-center mb-6">
-          Login to Your Account
-        </h2>
-        <form id="loginForm" class="space-y-6" action="dashboard.html" method="post">
+        <h2 class="text-3xl font-bold text-center mb-6">Login to Your Account</h2>
+
+        <!-- Display Error Message -->
+        <div id="error-message" class="mb-4 text-red-500 text-center hidden">
+          <!-- Error message will be displayed here -->
+        </div>
+
+        <form id="loginForm" class="space-y-6" action="LoginBrokerServlet" method="post">
           <div>
-            <label for="email" class="block text-sm font-medium text-gray-700"
-              >Email</label
-            >
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
             <input
               type="email"
               id="email"
@@ -107,11 +77,7 @@
             />
           </div>
           <div>
-            <label
-              for="password"
-              class="block text-sm font-medium text-gray-700"
-              >Password</label
-            >
+            <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
             <input
               type="password"
               id="password"
@@ -131,9 +97,7 @@
           <div class="text-center">
             <p class="text-sm text-gray-600">
               Don't have an account?
-              <a href="register.html" class="text-blue-600 hover:underline"
-                >Register here</a
-              >
+              <a href="register.html" class="text-blue-600 hover:underline">Register here</a>
             </p>
           </div>
         </form>
@@ -153,14 +117,10 @@
           <h2 class="text-xl font-bold">Quick Links</h2>
           <ul>
             <li>
-              <a href="#" class="text-gray-400 hover:text-white"
-                >Privacy Policy</a
-              >
+              <a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a>
             </li>
             <li>
-              <a href="#" class="text-gray-400 hover:text-white"
-                >Terms of Service</a
-              >
+              <a href="#" class="text-gray-400 hover:text-white">Terms of Service</a>
             </li>
           </ul>
         </div>
@@ -177,6 +137,19 @@
       menuBtn.addEventListener("click", () => {
         menu.classList.toggle("hidden");
       });
+
+      // Function to display error messages
+      function showError(message) {
+        const errorMessageDiv = document.getElementById("error-message");
+        errorMessageDiv.textContent = message;
+        errorMessageDiv.classList.remove("hidden");
+      }
+
+      // Example: Simulate an error message (you can remove or modify this part)
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('error')) {
+        showError("Invalid email or password. Please try again.");
+      }
     </script>
   </body>
 </html>
