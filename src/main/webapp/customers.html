@@ -281,7 +281,7 @@
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.brokerId}</td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.premiumAmount}</td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            	<button class="text-blue-600 hover:text-blue-900" onclick="submitClaim('${customerId}, ${policy.policyName}, ${policy.brokerId}')">Submit Claim</button>
+                            	<button class="text-blue-600 hover:text-blue-900" onclick="submitClaim(${customerId}, '${policy.policyName}', ${policy.brokerId})">Submit Claim</button>
                             </td>
                         </tr>
                     `;
