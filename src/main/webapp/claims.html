@@ -5,7 +5,7 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<meta http-equiv="X-UA-Compatible" content="ie=edge" />
-	<title>InsurancePro - Customer Management</title>
+	<title>InsurancePro - Claims Management</title>
 	<script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -24,7 +24,7 @@
 	<!-- Sidebar and Main Content Wrapper -->
 	<div class="flex">
 		<!-- Sidebar -->
-		<aside id="sidebar" class="sidebar w-64 bg-gray-800 text-white h-screen fixed md:relative sidebar-hidden md:block">
+		<aside class="w-64 bg-gray-800 text-white h-screen fixed md:relative">
 	      <div class="px-6 py-6">
 	        <ul>
 	          <li class="mb-4">
@@ -44,212 +44,107 @@
     	</aside>
 
 		<!-- Main Content -->
-    <main class="flex-1 p-6">
-      <h1 class="text-4xl font-bold mb-6">Claims Management</h1>
+		<main class="flex-1 p-6">
+			<h1 class="text-4xl font-bold mb-6">Claims Management</h1>
 
-      <!-- Claim List Table -->
-      <div class="overflow-x-auto bg-white rounded-lg shadow-md">
-        <table class="min-w-full leading-normal">
-          <thead>
-            <tr>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                Claim Number
-              </th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                Customer Name
-              </th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                Policy Name
-              </th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                Status
-              </th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Example row -->
-            <tr>
-              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                C-20245
-              </td>
-              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                John Doe
-              </td>
-              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                Health Insurance
-              </td>
-              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                Pending
-              </td>
-              <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm space-x-2">
-                <button class="text-blue-600 hover:text-blue-900">Edit</button>
-              </td>
-            </tr>
-            <!-- Add more rows as necessary -->
-          </tbody>
-        </table>
-      </div>
+			<!-- Claim List Table -->
+			<div class="overflow-x-auto bg-white rounded-lg shadow-md">
+				<table class="min-w-full leading-normal">
+					<thead>
+						<tr>
+							<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+								Claim Number
+							</th>
+							<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+								Customer Name
+							</th>
+							<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+								Policy Name
+							</th>
+							<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+								Status
+							</th>
+							<th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+								Actions
+							</th>
+						</tr>
+					</thead>
+					<tbody id="claimsTableBody">
+						<!-- Claims data will be populated here dynamically -->
+					</tbody>
+				</table>
+			</div>
 
-      <!-- Add Claim Form (Hidden by default) -->
-      <div id="addClaimForm" class="hidden mt-6">
-        <h2 class="text-2xl font-bold mb-4">Add New Claim</h2>
-        <form class="bg-white p-6 rounded-lg shadow-md space-y-4">
-          <div>
-            <label for="claimNumber" class="block text-sm font-medium text-gray-700">Claim Number</label>
-            <input type="text" id="claimNumber" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" placeholder="C-20245" />
-          </div>
-          <div>
-            <label for="customerName" class="block text-sm font-medium text-gray-700">Customer Name</label>
-            <input type="text" id="customerName" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" placeholder="John Doe" />
-          </div>
-          <div>
-            <label for="policyType" class="block text-sm font-medium text-gray-700">Policy Type</label>
-            <input type="text" id="policyType" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" placeholder="Health Insurance" />
-          </div>
-          <div>
-            <label for="claimStatus" class="block text-sm font-medium text-gray-700">Status</label>
-            <select id="claimStatus" class="mt-1 p-2 w-full border border-gray-300 rounded-lg">
-              <option>Pending</option>
-              <option>Approved</option>
-              <option>Rejected</option>
-            </select>
-          </div>
-          <div>
-            <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Submit Claim</button>
-          </div>
-        </form>
-      </div>
-    </main>
+			<!-- Edit Claim Form (Hidden by default) -->
+			<div id="editClaimForm" class="hidden mt-6">
+				<h2 class="text-2xl font-bold mb-4">Edit Claim</h2>
+				<form action="UpdateClaimServlet" method="POST" class="bg-white p-6 rounded-lg shadow-md space-y-4">
+					<div>
+						<label for="claimNumber" class="block text-sm font-medium text-gray-700">Claim Number</label>
+						<input type="text" id="claimNumber" name="id" class="mt-1 p-2 w-full border border-gray-300 rounded-lg bg-gray-300 cursor-not-allowed" readonly />
+					</div>
+					<div>
+						<label for="customerName" class="block text-sm font-medium text-gray-700">Customer Name</label>
+						<input type="text" id="customerName" class="mt-1 p-2 w-full border border-gray-300 rounded-lg bg-gray-300 cursor-not-allowed" readonly />
+					</div>
+					<div>
+						<label for="policyName" class="block text-sm font-medium text-gray-700">Policy Name</label>
+						<input type="text" id="policyName" class="mt-1 p-2 w-full border border-gray-300 rounded-lg bg-gray-300 cursor-not-allowed" readonly />
+					</div>
+					<div>
+						<label for="description" class="block text-sm font-medium text-gray-700">Policy Description</label>
+						<input type="text" id="description" name="description" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" />
+					</div>
+					<div>
+						<button type="submit" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Update Claim</button>
+					</div>
+				</form>
+			</div>
+		</main>
 	</div>
 
 	<script>
-		let currentCustomerId;
-
-		// Function to toggle the visibility of Add Customer form
-		function toggleAddClaimForm() {
-	      const form = document.getElementById('addClaimForm');
-	      form.classList.toggle('hidden');
-    	}
-
-		// Fetch customer data from the ViewCustomerServlet and populate the table
+		// Fetch claims data from ViewAllClaimsByBrokerId servlet and populate the table
 		window.addEventListener("load", function () {
-			fetch('ViewCustomerServlet')
+			fetch('ViewAllClaimsByBrokerId')
 				.then(response => response.json())
 				.then(data => {
-					const tableBody = document.getElementById("customerTableBody");
-
+					const tableBody = document.getElementById("claimsTableBody");
 					if (data.length > 0) {
-						console.log(data);
-						tableBody.innerHTML = data.map(customer =>
-						
-						 `
-                            <tr>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${customer.id}</td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${customer.name}</td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${customer.email}</td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${customer.phone}</td>
-                                <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm space-x-2">
-                                    <button class="text-blue-600 hover:text-blue-900" onclick="viewPolicies('${customer.id}')">View</button>
-                                    <button class="text-green-600 hover:text-green-900" onclick="editCustomer('${customer.id}', '${customer.name}', '${customer.email}', '${customer.phone}')">Edit</button>
-                                    <button class="text-red-600 hover:text-red-900" onclick="deleteCustomer('${customer.id}')">Delete</button>
-                                </td>
-                            </tr>
-                        `).join('');
+						tableBody.innerHTML = data.map(claim =>
+							`
+							<tr>
+								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${claim.claimId}</td>
+								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${claim.customerName}</td>
+								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${claim.policyName}</td>
+								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${claim.status}</td>
+								<td class="px-5 py-5 border-b border-gray-200 bg-white text-sm space-x-2">
+									<button class="text-blue-600 hover:text-blue-900" onclick="editClaim(${claim.claimId}, '${claim.customerName}', '${claim.policyName}', '${claim.claimDescription}')">Edit</button>
+								</td>
+							</tr>
+							`).join('');
 					} else {
-						tableBody.innerHTML = `<tr><td colspan="5" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">No customers found.</td></tr>`;
+						tableBody.innerHTML = `<tr><td colspan="5" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">No claims found.</td></tr>`;
 					}
 				})
 				.catch(error => {
-					console.error('Error fetching customers:', error);
-					document.getElementById("customerTableBody").innerHTML = `<tr><td colspan="5" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Error loading customers.</td></tr>`;
+					console.error('Error fetching claims:', error);
+					document.getElementById("claimsTableBody").innerHTML = `<tr><td colspan="5" class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Error loading claims.</td></tr>`;
 				});
 		});
 
-		// Function to show and populate the Edit Customer form
-		function editCustomer(id, name, email, phone) {
-			hideAllForms(); // Hide other forms
-			// Populate the form fields with customer data
-			document.getElementById('edit-id').value = id;
-			document.getElementById('edit-name').value = name;
-			document.getElementById('edit-email').value = email;
-			document.getElementById('edit-phone').value = phone;
+		// Function to open the Edit Claim form and populate it with selected claim data
+		function editClaim(claimId, customerName, policyName, description) {
+			// Set form values
+			document.getElementById("claimNumber").value = claimId;
+			document.getElementById("customerName").value = customerName;
+			document.getElementById("policyName").value = policyName;
+			document.getElementById("description").value = description;
 
-			// Show the edit form
-			document.getElementById('editCustomerForm').classList.remove('hidden');
+			// Show the form
+			document.getElementById("editClaimForm").classList.remove("hidden");
 		}
-
-		// Function to delete a customer
-		function deleteCustomer(customerId) {
-			if (confirm('Are you sure you want to delete this customer?')) {
-				fetch('DeleteCustomerServlet', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/x-www-form-urlencoded',
-					},
-					body: `id=${customerId}`
-				})
-					.then(response => {
-						if (response.ok) {
-							alert('Customer deleted successfully');
-							window.location.reload(); // Reload to update the customer list
-						} else {
-							alert('Failed to delete customer');
-						}
-					})
-					.catch(error => console.error('Error deleting customer:', error));
-			}
-		}
-
-		// Function to show the Assign Policy form
-		function showAssignPolicyForm(customerId) {
-			hideAllForms(); // Hide other forms
-			document.getElementById('customer_Id').value = customerId; // Pre-fill customer ID
-			document.getElementById('assignPolicyForm').classList.remove('hidden');
-			fetch('GetAllPoliciesServlet')
-			.then(response => response.json())
-			.then(data => {
-				const selectBody = document.getElementById("policyName");
-
-				console.log(data);
-				selectBody.innerHTML = ''; // Clear previous options
-				data.map(policy => {
-					const option = document.createElement("option");
-					option.value = policy.name;
-					option.text = policy.name;
-					selectBody.appendChild(option);
-				});
-			})
-			.catch(error => {
-				console.error('Error fetching customers:', error);
-			});
-		}
-
-		// Function to hide all forms
-		function hideAllForms() {
-			document.getElementById('addCustomerForm').classList.add('hidden');
-			document.getElementById('editCustomerForm').classList.add('hidden');
-			document.getElementById('assignPolicyForm').classList.add('hidden');
-			document.getElementById('policyDetailsForm').classList.add('hidden');
-		}
-
-		// Format premium amount
-		document.getElementById('premiumAmount').addEventListener('input', function (event) {
-			let value = event.target.value;
-
-			// Remove all characters except digits and the decimal point
-			value = value.replace(/[^0-9.]/g, '');
-
-			// Format the value as currency with two decimal places
-			if (value) {
-				value = parseFloat(value).toFixed(2); // Ensure two decimal places
-				event.target.value = `$${value}/month`; // Add $ sign and /month
-			}
-		});
 	</script>
-
 </body>
 
 </html>

@@ -66,14 +66,16 @@ public class ViewAllClaimsByBrokerId extends HttpServlet {
 	        int claimId = (int) row[0];
 	        String customerName = (String) row[1];
 	        String policyName = (String) row[2];
-	        String claimStatus = (String) row[3];
+	        String description = (String) row[3];
+	        String claimStatus = (String) row[4];
 
 	        StringBuilder claimJson = new StringBuilder();
 	        claimJson.append("{")
 	                .append("\"claimId\":").append(claimId).append(",")
 	                .append("\"customerName\":\"").append(customerName).append("\",")
 	                .append("\"policyName\":\"").append(policyName).append("\",")
-	                .append("\"claimStatus\":\"").append(claimStatus).append("\"")
+	                .append("\"claimDescription\":\"").append(description).append("\",")
+	                .append("\"status\":\"").append(claimStatus).append("\"")
 	                .append("}");
 
 	        claimJoiner.add(claimJson.toString());

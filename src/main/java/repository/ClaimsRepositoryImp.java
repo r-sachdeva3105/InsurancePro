@@ -91,7 +91,7 @@ public class ClaimsRepositoryImp implements ClaimsRepository {
             Transaction transaction = session.beginTransaction();
             
             // Define and set up the native query
-            String sql = "SELECT c.id, cust.name AS customerName, p.name AS policyName, c.status " +
+            String sql = "SELECT c.id, cust.name AS customerName, p.name AS policyName, c.description, c.status " +
                          "FROM Claims c " +
                          "JOIN Customer cust ON c.customer_id = cust.id " +
                          "JOIN policies p ON c.policy_id = p.id " +

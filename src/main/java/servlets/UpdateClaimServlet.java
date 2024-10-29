@@ -43,7 +43,7 @@ public class UpdateClaimServlet extends HttpServlet {
 
 			if (!claimService.updateClaim(claimId, description))
 				throw new Exception("Error Ouccred");
-			response.sendRedirect("customers.html");
+			response.sendRedirect("claims.html");
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
