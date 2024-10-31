@@ -94,5 +94,11 @@ public class ClaimService {
          }
     	
     }
-
+    public List<Object[]> getTotalClaims() {
+        return claimsRepository.getTotalClaims();
+    }
+    
+    public List<Object[]> getClaimsRate() {
+        return claimsRepository.getClaimsRate();
+    }
 }

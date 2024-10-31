@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.NativeQuery;
 
 import java.util.List;
 
@@ -75,6 +76,27 @@ public class PolicyRepositoryImp implements PolicyRepository {
         }
     }
 
+    @Override
+	public List<Long> getTotalPolicies() {
+	    List<Long> totalPolicy = null;
+	    try (Session session = sessionFactory.openSession()) {
+	        Transaction transaction = session.beginTransaction();
+
+	        String sql = "Select Count(id) AS total_policies from policies;";
+
+	        NativeQuery<Long> query = session.createNativeQuery(sql);
+
+	        // Execute the query and retrieve results
+	        totalPolicy = query.getResultList();
+
+	        transaction.commit();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        // Handle exceptions (e.g., log them)
+	    }
+
+	    return totalPolicy;
+	}
     // Close the sessionFactory when done
     public void close() {
         if (sessionFactory != null) {

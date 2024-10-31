@@ -102,7 +102,30 @@ public class CustomerRepositoryImp implements CustomerRepository {
 			}
 		}
 	}
+	
+	@Override
+	public List<Object[]> getCustomerCountByBrokerID() {
+	    List<Object[]> customerDetails = null;
+	    try (Session session = sessionFactory.openSession()) {
+	        Transaction transaction = session.beginTransaction();
 
+	        String sql = "SELECT c.broker_id,b.name AS broker_name, COUNT(c.id) AS customer_count FROM Customer c JOIN Brokers b ON c.broker_id=b.id GROUP BY broker_id;";
+
+	        NativeQuery<Object[]> query = session.createNativeQuery(sql);
+
+	        // Execute the query and retrieve results
+	        customerDetails = query.getResultList();
+
+	        transaction.commit();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        // Handle exceptions (e.g., log them)
+	    }
+
+	    return customerDetails;
+	}
+	
+	
 	// Close the sessionFactory when done
 	public void close() {
 		if (sessionFactory != null) {

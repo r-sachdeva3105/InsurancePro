@@ -47,4 +47,7 @@ public class PolicyService {
             return false; // Return false if an error occurs
         }
     }
+    public List<Long> getTotalPolicies() {
+        return policyRepository.getTotalPolicies();
+    }
 }

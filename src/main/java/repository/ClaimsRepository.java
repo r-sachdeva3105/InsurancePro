@@ -12,5 +12,7 @@ public interface ClaimsRepository {
     List<Object[]>  getClaimsByBrokerId(int brokerId);
     void deleteClaim(String id) throws Exception;
     void approveRejectClaim(int id, String status);
+    List<Object[]> getTotalClaims();
+    List<Object[]> getClaimsRate();
 }
 

@@ -152,6 +152,49 @@ public class ClaimsRepositoryImp implements ClaimsRepository {
             e.printStackTrace();
         }
 	}
+	@Override
+	public List<Object[]> getTotalClaims() {
+	    List<Object[]> totalClaims = null;
+	    try (Session session = sessionFactory.openSession()) {
+	        Transaction transaction = session.beginTransaction();
+
+	        String sql = "SELECT b.id AS broker_id, b.name AS broker_name, COUNT(c.id) AS total_claims FROM brokers b LEFT JOIN policy_details pd ON b.id = pd.broker_id LEFT JOIN Claims c ON pd.policy_id = c.policy_id AND pd.customer_id = c.customer_id GROUP BY b.id;";
+
+	        NativeQuery<Object[]> query = session.createNativeQuery(sql);
+
+	        // Execute the query and retrieve results
+	        totalClaims = query.getResultList();
+
+	        transaction.commit();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        // Handle exceptions (e.g., log them)
+	    }
+
+	    return totalClaims;
+	}
+	
+	@Override
+	public List<Object[]> getClaimsRate() {
+	    List<Object[]> claimsRate = null;
+	    try (Session session = sessionFactory.openSession()) {
+	        Transaction transaction = session.beginTransaction();
+
+	        String sql = "SELECT SUM(CASE WHEN status = 'Approved' THEN 1 ELSE 0 END) AS approved_count, SUM(CASE WHEN status = 'Rejected' THEN 1 ELSE 0 END) AS rejected_count, COUNT(*) AS total_claims, ROUND((SUM(CASE WHEN status = 'Approved' THEN 1 ELSE 0 END) * 100.0 / NULLIF(COUNT(*), 0)), 2) AS approval_rate, ROUND((SUM(CASE WHEN status = 'Rejected' THEN 1 ELSE 0 END) * 100.0 / NULLIF(COUNT(*), 0)), 2) AS rejection_rate FROM Claims;";
+
+	        NativeQuery<Object[]> query = session.createNativeQuery(sql);
+
+	        // Execute the query and retrieve results
+	        claimsRate = query.getResultList();
+
+	        transaction.commit();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        // Handle exceptions (e.g., log them)
+	    }
+
+	    return claimsRate;
+	}
 	
 	 public void close() {
 	        if (sessionFactory != null) {

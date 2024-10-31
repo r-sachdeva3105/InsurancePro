@@ -11,4 +11,6 @@ public interface CustomerRepository {
     List<Customer> getAllCustomersByBrokerId(int brokerId);
     void updateCustomer(Customer customer);
     void deleteCustomer(String id) throws Exception;
+    List<Object[]> getCustomerCountByBrokerID();
+
 }
