@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import service.CustomerService;
 import service.PolicyAssignmentService;
 import service.PolicyService;
@@ -49,11 +50,12 @@ public class ViewAssignedPolicesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-
+		HttpSession session = request.getSession();
+        int brokerId = (int) session.getAttribute("brokerId");
 		int id = Integer.parseInt(request.getParameter("customerId"));
 
 		// TODO Auto-generated method stub
-		List<Object[]> details = assignmentService.getDetailsForCustomer(id);
+		List<Object[]> details = assignmentService.getDetailsForCustomer(id, brokerId);
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");

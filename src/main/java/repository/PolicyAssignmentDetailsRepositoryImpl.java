@@ -20,7 +20,7 @@ public class PolicyAssignmentDetailsRepositoryImpl implements PolicyAssignmentDe
 
     // Method to get policy details for a customer using customer Id
     @Override
-    public List<Object[]> getAssignedPolicyForCustomer(int id) {
+    public List<Object[]> getAssignedPolicyForCustomer(int id, int brokerId) {
         
         
         List<Object[]> policyDetails = null;
@@ -32,10 +32,12 @@ public class PolicyAssignmentDetailsRepositoryImpl implements PolicyAssignmentDe
             String sql = "SELECT p.name As policyName, pd.broker_id, pd.premium_amount " +
                          "FROM policy_details pd " +
                          "JOIN policies p ON pd.policy_id = p.id "
-                         + "WHERE pd.customer_id = :id" ;
+                         + "WHERE pd.customer_id = :id and" +
+                         " pd.broker_id = :brokerId";
             
             NativeQuery<Object[]> query = session.createNativeQuery(sql);
             query.setParameter("id", id);
+            query.setParameter("brokerId", brokerId);
             
             // Execute the query and retrieve results
             policyDetails = query.getResultList();
