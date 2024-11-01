@@ -55,5 +55,9 @@ public class CustomerService {
             System.err.println("Error deleting customer: " + e.getMessage());
             return false;
         }
+        
+    }
+    public List<Object[]> getCustomerCountByBrokerID() {
+        return customerRepository.getCustomerCountByBrokerID();
     }
 }

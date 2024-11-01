@@ -186,4 +186,15 @@
 		<servlet-name>GetAllClaimsServlet</servlet-name>
 		<url-pattern>/GetAllClaimsServlet</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>ReportingServlet</display-name>
+		<servlet-name>ReportingServlet</servlet-name>
+		<servlet-class>servlets.ReportingServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ReportingServlet</servlet-name>
+		<url-pattern>/ReportingServlet</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

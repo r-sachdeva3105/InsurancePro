@@ -49,9 +49,9 @@ public class PolicyAssignmentService {
 	}
 
 // get policy details for customer
-	public List<Object[]> getDetailsForCustomer(int id) {
+	public List<Object[]> getDetailsForCustomer(int id, int brokerId) {
 		// TODO Auto-generated method stub
-		return assignmentRepo.getAssignedPolicyForCustomer(id);
+		return assignmentRepo.getAssignedPolicyForCustomer(id, brokerId);
 	}
 
 }

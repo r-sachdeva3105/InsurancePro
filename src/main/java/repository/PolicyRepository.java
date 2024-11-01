@@ -11,4 +11,5 @@ public interface PolicyRepository {
     List<Policy> getAllPolicies(); // Method to get all policies
     void updatePolicy(Policy policy); // Method to update an existing policy
     void deletePolicy(String id) throws Exception; // Method to delete a policy by ID
+    List<Long> getTotalPolicies();
 }
