@@ -95,8 +95,8 @@
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${claim.policyName}</td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm" id="status-${claim.claimId}">${claim.status}</td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm space-x-2">
-                                    <button id="approve-${claim.claimId}" onclick="updateClaimStatus('${claim.claimId}', 'Approved')" class="text-green-600 hover:text-green-900">Approve</button>
-                                    <button id="reject-${claim.claimId}" onclick="updateClaimStatus('${claim.claimId}', 'Rejected')" class="text-red-600 hover:text-red-900">Reject</button>
+                                    <button id="approve-${claim.claimId}" onclick="updateClaimStatus(${claim.claimId}, 'Approved')" class="text-green-600 hover:text-green-900">Approve</button>
+                                    <button id="reject-${claim.claimId}" onclick="updateClaimStatus(${claim.claimId}, 'Rejected')" class="text-red-600 hover:text-red-900">Reject</button>
                                 </td>
                             </tr>
                             `).join('');
@@ -112,15 +112,31 @@
 
         // Function to update the claim status
         function updateClaimStatus(claimId, newStatus) {
+    const params = new URLSearchParams();
+    params.append("id", claimId);
+    params.append("status", newStatus); // Ensure you're sending status instead of description
+
+    fetch('UpdateClaimServlet', {
+        method: 'POST',
+        body: params // Send parameters
+    })
+    .then(response => {
+        if (response.ok) {
             // Update status in the table
             document.getElementById(`status-${claimId}`).innerText = newStatus;
 
             // Disable the buttons
             document.getElementById(`approve-${claimId}`).disabled = true;
             document.getElementById(`reject-${claimId}`).disabled = true;
-
-            console.log(`Claim ${claimId} status updated to ${newStatus}`);
+        } else {
+            console.error('Error updating claim status:', response);
         }
+    })
+    .catch(error => {
+        console.error('Error updating claim status:', error);
+    });
+}
+
     </script>
 </body>
 

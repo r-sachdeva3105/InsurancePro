@@ -6,11 +6,11 @@
     <title>InsurancePro - Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-      .hero {
-        background: url("assets/bg.jpg") no-repeat center center;
-        background-size: cover;
-        min-height: 80vh;
-      }
+        .hero {
+            background: url("assets/bg.jpg") no-repeat center center;
+            background-size: cover;
+            min-height: 80vh;
+        }
     </style>
 </head>
 <body class="bg-gray-100">
@@ -51,7 +51,7 @@
                 <!-- Error message will be displayed here -->
             </div>
 
-            <form id="loginForm" class="space-y-6" action="LoginBrokerServlet" method="post">
+            <form id="loginForm" class="space-y-6" method="post">
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                     <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" required />
@@ -83,7 +83,6 @@
                 <p>Email: support@insurancepro.com</p>
                 <p>Phone: +1 123 456 7890</p>
             </div>
-
             <div class="w-full sm:w-1/2 lg:w-1/4 mb-6">
                 <h2 class="text-xl font-bold">Quick Links</h2>
                 <ul>
@@ -116,23 +115,41 @@
             errorMessageDiv.classList.remove("hidden");
         }
 
-        
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.has('error')) {
             showError("Invalid email or password. Please try again.");
         }
 
-        // Redirect based on hardcoded email
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault(); // Prevent the form from submitting normally
             
             const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
 
-            
             if (email === 'admin@gmail.com') { 
+                // Redirect to the admin dashboard for the admin email
                 window.location.href = 'adminDashboard.html';
             } else {
-                window.location.href = 'dashboard.html'; // Regular user
+                // Use AJAX to send email and password to LoginBrokerServlet for regular users
+                const xhr = new XMLHttpRequest();
+                xhr.open('POST', 'LoginBrokerServlet', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                // Send email and password as URL-encoded data
+                const data = `email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
+                xhr.send(data);
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === XMLHttpRequest.DONE) {
+                        if (xhr.status === 200) {
+                            // Redirect to the user dashboard on successful login
+                            window.location.href = 'dashboard.html';
+                        } else {
+                            // Show an error message on failed login
+                            showError("Invalid email or password. Please try again.");
+                        }
+                    }
+                };
             }
         });
     </script>

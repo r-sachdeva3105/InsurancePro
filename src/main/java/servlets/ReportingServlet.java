@@ -34,140 +34,140 @@ public class ReportingServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-String reportType = request.getParameter("reportType");
-        
+        String reportType = request.getParameter("reportType");
         PrintWriter out = response.getWriter();
 
-        if (reportType != null) 
-        {
-        	System.out.println(reportType);
+        if (reportType != null) {
+            System.out.println(reportType);
             switch (reportType) {
                 case "allCustomers":
-                	String customerJson= convertToJson(customerService.getCustomerCountByBrokerID());
-                	response.getWriter().write(customerJson);
+                    String customerJson = convertToJson(customerService.getCustomerCountByBrokerID());
+                    response.getWriter().write(customerJson);
                     break;
 
                 case "totalPolicies":
-                	String policyJson= convertToJsonPolicy(policyService.getTotalPolicies());
-                	response.getWriter().write(policyJson);
-                    break;
-                    
-                case "totalClaims":
-                	String claimJson= convertToJsonClaim(claimService.getTotalClaims());
-                	response.getWriter().write(claimJson);
+                    String policyJson = convertToJsonPolicy(policyService.getTotalPolicies());
+                    response.getWriter().write(policyJson);
                     break;
 
+                case "claimsSummary":
+                    String claimsJson = convertToJsonClaim(claimService.getTotalClaims());
+                    response.getWriter().write(claimsJson);
+                    break;
+
+
                 case "claimsRate":
-                	String claimsRateJson= convertToJsonClaimsRate(claimService.getClaimsRate());
-                	response.getWriter().write(claimsRateJson);
+                    String claimsRateJson = convertToJsonClaimsRate(claimService.getClaimsRate());
+                    response.getWriter().write(claimsRateJson);
                     break;
 
                 default:
-                    out.println("<h1>Invalid Report Type</h1>");
+                    // Return a JSON error message instead of HTML
+                    response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 error
+                    out.write("{\"error\":\"Invalid Report Type\"}");
                     break;
             }
         } else {
-            out.println("<h1>No Report Type Selected</h1>");
+            // Return a JSON error message for no report type
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST); // 400 error
+            out.write("{\"error\":\"No Report Type Selected\"}");
         }
         out.close();
     }
-    
 
-	public String convertToJson(List<Object[]> allCustomers) {
-	    StringBuilder json = new StringBuilder("[");
-	    StringJoiner customerJoiner = new StringJoiner(",");
+    public String convertToJson(List<Object[]> allCustomers) {
+        StringBuilder json = new StringBuilder("[");
+        StringJoiner customerJoiner = new StringJoiner(",");
 
-	    for (Object[] row : allCustomers) {
-	        int broker_id = (int) row[0];
-	        String broker_name = (String) row[1];
-	        Long customer_count = (Long) row[2];
+        for (Object[] row : allCustomers) {
+            int broker_id = (int) row[0];
+            String broker_name = (String) row[1];
+            Long customer_count = (Long) row[2];
 
-	        StringBuilder customerJson = new StringBuilder();
-	        customerJson.append("{")
-	                .append("\"broker_id\":").append(broker_id).append(",")
-	                .append("\"broker_name\":\"").append(broker_name).append("\",")
-	                .append("\"customer_count\":\"").append(customer_count).append("\"")
-	                .append("}");
+            StringBuilder customerJson = new StringBuilder();
+            customerJson.append("{")
+                    .append("\"broker_id\":").append(broker_id).append(",")
+                    .append("\"broker_name\":\"").append(broker_name).append("\",")
+                    .append("\"customer_count\":\"").append(customer_count).append("\"")
+                    .append("}");
 
-	        customerJoiner.add(customerJson.toString());
-	    }
+            customerJoiner.add(customerJson.toString());
+        }
 
-	    json.append(customerJoiner.toString()).append("]");
-	    return json.toString();
+        json.append(customerJoiner.toString()).append("]");
+        return json.toString();
     }
-	
-	public String convertToJsonPolicy(List<Long> totalPolicies) {
-	    StringBuilder json = new StringBuilder("[");
-	    StringJoiner policyJoiner = new StringJoiner(",");
-	    
-	    for (Long total_policies : totalPolicies) {
-	        StringBuilder policyJson = new StringBuilder();
-	        policyJson.append("{")
-	                .append("\"total_policies\":").append(total_policies)
-	                .append("}");
 
-	        policyJoiner.add(policyJson.toString());
-	    }
+    public String convertToJsonPolicy(List<Long> totalPolicies) {
+        StringBuilder json = new StringBuilder("[");
+        StringJoiner policyJoiner = new StringJoiner(",");
 
-	    json.append(policyJoiner.toString()).append("]");
-	    return json.toString();
+        for (Long total_policies : totalPolicies) {
+            StringBuilder policyJson = new StringBuilder();
+            policyJson.append("{")
+                    .append("\"total_policies\":").append(total_policies)
+                    .append("}");
+
+            policyJoiner.add(policyJson.toString());
+        }
+
+        json.append(policyJoiner.toString()).append("]");
+        return json.toString();
     }
-	
-	public String convertToJsonClaim(List<Object[]> totalClaims) {
-	    StringBuilder json = new StringBuilder("[");
-	    StringJoiner claimJoiner = new StringJoiner(",");
 
-	    for (Object[] row : totalClaims) {
-	        int broker_id = (int) row[0];
-	        String broker_name = (String) row[1];
-	        Long total_claims = (Long) row[2];
+    public String convertToJsonClaim(List<Object[]> totalClaims) {
+        StringBuilder json = new StringBuilder("[");
+        StringJoiner claimJoiner = new StringJoiner(",");
 
-	        StringBuilder claimJson = new StringBuilder();
-	        claimJson.append("{")
-	                .append("\"broker_id\":").append(broker_id).append(",")
-	                .append("\"broker_name\":\"").append(broker_name).append("\",")
-	                .append("\"total_claims\":\"").append(total_claims).append("\"")
-	                .append("}");
+        for (Object[] row : totalClaims) {
+            int broker_id = (int) row[0];
+            String broker_name = (String) row[1];
+            Long total_claims = (Long) row[2];
 
-	        claimJoiner.add(claimJson.toString());
-	    }
+            StringBuilder claimJson = new StringBuilder();
+            claimJson.append("{")
+                    .append("\"broker_id\":").append(broker_id).append(",")
+                    .append("\"broker_name\":\"").append(broker_name).append("\",")
+                    .append("\"total_claims\":\"").append(total_claims).append("\"")
+                    .append("}");
 
-	    json.append(claimJoiner.toString()).append("]");
-	    return json.toString();
+            claimJoiner.add(claimJson.toString());
+        }
+
+        json.append(claimJoiner.toString()).append("]");
+        return json.toString();
     }
-	
-	public String convertToJsonClaimsRate(List<Object[]> claimsRate) {
-	    StringBuilder json = new StringBuilder("[");
-	    StringJoiner claimRateJoiner = new StringJoiner(",");
 
-	    for (Object[] row : claimsRate) {
-	    	Long approved_count = ((Number) row[0]).longValue();
-	        Long rejected_count = ((Number) row[1]).longValue();
-	        Long total_claims = ((Number) row[2]).longValue();
+    public String convertToJsonClaimsRate(List<Object[]> claimsRate) {
+        StringBuilder json = new StringBuilder("[");
+        StringJoiner claimRateJoiner = new StringJoiner(",");
 
-	        // Ensure that rates are stored as BigDecimal
-	        BigDecimal approval_rate = (BigDecimal) row[3]; // Change to BigDecimal
-	        BigDecimal rejection_rate = (BigDecimal) row[4]; // Change to BigDecimal
+        for (Object[] row : claimsRate) {
+            Long approved_count = ((Number) row[0]).longValue();
+            Long rejected_count = ((Number) row[1]).longValue();
+            Long total_claims = ((Number) row[2]).longValue();
 
-	        // Format the rates to 2 decimal places and convert to String
-	        String approval_rate_str = approval_rate.setScale(2, BigDecimal.ROUND_HALF_UP).toString();
-	        String rejection_rate_str = rejection_rate.setScale(2, BigDecimal.ROUND_HALF_UP).toString();
+            // Ensure that rates are stored as BigDecimal
+            BigDecimal approval_rate = (BigDecimal) row[3]; // Change to BigDecimal
+            BigDecimal rejection_rate = (BigDecimal) row[4]; // Change to BigDecimal
 
+            // Format the rates to 2 decimal places and convert to String
+            String approval_rate_str = approval_rate.setScale(2, BigDecimal.ROUND_HALF_UP).toString();
+            String rejection_rate_str = rejection_rate.setScale(2, BigDecimal.ROUND_HALF_UP).toString();
 
-	        StringBuilder claimsRateJson = new StringBuilder();
-	        claimsRateJson.append("{")
-	                .append("\"approved_count\":").append(approved_count.longValue()).append(",")
-	                .append("\"rejected_count\":\"").append(rejected_count.longValue()).append("\",")
-	                .append("\"total_claims\":\"").append(total_claims.longValue()).append("\"")
-	                .append("\"approval_rate\":").append(approval_rate_str).append(",") // Use formatted string
-	                .append("\"rejection_rate\":").append(rejection_rate_str)
-	                .append("}");
+            StringBuilder claimsRateJson = new StringBuilder();
+            claimsRateJson.append("{")
+                    .append("\"approved_count\":").append(approved_count.longValue()).append(",")
+                    .append("\"rejected_count\":").append(rejected_count.longValue()).append(",")
+                    .append("\"total_claims\":").append(total_claims.longValue()).append(",")
+                    .append("\"approval_rate\":").append(approval_rate_str).append(",")
+                    .append("\"rejection_rate\":").append(rejection_rate_str)
+                    .append("}");
 
-	        claimRateJoiner.add(claimsRateJson.toString());
-	    }
+            claimRateJoiner.add(claimsRateJson.toString());
+        }
 
-	    json.append(claimRateJoiner.toString()).append("]");
-	    return json.toString();
+        json.append(claimRateJoiner.toString()).append("]");
+        return json.toString();
     }
-	
 }
