@@ -1,157 +1,359 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>InsurancePro - Reports</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>InsurancePro - Reports</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-gray-100 text-gray-900">
-  <!-- Header -->
-  <header class="bg-gray-800 text-white shadow-md">
-    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-      <a href="adminDashboard.html" class="text-2xl font-bold text-white">InsurancePro</a>
-      <nav class="space-x-4">
-        <span>Welcome, John Doe</span>
-        <a href="login.html" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Logout</a>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Sidebar and Main Content Wrapper -->
-  <div class="flex">
-  
-  		<!-- Sidebar -->
-		<aside id="sidebar" class="sidebar w-64 bg-gray-800 text-white h-screen fixed md:relative sidebar-hidden md:block">
-	      <div class="px-6 py-6">
-		    <h2 class="text-xl font-bold mb-6">Admin Dashboard</h2>
-	        <ul>
-	          <li class="mb-4">
-	            <a href="adminDashboard.html" class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded">Reports</a>
-	          </li>
-	          <li class="mb-4">
-	            <a href="adminClaims.html" class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded">Claims</a>
-	          </li>
-	        </ul>
-	      </div>
-    	</aside>
-
-    <!-- Main Content -->
-    <main class="flex-1 p-6">
-      <h2 class="text-3xl font-bold mb-6">Reports</h2>
-
-      <!-- Filter Section -->
-      <div class="flex justify-between items-center mb-6">
-        <div class="flex space-x-4 items-center">
-          <label for="reportType" class="block text-sm font-medium text-gray-700">Report Type:</label>
-          <select id="reportType" class="p-2 border border-gray-300 rounded-lg">
-            <option value="allCustomers">All Customers</option>
-            <option value="totalPolicies">Total Policies</option>
-            <option value="claimsSummary">Claims Summary</option>
-          </select>
+    <!-- Header -->
+    <header class="bg-gray-800 text-white shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="adminDashboard.html" class="text-2xl font-bold text-white">InsurancePro</a>
+            <nav class="space-x-4">
+                <span>Welcome, Admin</span>
+                <a href="login.html" class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">Logout</a>
+            </nav>
         </div>
-        <button onclick="generateReport()" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Generate Report</button>
-      </div>
+    </header>
 
-      <!-- Summary Statistics -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6" id="summaryStats">
-        <!-- Statistics will be populated dynamically here -->
-      </div>
+    <!-- Sidebar and Main Content Wrapper -->
+    <div class="flex">
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar w-64 bg-gray-800 text-white h-screen fixed md:relative">
+            <div class="px-6 py-6">
+                <h2 class="text-xl font-bold mb-6">Admin Dashboard</h2>
+                <ul>
+                    <li class="mb-4">
+                        <a href="adminDashboard.html" class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded">Reports</a>
+                    </li>
+                    <li class="mb-4">
+                        <a href="adminClaims.html" class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded">Claims</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
 
-      <!-- Reports Table -->
-      <div class="overflow-x-auto bg-white rounded-lg shadow-md">
-        <table class="min-w-full leading-normal">
-          <thead>
-            <tr>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                Report Type
-              </th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                Description
-              </th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                Date Generated
-              </th>
-              <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                Actions
-              </th>
-            </tr>
-          </thead>
-          <tbody id="reportTableBody">
-            <!-- Table rows will be populated dynamically here -->
-          </tbody>
-        </table>
-      </div>
-    </main>
-  </div>
+        <!-- Main Content -->
+        <main class="flex-1 p-6">
+            <h2 class="text-3xl font-bold mb-6">Reports</h2>
 
-  <script>
-    // Simulated Data
-    const data = {
-      allCustomers: [
-        { type: "All Customers", description: "Summary of all customers per broker", date: "2024-10-20" },
-      ],
-      totalPolicies: [
-        { type: "Total Policies", description: "Summary of all active policies", date: "2024-10-20" },
-      ],
-      claimsSummary: [
-        { type: "Claims Summary", description: "Summary of all claims processed", date: "2024-10-20" },
-      ],
-      summaryStats: {
-        allCustomers: { label: "Total Customers", value: 120 },
-        totalPolicies: { label: "Total Policies", value: 89 },
-        claimsSummary: { label: "Claims Processed", value: 45 },
-      },
-    };
+            <!-- Filter Section -->
+            <div class="flex justify-between items-center mb-6">
+                <div class="flex space-x-4 items-center">
+                    <label for="reportType" class="block text-sm font-medium text-gray-700">Report Type:</label>
+                    <select id="reportType" class="p-2 border border-gray-300 rounded-lg">
+                        <option value="allCustomers">All Customers</option>
+                        <option value="totalPolicies">Total Policies</option>
+                        <option value="claimsSummary">Claims Summary</option>
+                        <option value="claimsRate">Claims Rate</option> <!-- Added Claims Rate -->
+                    </select>
+                </div>
+                <button onclick="generateReport()" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">Generate Report</button>
+            </div>
 
-    // Function to Generate Report
-    function generateReport() {
-      const reportType = document.getElementById("reportType").value;
-      populateSummaryStats(reportType);
-      populateReportTable(reportType);
-    }
+            <!-- Total Policies Box -->
+            <div id="totalPoliciesBox" class="bg-white p-4 rounded-lg shadow-md w-60 flex flex-col justify-start items-start hidden">
+                <h3 class="text-xl font-bold">Total Policies</h3>
+                <p class="text-gray-700 text-4xl mt-1" id="totalPoliciesCount">3</p>
+            </div>
 
-    // Function to Populate Summary Statistics
-    function populateSummaryStats(reportType) {
-      const summaryStatsDiv = document.getElementById("summaryStats");
-      summaryStatsDiv.innerHTML = ""; // Clear previous stats
+            <!-- Reports Table -->
+            <div class="overflow-x-auto bg-white rounded-lg shadow-md">
+                <table class="min-w-full leading-normal">
+                    <thead>
+                        <tr>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Report Type</th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Description</th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Date Generated</th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reportTableBody">
+                        <!-- Table rows will be populated dynamically here -->
+                    </tbody>
+                </table>
+            </div>
 
-      const statData = data.summaryStats[reportType];
-      if (statData) {
-        summaryStatsDiv.innerHTML = `
-          <div class="bg-white p-6 rounded-lg shadow-md">
-            <h2 class="text-2xl font-bold">${statData.label}</h2>
-            <p class="text-gray-700 text-4xl mt-4">${statData.value}</p>
-          </div>
-        `;
-      }
-    }
+            <!-- Fetched Data Display for Customers -->
+            <div id="fetchedDataDisplay" class="mt-6 hidden">
+                <h3 class="text-xl font-bold mb-2">Fetched Data</h3>
+                <table class="min-w-full leading-normal border">
+                    <thead>
+                        <tr>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Broker ID</th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Broker Name</th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Customer Count</th>
+                        </tr>
+                    </thead>
+                    <tbody id="fetchedDataTableBody">
+                        <!-- Fetched data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
 
-    // Function to Populate Report Table
-    function populateReportTable(reportType) {
-      const reportTableBody = document.getElementById("reportTableBody");
-      reportTableBody.innerHTML = ""; // Clear previous table data
+            <!-- Fetched Claims Data Display -->
+            <div id="fetchedClaimsDataDisplay" class="mt-6 hidden">
+                <h3 class="text-xl font-bold mb-2">Fetched Claims Data</h3>
+                <table class="min-w-full leading-normal border">
+                    <thead>
+                        <tr>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Broker ID</th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Broker Name</th>
+                            <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Total Claims</th>
+                        </tr>
+                    </thead>
+                    <tbody id="fetchedClaimsDataTableBody">
+                        <!-- Fetched claims data will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
 
-      const reportData = data[reportType];
-      reportData.forEach((report) => {
-        reportTableBody.innerHTML += `
-          <tr>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${report.type}</td>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${report.description}</td>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${report.date}</td>
-            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm space-x-2">
-              <button class="text-blue-600 hover:text-blue-900">View</button>
-              <button class="text-green-600 hover:text-green-900">Download</button>
-            </td>
-          </tr>
-        `;
-      });
-    }
+    <script>
+        // Function to Generate Report
+      
+function generateReport() {
+    const reportType = document.getElementById("reportType").value;
 
-    // Initial load
-    generateReport();
-  </script>
+    // Hide both fetched data displays initially before generating a new report
+    document.getElementById("fetchedDataDisplay").classList.add("hidden");
+    document.getElementById("fetchedClaimsDataDisplay").classList.add("hidden");
+
+    fetchReportData(reportType);
+}
+
+
+        // Function to Fetch Report Data
+        function fetchReportData(reportType) {
+            fetch(`ReportingServlet?reportType=${reportType}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json(); // Ensure proper response parsing
+                })
+                .then(data => {
+                    // Hide both fetched data displays initially
+                    document.getElementById("fetchedDataDisplay").classList.add("hidden");
+                    document.getElementById("fetchedClaimsDataDisplay").classList.add("hidden");
+
+                    if (reportType === "allCustomers" || reportType === "claimsSummary" || reportType === "claimsRate") {
+                        populateReportTable(reportType, data);
+                    } else {
+                        populateSummaryStats(reportType, data);
+                        populateReportTable(reportType, data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching report data:', error);
+                });
+        }
+
+        // Function to Populate Summary Statistics
+        function populateSummaryStats(reportType, data) {
+            const totalPoliciesCountElement = document.getElementById("totalPoliciesCount");
+            if (totalPoliciesCountElement && reportType === "totalPolicies") {
+                totalPoliciesCountElement.innerText = data[0].total_policies; // Ensure the structure is correct
+            }
+        }
+
+        // Function to Populate Report Table
+        function populateReportTable(reportType, data) {
+            const reportTableBody = document.getElementById("reportTableBody");
+            const totalPoliciesBox = document.getElementById("totalPoliciesBox");
+            reportTableBody.innerHTML = ""; // Clear previous table data
+
+            // Show/hide total policies box
+            if (reportType === "totalPolicies") {
+                totalPoliciesBox.classList.remove("hidden");
+            } else {
+                totalPoliciesBox.classList.add("hidden");
+            }
+
+            // Handle report type display
+            if (reportType === "allCustomers") {
+                data.forEach(customer => {
+                    reportTableBody.innerHTML += `
+                        <tr>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">All Customers</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Summary of all customers per broker: ${customer.broker_name}</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${new Date().toLocaleDateString()}</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm space-x-2">
+                                <button id="viewBtn" class="text-blue-600 hover:text-blue-900" data-customer='${JSON.stringify(customer)}'>View</button>
+                                <button class="text-green-600 hover:text-green-900" data-customer='${JSON.stringify(customer)}'>Download</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            } else if (reportType === "claimsSummary") {
+                data.forEach(claim => {
+                    reportTableBody.innerHTML += `
+                        <tr>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Claims Summary</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Summary of all claims processed for broker: ${claim.broker_name}</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${new Date().toLocaleDateString()}</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm space-x-2">
+                                <button id="viewClaimsBtn" class="text-blue-600 hover:text-blue-900" data-claim='${JSON.stringify(claim)}'>View</button>
+                                <button class="text-green-600 hover:text-green-900" data-claim='${JSON.stringify(claim)}'>Download</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            } else if (reportType === "claimsRate") {
+                data.forEach(rate => {
+                    reportTableBody.innerHTML += `
+                        <tr>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Claims Rate</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Summary of claims rates</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${new Date().toLocaleDateString()}</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm space-x-2">
+                                <button class="text-blue-600 hover:text-blue-900" data-rate='${JSON.stringify(rate)}'>View</button> <!-- Added View button -->
+                                <button class="text-green-600 hover:text-green-900" data-rate='${JSON.stringify(rate)}'>Download</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            } else if (reportType === "totalPolicies") {
+                data.forEach(policy => {
+                    reportTableBody.innerHTML += `
+                        <tr>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Total Policies</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">Summary of total active policies</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${new Date().toLocaleDateString()}</td>
+                            <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm space-x-2">
+                                <button class="text-green-600 hover:text-green-900" data-policy='${JSON.stringify(policy)}'>Download</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            }
+        }
+
+        // Event delegation for handling view and download buttons
+        document.addEventListener('click', function(event) {
+            if (event.target.matches('#viewBtn')) {
+                const customerData = JSON.parse(event.target.getAttribute('data-customer'));
+                viewFetchedData(customerData);
+            } else if (event.target.matches('#viewClaimsBtn')) {
+                const claimData = JSON.parse(event.target.getAttribute('data-claim'));
+                viewFetchedClaimsData(claimData);
+            } else if (event.target.matches('.text-blue-600[data-rate]')) { // Handle the view button for claims rate
+                const rateData = JSON.parse(event.target.getAttribute('data-rate'));
+                viewFetchedClaimsRateData(rateData);
+            } else if (event.target.matches('.text-green-600')) {
+                const data = JSON.parse(event.target.getAttribute('data-customer') || event.target.getAttribute('data-claim') || event.target.getAttribute('data-policy') || event.target.getAttribute('data-rate'));
+                downloadPolicies([data]);
+            }
+        });
+
+        // Function to View Fetched Data for Customers
+        function viewFetchedData(customerData) {
+            const fetchedDataTableBody = document.getElementById("fetchedDataTableBody");
+            const fetchedDataDisplay = document.getElementById("fetchedDataDisplay");
+
+            fetchedDataTableBody.innerHTML = ""; // Clear previous data
+
+            // Append the fetched customer data to the table
+            fetchedDataTableBody.innerHTML += `
+                <tr>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${customerData.broker_id}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${customerData.broker_name}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${customerData.customer_count}</td>
+                </tr>
+            `;
+
+            fetchedDataDisplay.classList.remove("hidden"); // Show the fetched data table
+        }
+
+     // Function to View Fetched Claims Data
+        function viewFetchedClaimsData(claimData) {
+            const fetchedClaimsDataTableBody = document.getElementById("fetchedClaimsDataTableBody");
+            const fetchedClaimsDataDisplay = document.getElementById("fetchedClaimsDataDisplay");
+
+            fetchedClaimsDataTableBody.innerHTML = ""; // Clear previous claims data
+
+            // Append the fetched claims data to the table
+            fetchedClaimsDataTableBody.innerHTML += `
+                <tr>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${claimData.broker_id}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${claimData.broker_name}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${claimData.total_claims}</td>
+                </tr>
+            `;
+
+            fetchedClaimsDataDisplay.classList.remove("hidden"); // Show the fetched claims data table
+        }
+
+
+        
+     // Function to View Fetched Claims Rate Data
+        function viewFetchedClaimsRateData(rateData) {
+            const fetchedClaimsRateTableBody = document.getElementById("fetchedClaimsDataTableBody");
+            const fetchedClaimsRateDisplay = document.getElementById("fetchedClaimsDataDisplay");
+
+            fetchedClaimsRateTableBody.innerHTML = ""; // Clear previous claims rate data
+
+            // Append the fetched claims rate data to the table
+            fetchedClaimsRateTableBody.innerHTML += `
+                <tr>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${rateData.approved_count}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${rateData.rejected_count}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${rateData.total_claims}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${rateData.approval_rate}</td>
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${rateData.rejection_rate}</td>
+                </tr>
+            `;
+
+            // Update the table headers for claims rate
+            const fetchedClaimsRateTableHeader = document.createElement('thead');
+            fetchedClaimsRateTableHeader.innerHTML = `
+                <tr>
+                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Approved Count</th>
+                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Rejected Count</th>
+                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Total Claims</th>
+                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Approval Rate</th>
+                    <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Rejection Rate</th>
+                </tr>
+            `;
+            
+            // Clear previous headers and append new headers
+            const claimsRateTable = document.getElementById("fetchedClaimsDataDisplay").querySelector('table');
+            claimsRateTable.querySelector('thead').remove();
+            claimsRateTable.prepend(fetchedClaimsRateTableHeader);
+
+            fetchedClaimsRateDisplay.classList.remove("hidden"); // Show the fetched claims rate data table
+        }
+
+
+
+        // Function to Download Policies as JSON
+        function downloadPolicies(data) {
+            try {
+                const json = JSON.stringify(data, null, 2); // Format the JSON with indentation
+                const blob = new Blob([json], { type: "application/json" });
+                const url = URL.createObjectURL(blob);
+
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "report_data.json"; // File name for the download
+                document.body.appendChild(a);
+                a.click(); // Trigger the download
+                document.body.removeChild(a); // Clean up the DOM
+                URL.revokeObjectURL(url); // Release the object URL
+            } catch (error) {
+                console.error("Error downloading the policies:", error);
+            }
+        }
+
+        // Initial load
+        generateReport();
+    </script>
 </body>
+
 </html>

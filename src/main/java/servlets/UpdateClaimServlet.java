@@ -13,43 +13,29 @@ import java.io.IOException;
  * Servlet implementation class UpdateClaimServlet
  */
 public class UpdateClaimServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	private ClaimService claimService;
+    private static final long serialVersionUID = 1L;
+    private ClaimService claimService;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public UpdateClaimServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    @Override
+    public void init() throws ServletException {
+        claimService = new ClaimService(getServletContext());
+    }
 
-	@Override
-	public void init() throws ServletException {
-		claimService = new ClaimService(getServletContext());
-	}
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int claimId = Integer.parseInt(request.getParameter("id"));
+        String status = request.getParameter("status"); // Change this to fetch the correct parameter
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		int claimId = Integer.parseInt(request.getParameter("id"));
-		String description = request.getParameter("description");
-
-		try {
-
-			if (!claimService.updateClaim(claimId, description))
-				throw new Exception("Error Ouccred");
-			response.sendRedirect("claims.html");
-
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			request.setAttribute("errorMessage", "An error occurred: " + e.getMessage());
-
-		}
-	}
-
+        try {
+            // Assuming updateClaim now accepts claimId and status
+            if (!claimService.updateClaim(claimId, status)) {
+                throw new Exception("Error occurred while updating claim status.");
+            }
+            response.setStatus(HttpServletResponse.SC_OK); // Send OK response
+        } catch (Exception e) {
+            // Log the error message for debugging
+            System.err.println("Error in UpdateClaimServlet: " + e.getMessage());
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // Send error response
+        }
+    }
 }

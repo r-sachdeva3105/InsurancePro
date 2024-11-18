@@ -52,7 +52,7 @@ public class ApproveRejectClaim extends HttpServlet {
 
 				if (!claimService.approveRejectClaim(claimId, status))
 					throw new Exception("Error Ouccred");
-				response.sendRedirect("customers.html");
+				response.sendRedirect("adminClaims.html");
 
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
