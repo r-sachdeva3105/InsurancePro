@@ -8,14 +8,13 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Column;
 
 @Entity
-@Table(name = "Customer")  // Optional: specify the table name
+@Table(name = "customer")  // Specify the table name (updated to lowercase)
 public class Customer {
 
     // Declaring fields
-
     @Id
-    @Column(name = "id", nullable = false, length = 50)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Integer id;
 
     @Column(name = "name", nullable = false, length = 100)
@@ -26,28 +25,40 @@ public class Customer {
 
     @Column(name = "phone", length = 15)
     private String phone;
-    
-    @Column(name = "broker_id", nullable = false)
-    private Integer brokerId; // Changed to Integer for foreign key reference
 
-	// Defining constructors
+    @Column(name = "broker_id", nullable = false)
+    private Integer brokerId;
+
+    @Column(name = "address", length = 255)
+    private String address;
+
+    @Column(name = "dob") // Date of birth
+    private String dob; // Use String or LocalDate depending on your database setup
+
+
+
+    // Defining constructors
     public Customer() {
         // Default constructor required by JPA
     }
 
-    public Customer(Integer id, String name, String email, String phone,Integer brokerId ) {
+    public Customer(Integer id, String name, String email, String phone, Integer brokerId, String address, String dob) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.brokerId = brokerId;
+        this.address = address;
+        this.dob = dob;
     }
-    
-    public Customer(String name, String email, String phone, Integer brokerId) {
+
+    public Customer(String name, String email, String phone, Integer brokerId, String address, String dob) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.brokerId = brokerId;
+        this.address = address;
+        this.dob = dob;
     }
 
     // Getters and Setters
@@ -82,14 +93,29 @@ public class Customer {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    
 
     public Integer getBrokerId() {
-		return brokerId;
-	}
+        return brokerId;
+    }
 
-	public void setBrokerId(Integer brokerId) {
-		this.brokerId = brokerId;
-	}
+    public void setBrokerId(Integer brokerId) {
+        this.brokerId = brokerId;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getDob() {
+        return dob;
+    }
+
+    public void setDob(String dob) {
+        this.dob = dob;
+    }
 
 }

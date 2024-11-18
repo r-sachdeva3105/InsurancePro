@@ -8,25 +8,45 @@ public class Policy {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id; // Changed to Integer for auto-generation
+    @Column(name = "id", nullable = false)
+    private Integer id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 255)
     private String name;
 
-    @Column(name = "description")
+    @Column(name = "description", length = 255)
     private String description;
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "type", nullable = false, length = 255)
     private String type;
 
-    // Default constructor for Hibernate
+    @Column(name = "coverage_amount", precision = 10, scale = 2)
+    private Double coverageAmount;
+
+    @Column(name = "premium", precision = 10, scale = 2)
+    private Double premium;
+
+
+    // Default constructor for JPA
     public Policy() {}
 
-    // Constructor with parameters
-    public Policy(String name, String description, String type) {
+    // Constructor with parameters (without id, createdAt, and updatedAt for insertion)
+    public Policy(String name, String description, String type, Double coverageAmount, Double premium) {
         this.name = name;
         this.description = description;
         this.type = type;
+        this.coverageAmount = coverageAmount;
+        this.premium = premium;
+    }
+
+    // Full constructor (for scenarios where all fields are required)
+    public Policy(Integer id, String name, String description, String type, Double coverageAmount, Double premium) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.type = type;
+        this.coverageAmount = coverageAmount;
+        this.premium = premium;
     }
 
     // Getters and Setters
@@ -61,4 +81,22 @@ public class Policy {
     public void setType(String type) {
         this.type = type;
     }
+
+    public Double getCoverageAmount() {
+        return coverageAmount;
+    }
+
+    public void setCoverageAmount(Double coverageAmount) {
+        this.coverageAmount = coverageAmount;
+    }
+
+    public Double getPremium() {
+        return premium;
+    }
+
+    public void setPremium(Double premium) {
+        this.premium = premium;
+    }
+
+    
 }
