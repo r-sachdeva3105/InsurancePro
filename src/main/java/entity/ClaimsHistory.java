@@ -16,8 +16,7 @@ public class ClaimsHistory {
     @JoinColumn(name = "claim_id", nullable = false)
     private Claims claim;
 
-    @Column(name = "previous_status")
-    private String previousStatus;
+
 
     @Column(name = "new_status", nullable = false)
     private String newStatus;
@@ -34,9 +33,8 @@ public class ClaimsHistory {
         super();
     }
 
-    public ClaimsHistory(Claims claim, String previousStatus, String newStatus, Integer updatedBy, String changeReason) {
+    public ClaimsHistory(Claims claim, String newStatus, Integer updatedBy, String changeReason) {
         this.claim = claim;
-        this.previousStatus = previousStatus;
         this.newStatus = newStatus;
         this.updatedBy = updatedBy;
         this.changeReason = changeReason;
@@ -59,13 +57,7 @@ public class ClaimsHistory {
         this.claim = claim;
     }
 
-    public String getPreviousStatus() {
-        return previousStatus;
-    }
-
-    public void setPreviousStatus(String previousStatus) {
-        this.previousStatus = previousStatus;
-    }
+ 
 
     public String getNewStatus() {
         return newStatus;
