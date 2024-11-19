@@ -28,7 +28,7 @@ public class CustomerService {
     }
 
     // Get customer by ID
-    public Customer getCustomerById(String id) {
+    public Customer getCustomerById(Integer id) {
         return customerRepository.getCustomerById(id);
     }
 
@@ -47,7 +47,7 @@ public class CustomerService {
     }
 
     // Delete customer
-    public boolean deleteCustomer(String id) {
+    public boolean deleteCustomer(Integer id) {
         try {
             customerRepository.deleteCustomer(id);
             return true;

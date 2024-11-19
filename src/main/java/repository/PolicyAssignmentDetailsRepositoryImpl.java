@@ -1,5 +1,6 @@
 package repository;
 
+import entity.Claims;
 import entity.PolicyDetails;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -75,4 +76,39 @@ public class PolicyAssignmentDetailsRepositoryImpl implements PolicyAssignmentDe
             sessionFactory.close();
         }
     }
+
+	@Override
+	public void deleteClaimsByCustomerId(int customerId) throws Exception {
+		// TODO Auto-generated method stub
+		
+		try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            PolicyDetails details = session.get(PolicyDetails.class, customerId);
+            if (details != null) {
+                session.delete(details);
+                transaction.commit();
+            } else {
+                throw new Exception("Claims with ID " + customerId + " not found.");
+            }
+        }
+		
+	}
+
+	@Override
+	public void deleteClaimsByPolicyId(int policyId) throws Exception {
+		// TODO Auto-generated method stub
+		try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            PolicyDetails details = session.get(PolicyDetails.class, policyId);
+            if (details != null) {
+                session.delete(details);
+                transaction.commit();
+            } else {
+                throw new Exception("Claims with ID " + policyId + " not found.");
+            }
+        }
+		
+	}
 }

@@ -31,9 +31,12 @@ public class AddPolicyServlet extends HttpServlet {
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String type = request.getParameter("type");
+        Double baseRate = Double.parseDouble(request.getParameter("baseRate"));
+        Double coverageAmount = Double.parseDouble(request.getParameter("coverageAmount"));
+        String termLength = request.getParameter("termLength");
 
         // Create a new Policy object
-        Policy policy = new Policy( name, description, type);
+        Policy policy = new Policy( name, description, type, baseRate, coverageAmount, termLength);
         try {
             policyService.addPolicy(policy); // Add policy using the service
         } catch (Exception e) {

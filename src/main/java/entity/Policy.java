@@ -11,42 +11,55 @@ public class Policy {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description", length = 255)
+    @Column(name = "description")
     private String description;
 
-    @Column(name = "type", nullable = false, length = 255)
+    @Column(name = "type", nullable = false)
     private String type;
 
-    @Column(name = "coverage_amount", precision = 10, scale = 2)
+    @Column(name = "baseRate")
+    private Double baseRate;
+    
+    @Column(name = "coverage_amount")
     private Double coverageAmount;
+    
+    @Column(name = "termLength", nullable = false)
+    private String termLength;
 
-    @Column(name = "premium", precision = 10, scale = 2)
-    private Double premium;
+    @Column(name = "termFactor")
+    private Double termFactor;
+    
 
 
-    // Default constructor for JPA
+    
+
+	// Default constructor for JPA
     public Policy() {}
 
     // Constructor with parameters (without id, createdAt, and updatedAt for insertion)
-    public Policy(String name, String description, String type, Double coverageAmount, Double premium) {
+    public Policy(String name, String description, String type, Double baseRate, Double coverageAmount, String termLength) {
         this.name = name;
         this.description = description;
         this.type = type;
+        this.baseRate = baseRate;
         this.coverageAmount = coverageAmount;
-        this.premium = premium;
+        this.termLength = termLength;
+        this.setTermFactor(termLength);
     }
 
     // Full constructor (for scenarios where all fields are required)
-    public Policy(Integer id, String name, String description, String type, Double coverageAmount, Double premium) {
+    public Policy(Integer id, String name, String description, String type, Double baseRate, Double coverageAmount, Double premium, String termLength) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.type = type;
+        this.baseRate = baseRate;
         this.coverageAmount = coverageAmount;
-        this.premium = premium;
+        this.termLength = termLength;
+        this.setTermFactor(termLength);
     }
 
     // Getters and Setters
@@ -81,6 +94,16 @@ public class Policy {
     public void setType(String type) {
         this.type = type;
     }
+    
+
+    public Double getBaseRate() {
+        return baseRate;
+    }
+
+    public void setBaseRate(Double baseRate) {
+        this.baseRate = baseRate;
+    }
+
 
     public Double getCoverageAmount() {
         return coverageAmount;
@@ -90,13 +113,32 @@ public class Policy {
         this.coverageAmount = coverageAmount;
     }
 
-    public Double getPremium() {
-        return premium;
-    }
+    public String getTermLength() {
+		return termLength;
+	}
 
-    public void setPremium(Double premium) {
-        this.premium = premium;
-    }
+	public void setTermLength(String termLength) {
+		this.termLength = termLength;
+	}
+
+	public Double getTermFactor() {
+		return termFactor;
+	}
+
+	public void setTermFactor(String termLength) {
+		if (termLength == "1 year")
+			termFactor = 1.0;
+		else if(termLength == "3 years")
+			termFactor = 1.1;
+		else if(termLength == "5 years")
+			termFactor = 1.2;
+		else if(termLength == "8 years")
+			termFactor = 1.38;
+		else if(termLength == "10 years")
+			termFactor = 1.5;
+		
+	}
+  
 
     
 }

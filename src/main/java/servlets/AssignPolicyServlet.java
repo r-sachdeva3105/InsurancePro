@@ -10,6 +10,8 @@ import service.PolicyAssignmentService;
 import service.PolicyService;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import entity.Customer;
 import entity.Policy;
@@ -47,16 +49,22 @@ public class AssignPolicyServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 
 		response.setContentType("text/html");
+		try {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
 		int customerId = Integer.parseInt(request.getParameter("customerId"));
 		String policyName = request.getParameter("policyName");
 		System.out.println("policyname" + policyName);
 		int brokerId = Integer.parseInt(request.getParameter("brokerId"));
-		String premiumAmount = request.getParameter("premiumAmount");
+		Date startDate = sdf.parse(request.getParameter("startDate"));
+		Date endDate = sdf.parse(request.getParameter("endDate"));
+		String status = request.getParameter("status");
+		
 
-		try {
+		
 
-			if (!assignmentService.addPolicyDetails(customerId, policyName, brokerId, premiumAmount))
+			if (!assignmentService.addPolicyDetails(customerId, policyName, brokerId, startDate, endDate, status))
 				throw new Exception("Error Ouccred");
 			response.sendRedirect("customers.html");
 

@@ -15,16 +15,20 @@ import java.util.List;
 public class PolicyRepositoryImp implements PolicyRepository {
 
     private SessionFactory sessionFactory;
+    private ClaimsRepositoryImp claimsRepository;
+	private PolicyAssignmentDetailsRepositoryImpl assignmentRepo;
 
     public PolicyRepositoryImp() {
         // Initialize SessionFactory using Hibernate configuration (hibernate.cfg.xml)
         sessionFactory = new Configuration().configure().buildSessionFactory();
+        this.claimsRepository = new ClaimsRepositoryImp(); 
+		this.assignmentRepo = new PolicyAssignmentDetailsRepositoryImpl();
     }
     
 
     // Method to get a policy by ID
     @Override
-    public Policy getPolicyById(String id) {
+    public Policy getPolicyById(Integer id) {
         try (Session session = sessionFactory.openSession()) {
             return session.get(Policy.class, id); // Fetch Policy by primary key (id)
         }
@@ -58,9 +62,13 @@ public class PolicyRepositoryImp implements PolicyRepository {
 
     // Method to delete a policy by ID
     @Override
-    public synchronized void deletePolicy(String id) {
+    public synchronized void deletePolicy(Integer id) throws Exception {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
+            
+        	assignmentRepo.deleteClaimsByPolicyId(id);
+			claimsRepository.deleteClaimsByPolicyId(id);
+            
             Policy policy = session.get(Policy.class, id); // Fetch the policy to delete
             if (policy != null) {
                 session.remove(policy); // Delete policy if found

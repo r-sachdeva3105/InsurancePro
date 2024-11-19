@@ -40,8 +40,8 @@ public class DeleteCustomerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String id = request.getParameter("id");
-		if (id != null && !id.isEmpty()) {
+		int id = Integer.parseInt(request.getParameter("id"));
+		if (id <= 0) {
 			boolean isDeleted = customerService.deleteCustomer(id);
 
 			if (isDeleted) {

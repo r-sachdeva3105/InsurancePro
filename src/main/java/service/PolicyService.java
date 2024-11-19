@@ -23,7 +23,7 @@ public class PolicyService {
     }
 
     // Method to retrieve a policy by ID
-    public Policy getPolicyById(String id) {
+    public Policy getPolicyById(Integer id) {
         return policyRepository.getPolicyById(id); // Delegate to repository
     }
 
@@ -38,7 +38,7 @@ public class PolicyService {
     }
 
     // Method to delete a policy by ID
-    public boolean deletePolicy(String id) {
+    public boolean deletePolicy(Integer id) {
         try {
             policyRepository.deletePolicy(id); // Attempt to delete policy
             return true; // Return true if successful

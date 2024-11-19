@@ -49,10 +49,12 @@ public class UpdateCustomerServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
 		String phone = request.getParameter("phone");
+		String address = request.getParameter("address");
+        String dob = request.getParameter("dob");
 
 		PrintWriter out = response.getWriter();
 
-		Customer updatedCustomer = new Customer(id, name, email, phone,brokerId);
+		Customer updatedCustomer = new Customer(id, name, email, phone,brokerId, address, dob);
 		try {
 			customerService.updateCustomer(updatedCustomer);
 			response.sendRedirect("customers.html");

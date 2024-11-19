@@ -202,4 +202,40 @@ public class ClaimsRepositoryImp implements ClaimsRepository {
 	        }
 	    }
 
+	@Override
+	public void deleteClaimsByCustomerId(int customerId) throws Exception {
+		// TODO Auto-generated method stub
+		
+		try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            Claims claim = session.get(Claims.class, customerId);
+            if (claim != null) {
+                session.delete(claim);
+                transaction.commit();
+            } else {
+                throw new Exception("Claims with ID " + customerId + " not found.");
+            }
+        }
+		
+	}
+
+	@Override
+	public void deleteClaimsByPolicyId(int policyId) throws Exception {
+		// TODO Auto-generated method stub
+		
+		try (Session session = sessionFactory.openSession()) {
+            Transaction transaction = session.beginTransaction();
+
+            Claims claim = session.get(Claims.class, policyId);
+            if (claim != null) {
+                session.delete(claim);
+                transaction.commit();
+            } else {
+                throw new Exception("Claims with ID " + policyId + " not found.");
+            }
+        }
+		
+	}
+
 }

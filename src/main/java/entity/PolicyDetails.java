@@ -1,8 +1,9 @@
 package entity;
 
+import java.util.Date;
+
 import jakarta.persistence.*;
 
-import java.sql.Date;
 
 @Entity
 @Table(name = "policy_details")
@@ -23,7 +24,7 @@ public class PolicyDetails {
     private Integer brokerId; // Foreign key reference to brokers table
 
     @Column(name = "premium_amount")
-    private String premiumAmount; // Premium amount for the policy
+    private Double premiumAmount; // Premium amount for the policy
 
     @Column(name = "start_date", nullable = false)
     private Date startDate; // Policy start date
@@ -31,14 +32,14 @@ public class PolicyDetails {
     @Column(name = "end_date", nullable = false)
     private Date endDate; // Policy end date
 
-    @Column(name = "status", nullable = false, columnDefinition = "ENUM('Active', 'Renewed', 'Cancelled') DEFAULT 'Active'")
+    @Column(name = "status", nullable = false)
     private String status; // Policy status (Active, Renewed, Cancelled)
 
     // Default constructor needed by Hibernate
     public PolicyDetails() {}
 
     // Constructor with parameters
-    public PolicyDetails(Integer policyId, Integer customerId, Integer brokerId, String premiumAmount, Date startDate, Date endDate, String status) {
+    public PolicyDetails(Integer policyId, Integer customerId, Integer brokerId, Double premiumAmount, Date startDate, Date endDate, String status) {
         this.policyId = policyId;
         this.customerId = customerId;
         this.brokerId = brokerId;
@@ -81,11 +82,11 @@ public class PolicyDetails {
         this.brokerId = brokerId;
     }
 
-    public String getPremiumAmount() {
+    public Double getPremiumAmount() {
         return premiumAmount;
     }
 
-    public void setPremiumAmount(String premiumAmount) {
+    public void setPremiumAmount(Double premiumAmount) {
         this.premiumAmount = premiumAmount;
     }
 

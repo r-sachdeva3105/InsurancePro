@@ -25,7 +25,7 @@ public class DeletePolicyServlet extends HttpServlet {
 
     // Handles POST requests to delete a policy
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String id = request.getParameter("policyId"); // Retrieve policy ID from request
+        int id = Integer.parseInt(request.getParameter("policyId")); // Retrieve policy ID from request
         try {
             policyService.deletePolicy(id); // Attempt to delete the policy
         } catch (Exception e) {

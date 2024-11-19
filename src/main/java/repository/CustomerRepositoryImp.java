@@ -13,10 +13,14 @@ import java.util.List;
 public class CustomerRepositoryImp implements CustomerRepository {
 
 	private SessionFactory sessionFactory;
+	private ClaimsRepositoryImp claimsRepository;
+	private PolicyAssignmentDetailsRepositoryImpl assignmentRepo;
 
 	public CustomerRepositoryImp() {
 		// Initialize SessionFactory using Hibernate configuration (hibernate.cfg.xml)
 		sessionFactory = new Configuration().configure().buildSessionFactory();
+		this.claimsRepository = new ClaimsRepositoryImp(); 
+		this.assignmentRepo = new PolicyAssignmentDetailsRepositoryImpl();
 	}
 
 	// Method to add customer
@@ -40,7 +44,7 @@ public class CustomerRepositoryImp implements CustomerRepository {
 
 	// Method to get customer by Id
 	@Override
-	public Customer getCustomerById(String id) {
+	public Customer getCustomerById(Integer id) {
 		try (Session session = sessionFactory.openSession()) {
 			return session.get(Customer.class, id);
 		}
@@ -89,9 +93,12 @@ public class CustomerRepositoryImp implements CustomerRepository {
 
 	// Method to delete customer
 	@Override
-	public synchronized void deleteCustomer(String id) throws Exception {
+	public synchronized void deleteCustomer(Integer id) throws Exception {
 		try (Session session = sessionFactory.openSession()) {
 			Transaction transaction = session.beginTransaction();
+			
+			assignmentRepo.deleteClaimsByCustomerId(id);
+			claimsRepository.deleteClaimsByCustomerId(id);
 
 			Customer customer = session.get(Customer.class, id);
 			if (customer != null) {

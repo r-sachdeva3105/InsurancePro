@@ -17,19 +17,19 @@ public class Customer {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "name", nullable = false, length = 100)
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "email", nullable = false, length = 100)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "phone", length = 15)
+    @Column(name = "phone")
     private String phone;
 
     @Column(name = "broker_id", nullable = false)
     private Integer brokerId;
 
-    @Column(name = "address", length = 255)
+    @Column(name = "address")
     private String address;
 
     @Column(name = "dob") // Date of birth

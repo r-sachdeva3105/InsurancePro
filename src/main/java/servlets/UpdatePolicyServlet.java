@@ -31,6 +31,9 @@ public class UpdatePolicyServlet extends HttpServlet {
         String name = request.getParameter("name");
         String description = request.getParameter("description");
         String type = request.getParameter("type");
+        Double baseRate = Double.parseDouble(request.getParameter("baseRate"));
+        Double coverageAmount = Double.parseDouble(request.getParameter("coverageAmount"));
+        String termLength = request.getParameter("termLength");
 
         // Create a new Policy object with the updated details
         Policy policy = new Policy(); // Assuming you have a default constructor
@@ -38,6 +41,11 @@ public class UpdatePolicyServlet extends HttpServlet {
         policy.setName(name);
         policy.setDescription(description);
         policy.setType(type);
+        policy.setBaseRate(baseRate);
+        policy.setCoverageAmount(coverageAmount);
+        policy.setTermLength(termLength);
+        policy.setTermFactor(termLength);
+        
         try {
             policyService.updatePolicy(policy); // Update the policy using the service
         } catch (Exception e) {
