@@ -10,6 +10,7 @@ import jakarta.servlet.ServletContext;
 import repository.ClaimsRepositoryImp;
 import repository.CustomerRepository;
 import repository.CustomerRepositoryImp;
+import repository.PolicyAssignmentDetailsRepositoryImpl;
 
 public class ClaimService {
 	
@@ -18,28 +19,30 @@ public class ClaimService {
 
     // Performing dependency injection using constructor
     public ClaimService(ServletContext context) {
-        this.claimsRepository = new ClaimsRepositoryImp();  // Passing context to repository
+        this.claimsRepository = new ClaimsRepositoryImp(); 
         this.policyService = new PolicyService(context);
     }
 
     // Add customer
-    public boolean addClaim(String policyName, int brokerId,int customerId, String description) throws Exception {
+    public boolean addClaim(String policyName, int brokerId,int customerId, String description, double amount) throws Exception {
      
         int policyId = 0;
+        double coverageAmount = 0.0;
         System.out.println(policyName);
 		for (Policy policy : policyService.getAllPolicies()) {
 
 			if (policy.getName().equals(policyName)) {
 
 				policyId = policy.getId();
+				coverageAmount = policy.getCoverageAmount();
 				System.out.println(policyId);
 				break;
 			}
 
 		}
-		if (policyId != 0) {
+		if (policyId != 0 && amount <= coverageAmount) {
 
-			Claims claims = new Claims(policyId, brokerId,customerId ,description);
+			Claims claims = new Claims(policyId, brokerId,customerId ,description, amount);
 			claimsRepository.addClaim(claims);
 			System.out.println("vbnm,yuijk");
 			return true;
@@ -49,7 +52,7 @@ public class ClaimService {
     }
 
     // Get customer by ID
-    public Claims getClaimById(String id) {
+    public Claims getClaimById(int id) {
         return claimsRepository.getClaimById(id);
     }
 
@@ -63,10 +66,29 @@ public class ClaimService {
     }
 
     // Update customer
-    public boolean updateClaim(int claimId, String description) {
+    public boolean updateClaim(int claimId, String policyName, String description, Double amount) {
         try {
-        	claimsRepository.updateClaim(claimId, description);
-        	return true;
+        	
+        	int policyId = 0;
+            double coverageAmount = 0.0;
+            System.out.println(policyName);
+    		for (Policy policy : policyService.getAllPolicies()) {
+
+    			if (policy.getName().equals(policyName)) {
+
+    				policyId = policy.getId();
+    				coverageAmount = policy.getCoverageAmount();
+    				System.out.println(policyId);
+    				break;
+    			}
+
+    		}
+    		if (policyId != 0 && amount <= coverageAmount) {
+    			claimsRepository.updateClaim(claimId, description, amount);
+    			return true;
+    		}
+    		return false;
+        	
         } catch (Exception e) {
         	return false;
             
@@ -74,7 +96,7 @@ public class ClaimService {
     }
 
     // Delete customer
-    public boolean deleteClaim(String id) {
+    public boolean deleteClaim(int id) {
         try {
         	claimsRepository.deleteClaim(id);
             return true;

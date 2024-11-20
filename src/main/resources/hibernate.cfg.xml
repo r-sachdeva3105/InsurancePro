@@ -27,5 +27,6 @@
 <mapping class="entity.Claims"/> 
 <mapping class="entity.Broker"/> 
 <mapping class="entity.Policy"/> 
+<mapping class="entity.ClaimsHistory"/> 
 </session-factory>
 </hibernate-configuration>

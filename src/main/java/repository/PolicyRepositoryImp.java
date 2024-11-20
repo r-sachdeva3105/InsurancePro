@@ -66,7 +66,7 @@ public class PolicyRepositoryImp implements PolicyRepository {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
             
-        	assignmentRepo.deleteClaimsByPolicyId(id);
+        	assignmentRepo.deletePolicyDetailsByPolicyId(id);
 			claimsRepository.deleteClaimsByPolicyId(id);
             
             Policy policy = session.get(Policy.class, id); // Fetch the policy to delete

@@ -97,7 +97,7 @@ public class CustomerRepositoryImp implements CustomerRepository {
 		try (Session session = sessionFactory.openSession()) {
 			Transaction transaction = session.beginTransaction();
 			
-			assignmentRepo.deleteClaimsByCustomerId(id);
+			assignmentRepo.deletePolicyDetailsByCustomerId(id);
 			claimsRepository.deleteClaimsByCustomerId(id);
 
 			Customer customer = session.get(Customer.class, id);

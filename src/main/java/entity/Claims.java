@@ -24,19 +24,24 @@ public class Claims {
 
     @Column(name = "status")
     private String status;
+    
+    @Column(name = "amount")
+    private Double amount;
 
 
-    public Claims() {
+
+	public Claims() {
         super();
     }
 
-    public Claims(int policyId, int brokerId, int customerId, String description) {
+    public Claims(int policyId, int brokerId, int customerId, String description, Double amount) {
         super();
         this.policyId = policyId;
         this.brokerId = brokerId;
         this.description = description;
         this.customerId = customerId;
         this.status = "Pending";
+        this.amount = amount;
     }
 
     // Getters and Setters
@@ -88,5 +93,13 @@ public class Claims {
         this.customerId = customerId;
     }
 
+
+    public Double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Double amount) {
+		this.amount = amount;
+	}
   
 }

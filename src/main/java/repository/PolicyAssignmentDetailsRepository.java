@@ -9,9 +9,9 @@ import entity.PolicyDetails;
 public interface PolicyAssignmentDetailsRepository {
 
 	List<Object[]> getAssignedPolicyForCustomer(int id, int brokerId);
-	void  deleteClaimsByCustomerId(int customerId) throws Exception;
-    void  deleteClaimsByPolicyId(int policyId) throws Exception;
-
+	void  deletePolicyDetailsByCustomerId(int customerId) throws Exception;
+    void  deletePolicyDetailsByPolicyId(int policyId) throws Exception;
+    PolicyDetails getDetailsforCustomer(int customerId, int policyId, int brokerId);
 	void addPolicyDetails(PolicyDetails details);
 
 }

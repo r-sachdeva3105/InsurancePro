@@ -78,37 +78,74 @@ public class PolicyAssignmentDetailsRepositoryImpl implements PolicyAssignmentDe
     }
 
 	@Override
-	public void deleteClaimsByCustomerId(int customerId) throws Exception {
+	public void deletePolicyDetailsByCustomerId(int customerId) throws Exception {
 		// TODO Auto-generated method stub
+	
 		
 		try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
+	        Transaction transaction = session.beginTransaction();
 
-            PolicyDetails details = session.get(PolicyDetails.class, customerId);
-            if (details != null) {
-                session.delete(details);
-                transaction.commit();
-            } else {
-                throw new Exception("Claims with ID " + customerId + " not found.");
-            }
-        }
+	        // HQL bulk delete query to delete all ClaimsHistory entries with the given claimId
+	        int deletedCount = session.createNativeQuery("DELETE FROM policy_details WHERE customer_id = :customerId")
+	                .setParameter("customerId", customerId)
+	                .executeUpdate();
+
+	        if (deletedCount == 0) {
+	        	System.out.println("No assignment history found for Claim ID " + customerId);
+	           
+	        }
+
+	        transaction.commit();
+	    } catch (Exception e) {
+	        throw new Exception("Error deleting assignment history for Claim ID " + customerId, e);
+	    }
 		
 	}
 
 	@Override
-	public void deleteClaimsByPolicyId(int policyId) throws Exception {
+	public void deletePolicyDetailsByPolicyId(int policyId) throws Exception {
 		// TODO Auto-generated method stub
 		try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
+	        Transaction transaction = session.beginTransaction();
 
-            PolicyDetails details = session.get(PolicyDetails.class, policyId);
-            if (details != null) {
-                session.delete(details);
-                transaction.commit();
-            } else {
-                throw new Exception("Claims with ID " + policyId + " not found.");
-            }
-        }
+	        // HQL bulk delete query to delete all ClaimsHistory entries with the given claimId
+	        int deletedCount = session.createNativeQuery("DELETE FROM policy_details WHERE policy_id = :policyId")
+	                .setParameter("policyId", policyId)
+	                .executeUpdate();
+
+	        if (deletedCount == 0) {
+	        	System.out.println("No assignment history found for Claim ID " + policyId);
+	           
+	        }
+
+	        transaction.commit();
+	    } catch (Exception e) {
+	        throw new Exception("Error deleting assignment history for Claim ID " + policyId, e);
+	    }
 		
 	}
+
+	@Override
+	public PolicyDetails getDetailsforCustomer(int customerId, int policyId, int brokerId) {
+	    PolicyDetails customerDetails = null;
+	    try (Session session = sessionFactory.openSession()) {
+	        // Define the native SQL query
+	        String sql = "SELECT * FROM policy_details WHERE customer_id = :customerId AND policy_id = :policyId AND broker_id = :brokerId";
+
+	        // Create a native query and map the result to PolicyDetails
+	        NativeQuery<PolicyDetails> query = session.createNativeQuery(sql, PolicyDetails.class);
+	        query.setParameter("customerId", customerId);
+	        query.setParameter("policyId", policyId);
+	        query.setParameter("brokerId", brokerId);
+
+	        // Get a single result
+	        customerDetails = query.uniqueResult();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        // Optionally, handle exceptions (e.g., logging)
+	    }
+
+	    return customerDetails;
+	}
+
 }

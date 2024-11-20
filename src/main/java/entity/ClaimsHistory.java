@@ -12,17 +12,13 @@ public class ClaimsHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "claim_id", nullable = false)
-    private Claims claim;
-
-
+    @Column(name = "claim_id")
+    private Integer claim;
 
     @Column(name = "new_status", nullable = false)
     private String newStatus;
 
-    @ManyToOne
-    @JoinColumn(name = "updated_by")
+    @Column(name = "updated_by")
     private Integer updatedBy;
 
 
@@ -33,7 +29,7 @@ public class ClaimsHistory {
         super();
     }
 
-    public ClaimsHistory(Claims claim, String newStatus, Integer updatedBy, String changeReason) {
+    public ClaimsHistory(Integer claim, String newStatus, Integer updatedBy, String changeReason) {
         this.claim = claim;
         this.newStatus = newStatus;
         this.updatedBy = updatedBy;
@@ -49,11 +45,11 @@ public class ClaimsHistory {
         this.id = id;
     }
 
-    public Claims getClaim() {
+    public Integer getClaim() {
         return claim;
     }
 
-    public void setClaim(Claims claim) {
+    public void setClaim(Integer claim) {
         this.claim = claim;
     }
 

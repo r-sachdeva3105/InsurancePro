@@ -24,11 +24,13 @@ public class UpdateClaimServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int claimId = Integer.parseInt(request.getParameter("id"));
-        String status = request.getParameter("status"); // Change this to fetch the correct parameter
+        String policyName = request.getParameter("policyName");
+        String description = request.getParameter("description");
+        Double amount = Double.parseDouble(request.getParameter("amount"));
 
         try {
             // Assuming updateClaim now accepts claimId and status
-            if (!claimService.updateClaim(claimId, status)) {
+            if (!claimService.updateClaim(claimId, policyName, description, amount)) {
                 throw new Exception("Error occurred while updating claim status.");
             }
             response.setStatus(HttpServletResponse.SC_OK); // Send OK response

@@ -43,12 +43,13 @@ public class SubmitClaimServlet extends HttpServlet {
 	     int brokerId = Integer.parseInt(request.getParameter("brokerId"));
 	     int customerId = Integer.parseInt(request.getParameter("customerId"));
 	     String description = request.getParameter("description");
+	     Double amount = Double.parseDouble(request.getParameter("amount"));
 	     
 	     
 	     
 	 	try {
 
-			if (!claimService.addClaim(policyName, brokerId, customerId,  description))
+			if (!claimService.addClaim(policyName, brokerId, customerId,  description, amount))
 				throw new Exception("Error Ouccred");
 			response.sendRedirect("customers.html");
 
