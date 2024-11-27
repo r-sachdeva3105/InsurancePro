@@ -34,12 +34,18 @@ public class PolicyDetails {
 
     @Column(name = "status", nullable = false)
     private String status; // Policy status (Active, Renewed, Cancelled)
+    
+    @Column(name = "term_length", nullable = false)
+    private String termLength;
+
+    @Column(name = "term_factor")
+    private Double termFactor;
 
     // Default constructor needed by Hibernate
     public PolicyDetails() {}
 
     // Constructor with parameters
-    public PolicyDetails(Integer policyId, Integer customerId, Integer brokerId, Double premiumAmount, Date startDate, Date endDate, String status) {
+    public PolicyDetails(Integer policyId, Integer customerId, Integer brokerId, Double premiumAmount, Date startDate, Date endDate, String status,  String termLength) {
         this.policyId = policyId;
         this.customerId = customerId;
         this.brokerId = brokerId;
@@ -47,6 +53,21 @@ public class PolicyDetails {
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
+        this.termLength = termLength;
+        this.calculateTermFactor(termLength);
+        this.termFactor = this.getTermFactor();
+        
+    }
+    public PolicyDetails(Integer policyId, Integer customerId, Integer brokerId, Double premiumAmount, Date startDate, Date endDate, String status,  String termLength, Double termFactor) {
+        this.policyId = policyId;
+        this.customerId = customerId;
+        this.brokerId = brokerId;
+        this.premiumAmount = premiumAmount;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
+        this.termLength = termLength;
+        this.termFactor = termFactor;
     }
 
     // Getters and Setters
@@ -113,4 +134,35 @@ public class PolicyDetails {
     public void setStatus(String status) {
         this.status = status;
     }
+    
+    public String getTermLength() {
+		return termLength;
+	}
+
+	public void setTermLength(String termLength) {
+		this.termLength = termLength;
+	}
+
+	public Double getTermFactor() {
+		return termFactor;
+	}
+	public void setTermFactor(Double termFactor) {
+		this.termFactor = termFactor;
+	}
+
+
+	public Double calculateTermFactor(String termLength) {
+		if (termLength.equals("1 year"))
+			return 1.0;
+		else if(termLength.equals("3 years"))
+			return 1.1;
+		else if(termLength.equals("5 years"))
+			return 1.2;
+		else if(termLength.equals("8 years"))
+			return 1.38;
+		else if(termLength.equals("10 years"))
+			return 1.5;
+		return 0.0;
+		
+	}
 }

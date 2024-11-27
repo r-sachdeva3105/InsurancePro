@@ -60,11 +60,13 @@ public class AssignPolicyServlet extends HttpServlet {
 		Date startDate = sdf.parse(request.getParameter("startDate"));
 		Date endDate = sdf.parse(request.getParameter("endDate"));
 		String status = request.getParameter("status");
+
+        String termLength = request.getParameter("termLength");
 		
 
 		
 
-			if (!assignmentService.addPolicyDetails(customerId, policyName, brokerId, startDate, endDate, status))
+			if (!assignmentService.addPolicyDetails(customerId, policyName, brokerId, startDate, endDate, status, termLength))
 				throw new Exception("Error Ouccred");
 			response.sendRedirect("customers.html");
 

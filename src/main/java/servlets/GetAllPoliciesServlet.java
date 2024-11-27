@@ -23,7 +23,7 @@ public class GetAllPoliciesServlet extends HttpServlet {
 
     // Initializes the servlet and creates the policy service
     public void init() {
-        policyService = new PolicyService(getServletContext());
+        policyService = new PolicyService();
     }
 
     // Handles GET requests to retrieve all policies

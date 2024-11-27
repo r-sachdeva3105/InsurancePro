@@ -20,7 +20,7 @@ public class ClaimService {
     // Performing dependency injection using constructor
     public ClaimService(ServletContext context) {
         this.claimsRepository = new ClaimsRepositoryImp(); 
-        this.policyService = new PolicyService(context);
+        this.policyService = new PolicyService();
     }
 
     // Add customer

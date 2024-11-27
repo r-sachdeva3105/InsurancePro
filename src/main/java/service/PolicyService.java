@@ -12,7 +12,7 @@ public class PolicyService {
     private PolicyRepository policyRepository; // Policy repository instance
 
     // Constructor to initialize the policy repository
-    public PolicyService(ServletContext context) {
+    public PolicyService() {
         this.policyRepository = new PolicyRepositoryImp();
     }
 

@@ -15,7 +15,7 @@ public class CustomerService {
     // Performing dependency injection using constructor
     public CustomerService(ServletContext context) {
         this.customerRepository = new CustomerRepositoryImp();  // Passing context to repository
-        this.policyService = new PolicyService(context);
+        this.policyService = new PolicyService();
     }
 
     // Add customer

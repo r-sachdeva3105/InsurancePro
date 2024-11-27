@@ -21,7 +21,7 @@ public class UpdatePolicyServlet extends HttpServlet {
 
     // Initializes the servlet and creates the policy service
     public void init() {
-        policyService = new PolicyService(getServletContext());
+        policyService = new PolicyService();
     }
 
     // Handles POST requests to update a policy
@@ -33,7 +33,6 @@ public class UpdatePolicyServlet extends HttpServlet {
         String type = request.getParameter("type");
         Double baseRate = Double.parseDouble(request.getParameter("baseRate"));
         Double coverageAmount = Double.parseDouble(request.getParameter("coverageAmount"));
-        String termLength = request.getParameter("termLength");
 
         // Create a new Policy object with the updated details
         Policy policy = new Policy(); // Assuming you have a default constructor
@@ -43,8 +42,6 @@ public class UpdatePolicyServlet extends HttpServlet {
         policy.setType(type);
         policy.setBaseRate(baseRate);
         policy.setCoverageAmount(coverageAmount);
-        policy.setTermLength(termLength);
-        policy.setTermFactor(termLength);
         
         try {
             policyService.updatePolicy(policy); // Update the policy using the service

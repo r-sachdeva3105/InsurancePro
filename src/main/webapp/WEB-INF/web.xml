@@ -197,4 +197,37 @@
 		<url-pattern>/ReportingServlet</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<description></description>
+		<display-name>GetAllClaimsHistoryByPolicyServlet</display-name>
+		<servlet-name>GetAllClaimsHistoryByPolicyServlet</servlet-name>
+		<servlet-class>servlets.GetAllClaimsHistoryByPolicyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetAllClaimsHistoryByPolicyServlet</servlet-name>
+		<url-pattern>/GetAllClaimsHistoryByPolicyServlet</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<description></description>
+		<display-name>GetPoliciesForRenewalServlet</display-name>
+		<servlet-name>GetPoliciesForRenewalServlet</servlet-name>
+		<servlet-class>servlets.GetPoliciesForRenewalServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetPoliciesForRenewalServlet</servlet-name>
+		<url-pattern>/GetPoliciesForRenewalServlet</url-pattern>
+	</servlet-mapping>
+	
+		<servlet>
+		<description></description>
+		<display-name>RenewPolicyServlet</display-name>
+		<servlet-name>RenewPolicyServlet</servlet-name>
+		<servlet-class>servlets.RenewPolicyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RenewPolicyServlet</servlet-name>
+		<url-pattern>/RenewPolicyServlet</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

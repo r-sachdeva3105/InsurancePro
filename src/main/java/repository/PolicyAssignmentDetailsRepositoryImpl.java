@@ -1,6 +1,7 @@
 package repository;
 
 import entity.Claims;
+import entity.Customer;
 import entity.PolicyDetails;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -30,7 +31,7 @@ public class PolicyAssignmentDetailsRepositoryImpl implements PolicyAssignmentDe
             Transaction transaction = session.beginTransaction();
             
             // Define and set up the native query
-            String sql = "SELECT p.name As policyName, pd.broker_id, pd.premium_amount " +
+            String sql = "SELECT p.name As policyName, pd.broker_id, pd.premium_amount, pd.term_length " +
                          "FROM policy_details pd " +
                          "JOIN policies p ON pd.policy_id = p.id "
                          + "WHERE pd.customer_id = :id and" +
@@ -146,6 +147,57 @@ public class PolicyAssignmentDetailsRepositoryImpl implements PolicyAssignmentDe
 	    }
 
 	    return customerDetails;
+	}
+
+	@Override
+	public List<Object[]> getPoliciesforRenewal(int brokerId) {
+		// TODO Auto-generated method stub
+		
+		  List<Object[]> policyDetails = null;
+	        
+	        try (Session session = sessionFactory.openSession()) {
+	            Transaction transaction = session.beginTransaction();
+	            
+	            // Define and set up the native query
+	            String sql = "select pd.id, p.name, c.name, pd.premium_amount, pd.term_length, pd.start_date, pd.end_date from policies p Join policy_details pd  on p.id = pd.policy_id Join customer c on pd.customer_id = c.id where end_date > current_timestamp() and status = \"Active\" and pd.broker_id = :brokerId";
+	            
+	            NativeQuery<Object[]> query = session.createNativeQuery(sql);
+	            query.setParameter("brokerId", brokerId);
+	            
+	            // Execute the query and retrieve results
+	            policyDetails = query.getResultList();
+	            
+	            transaction.commit();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            // Handle exceptions (e.g., log them)
+	        }
+	       
+	        return policyDetails;
+		
+	}
+
+	@Override
+	public PolicyDetails getDetailById(int id) {
+		// TODO Auto-generated method stub
+		  try (Session session = sessionFactory.openSession()) {
+	            return session.get(PolicyDetails.class, id);
+	        }
+	}
+	
+	@Override
+	public synchronized void updatePolicyDetails(PolicyDetails details) {
+		try (Session session = sessionFactory.openSession()) {
+			Transaction transaction = session.beginTransaction();
+
+			Customer existingCustomer = session.get(Customer.class, details.getId());
+			if (existingCustomer != null) {
+				session.merge(details);
+				transaction.commit();
+			} else {
+				throw new IllegalArgumentException("Customer with ID " + details.getId() + " not found.");
+			}
+		}
 	}
 
 }

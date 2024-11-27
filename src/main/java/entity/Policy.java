@@ -20,17 +20,13 @@ public class Policy {
     @Column(name = "type", nullable = false)
     private String type;
 
-    @Column(name = "baseRate")
+    @Column(name = "base_rate")
     private Double baseRate;
     
     @Column(name = "coverage_amount")
     private Double coverageAmount;
     
-    @Column(name = "termLength", nullable = false)
-    private String termLength;
 
-    @Column(name = "termFactor")
-    private Double termFactor;
     
 
 
@@ -40,26 +36,22 @@ public class Policy {
     public Policy() {}
 
     // Constructor with parameters (without id, createdAt, and updatedAt for insertion)
-    public Policy(String name, String description, String type, Double baseRate, Double coverageAmount, String termLength) {
+    public Policy(String name, String description, String type, Double baseRate, Double coverageAmount) {
         this.name = name;
         this.description = description;
         this.type = type;
         this.baseRate = baseRate;
         this.coverageAmount = coverageAmount;
-        this.termLength = termLength;
-        this.setTermFactor(termLength);
     }
 
     // Full constructor (for scenarios where all fields are required)
-    public Policy(Integer id, String name, String description, String type, Double baseRate, Double coverageAmount, Double premium, String termLength) {
+    public Policy(Integer id, String name, String description, String type, Double baseRate, Double coverageAmount) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.type = type;
         this.baseRate = baseRate;
         this.coverageAmount = coverageAmount;
-        this.termLength = termLength;
-        this.setTermFactor(termLength);
     }
 
     // Getters and Setters
@@ -113,31 +105,7 @@ public class Policy {
         this.coverageAmount = coverageAmount;
     }
 
-    public String getTermLength() {
-		return termLength;
-	}
 
-	public void setTermLength(String termLength) {
-		this.termLength = termLength;
-	}
-
-	public Double getTermFactor() {
-		return termFactor;
-	}
-
-	public void setTermFactor(String termLength) {
-		if (termLength == "1 year")
-			termFactor = 1.0;
-		else if(termLength == "3 years")
-			termFactor = 1.1;
-		else if(termLength == "5 years")
-			termFactor = 1.2;
-		else if(termLength == "8 years")
-			termFactor = 1.38;
-		else if(termLength == "10 years")
-			termFactor = 1.5;
-		
-	}
   
 
     

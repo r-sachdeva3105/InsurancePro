@@ -56,28 +56,30 @@ public class ClaimHistoryRepositoryImpl implements ClaimHistoryRepository{
 
 	@Override
 	public List<Object[]> getClaimsHistoryByPolicy(int policyId) {
-		// TODO Auto-generated method stub
-		
-		List<Object[]> claimsHistory = null;
+	    List<Object[]> claimsHistory = null;
+
 	    try (Session session = sessionFactory.openSession()) {
-	        Transaction transaction = session.beginTransaction();
+	        // SQL query to fetch claims history
+	        String sql = "SELECT ch.new_status, c.amount, c.created_at AS Submission_Date, " +
+	                     "ch.updated_at AS Update_Date, ch.change_reason " +
+	                     "FROM claims c " +
+	                     "JOIN claim_history ch ON c.id = ch.claim_id " +
+	                     "WHERE c.policy_id = :policyId";
 
-	        String sql = "select ch.new_status, c.amount, c.created_at as Submission_Date, ch.updated_at as Update_Date, ch.change_reason From claims c Join claims_history on c.id = ch.claim_id;";
-
+	        // Create native query
 	        NativeQuery<Object[]> query = session.createNativeQuery(sql);
+	        query.setParameter("policyId", policyId); // Set the parameter
 
 	        // Execute the query and retrieve results
 	        claimsHistory = query.getResultList();
-
-	        transaction.commit();
 	    } catch (Exception e) {
-	        e.printStackTrace();
-	        // Handle exceptions (e.g., log them)
+	        e.printStackTrace(); // Log exception
+	        // Optionally rethrow as a custom exception
 	    }
 
 	    return claimsHistory;
-		
 	}
+
 
 
 }

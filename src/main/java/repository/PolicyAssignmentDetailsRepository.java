@@ -12,6 +12,8 @@ public interface PolicyAssignmentDetailsRepository {
 	void  deletePolicyDetailsByCustomerId(int customerId) throws Exception;
     void  deletePolicyDetailsByPolicyId(int policyId) throws Exception;
     PolicyDetails getDetailsforCustomer(int customerId, int policyId, int brokerId);
+    PolicyDetails getDetailById(int id);
 	void addPolicyDetails(PolicyDetails details);
-
+	List<Object[]> getPoliciesforRenewal(int brokerId);
+	void updatePolicyDetails(PolicyDetails details);
 }

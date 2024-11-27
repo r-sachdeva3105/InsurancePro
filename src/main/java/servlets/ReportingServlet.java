@@ -25,7 +25,7 @@ public class ReportingServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         customerService = new CustomerService(getServletContext());
-        policyService = new PolicyService(getServletContext());
+        policyService = new PolicyService();
         claimService = new ClaimService(getServletContext());
     }
 

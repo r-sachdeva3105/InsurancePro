@@ -20,7 +20,7 @@ public class DeletePolicyServlet extends HttpServlet {
 
     // Initializes the servlet and creates the policy service
     public void init() {
-        policyService = new PolicyService(getServletContext());
+        policyService = new PolicyService();
     }
 
     // Handles POST requests to delete a policy

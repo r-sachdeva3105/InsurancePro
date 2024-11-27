@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Policies for Renewal</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .renew-btn {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .renew-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Policies for Renewal</h1>
+    <table id="policiesTable">
+        <thead>
+            <tr>
+                <th>Policy Name</th>
+                <th>Customer Name</th>
+                <th>Premium</th>
+                <th>term length</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be dynamically added here -->
+        </tbody>
+    </table>
+
+<script>
+    $(document).ready(function() {
+        // AJAX call to fetch policies
+        function fetchPolicies() {
+            $.ajax({
+                url: "GetPoliciesForRenewalServlet", // Adjust the URL if necessary
+                method: "GET",
+                dataType: "json",
+                success: function(data) {
+                    populateTable(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error fetching policies: ", error);
+                }
+            });
+        }
+
+        // Populate table with data
+        function populateTable(policies) {
+            const tbody = $("#policiesTable tbody");
+            tbody.empty(); // Clear existing rows
+
+            policies.forEach(policy => {
+                const row = `
+                    <tr>
+                        <td>${policy.policyName}</td>
+                        <td>${policy.customerName}</td>
+                        <td>${policy.premium}</td>
+                        <td>${policy.termLength}</td>
+                        <td>${policy.startDate}</td>
+                        <td>${policy.endDate}</td>
+                        <td>
+                            <button class="renew-btn" onclick="renewPolicy(${policy.id})">Renew</button>
+                        </td>
+                    </tr>
+                `;
+                tbody.append(row);
+            });
+        }
+
+        // Action when "Renew" button is clicked
+        window.renewPolicy = function(policyId) {
+            $.ajax({
+                url: "RenewPolicyServlet", // Adjust the URL if necessary
+                method: "POST",
+                data: { id: policyId, termLength: "10 years" },
+                success: function(response) {
+                    alert("Policy renewed successfully!");
+                    fetchPolicies(); // Refresh the table
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error renewing policy: ", error);
+                    alert("Failed to renew policy. Please try again.");
+                }
+            });
+        };
+
+        // Fetch policies on page load
+        fetchPolicies();
+
+        // Set interval to refresh data every 3 seconds
+        setInterval(fetchPolicies, 3000);
+    });
+</script>
+
+</body>
+</html>
