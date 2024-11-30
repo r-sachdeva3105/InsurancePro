@@ -39,6 +39,12 @@
 	          <li class="mb-4">
 	            <a href="claims.html" class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded">Claims</a>
 	          </li>
+	          <li class="mb-4">
+                <a href="renewal.html" class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded">Renewals</a>
+              </li>
+              <li class="mb-4">
+                <a href="claimsHistory.html" class="text-white font-semibold block hover:bg-gray-700 px-4 py-2 rounded">Claims History</a>
+              </li>
 	        </ul>
 	      </div>
     	</aside>
@@ -152,11 +158,8 @@
 					<div>
 						<label for="policyName" class="block text-sm font-medium text-gray-700">Policy Name</label>
 						<select id="policyName" name="policyName" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" required>
+							<!-- Populate dynamically -->
 						</select>
-					</div>
-					<div>
-						<label for="premiumAmount" class="block text-sm font-medium text-gray-700">Premium Amount</label>
-						<input type="text" id="premiumAmount" name="premiumAmount" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" placeholder="$0.00/month" required>
 					</div>
 					<div>
 						<label for="customerId" class="block text-sm font-medium text-gray-700">Customer ID</label>
@@ -167,11 +170,30 @@
 						<input type="text" id="brokerId" name="brokerId" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" required>
 					</div>
 					<div>
+						<label for="startDate" class="block text-sm font-medium text-gray-700">Start Date</label>
+						<input type="date" id="startDate" name="startDate" class="mt-1 p-2 w-full border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed" readonly>
+					</div>
+					<div>
+						<label for="endDate" class="block text-sm font-medium text-gray-700">End Date</label>
+						<input type="date" id="endDate" name="endDate" class="mt-1 p-2 w-full border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed" readonly>
+					</div>
+					<div>
+						<label for="status" class="block text-sm font-medium text-gray-700">Status</label>
+						<input type="text" id="status" name="status" value="Active" class="mt-1 p-2 w-full border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed" readonly>
+					</div>
+					<div>
+						<label for="termLength" class="block text-sm font-medium text-gray-700">Term Length</label>
+						<select id="termLength" name="termLength" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" required>
+							<option value="1 year">1 Year</option>
+							<option value="5 years">5 Years</option>
+							<option value="10 years">10 Years</option>
+						</select>
+					</div>
+					<div>
 						<button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-green-700">Save</button>
 					</div>
 				</form>
 			</div>
-
 		</main>
 	</div>
 
@@ -336,27 +358,57 @@
 
 		// Function to show the Assign Policy form
 		function showAssignPolicyForm(customerId, brokerId) {
-			hideAllForms(); // Hide other forms
-			document.getElementById('customer_Id').value = customerId; // Pre-fill customer ID
-			document.getElementById('brokerId').value = brokerId; 
-			document.getElementById('assignPolicyForm').classList.remove('hidden');
-			fetch('GetAllPoliciesServlet')
-			.then(response => response.json())
-			.then(data => {
-				const selectBody = document.getElementById("policyName");
+		    hideAllForms();
 
-				console.log(data);
-				selectBody.innerHTML = ''; // Clear previous options
-				data.map(policy => {
-					const option = document.createElement("option");
-					option.value = policy.name;
-					option.text = policy.name;
-					selectBody.appendChild(option);
-				});
-			})
-			.catch(error => {
-				console.error('Error fetching customers:', error);
-			});
+		    document.getElementById('customer_Id').value = customerId;
+		    document.getElementById('brokerId').value = brokerId;
+
+		    const today = new Date();
+		    const formattedDate = today.toISOString().split("T")[0];
+		    document.getElementById('startDate').value = formattedDate;
+		    
+		    let endDate = calculateEndDate(today, "1 year");
+	        document.getElementById('endDate').value = endDate;
+
+		    // Add an event listener to dynamically calculate the end date based on term length
+		    document.getElementById('termLength').addEventListener('change', function () {
+		        const termLength = this.value;
+		        endDate = calculateEndDate(today, termLength);
+		        document.getElementById('endDate').value = endDate;
+		    });
+
+		    // Show the Assign Policy form
+		    document.getElementById('assignPolicyForm').classList.remove('hidden');
+
+		    // Fetch policies and populate the dropdown
+		    fetch('GetAllPoliciesServlet')
+		        .then(response => response.json())
+		        .then(data => {
+		            const selectBody = document.getElementById("policyName");
+		            selectBody.innerHTML = '';
+		            data.forEach(policy => {
+		                const option = document.createElement("option");
+		                option.value = policy.name;
+		                option.text = policy.name;
+		                selectBody.appendChild(option);
+		            });
+		        })
+		        .catch(error => {
+		            console.error('Error fetching policies:', error);
+		        });
+		}
+		
+		// Function to calculate end date based on term length
+		function calculateEndDate(startDate, termLength) {
+		    const newDate = new Date(startDate);
+		    if (termLength === "1 year") {
+		        newDate.setFullYear(newDate.getFullYear() + 1);
+		    } else if (termLength === "5 years") {
+		        newDate.setFullYear(newDate.getFullYear() + 5);
+		    } else if (termLength === "10 years") {
+		        newDate.setFullYear(newDate.getFullYear() + 10);
+		    }
+		    return newDate.toISOString().split("T")[0];
 		}
 
 		// Function to hide all forms
@@ -367,7 +419,7 @@
 			document.getElementById('policyDetailsForm').classList.add('hidden');
 		}
 
-		// Format premium amount
+		/* // Format premium amount
 		document.getElementById('premiumAmount').addEventListener('input', function (event) {
 			let value = event.target.value;
 
@@ -379,7 +431,7 @@
 				value = parseFloat(value).toFixed(2); // Ensure two decimal places
 				event.target.value = `$${value}/month`; // Add $ sign and /month
 			}
-		});
+		}); */
 	</script>
 
 </body>
