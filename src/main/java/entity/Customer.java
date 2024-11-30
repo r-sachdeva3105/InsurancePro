@@ -30,9 +30,9 @@ public class Customer {
     private Integer brokerId;
 
     @Column(name = "address")
-    private String address;
+    private String address; // add new
 
-    @Column(name = "dob") // Date of birth
+    @Column(name = "dob") // Date of birth | add new
     private String dob; // Use String or LocalDate depending on your database setup
 
 

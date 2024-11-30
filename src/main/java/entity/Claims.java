@@ -26,7 +26,7 @@ public class Claims {
     private String status;
     
     @Column(name = "amount")
-    private Double amount;
+    private Double amount; // add new form for submitting
 
 
 

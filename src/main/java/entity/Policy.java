@@ -21,10 +21,10 @@ public class Policy {
     private String type;
 
     @Column(name = "base_rate")
-    private Double baseRate;
+    private Double baseRate; // add new
     
     @Column(name = "coverage_amount")
-    private Double coverageAmount;
+    private Double coverageAmount; // add new
     
 
     

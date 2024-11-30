@@ -1,7 +1,7 @@
 package entity;
 
 
-
+// add new page for claim history
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 

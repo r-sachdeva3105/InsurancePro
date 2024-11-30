@@ -23,20 +23,20 @@ public class PolicyDetails {
     @Column(name = "broker_id", nullable = false)
     private Integer brokerId; // Foreign key reference to brokers table
 
-    @Column(name = "premium_amount")
-    private Double premiumAmount; // Premium amount for the policy
+    @Column(name = "premium_amount") 
+    private Double premiumAmount; // Premium amount for the policy // remove
 
     @Column(name = "start_date", nullable = false)
-    private Date startDate; // Policy start date
+    private Date startDate; // Policy start date // add new -  read only
 
     @Column(name = "end_date", nullable = false)
-    private Date endDate; // Policy end date
+    private Date endDate; // Policy end date // add new - read only
 
     @Column(name = "status", nullable = false)
-    private String status; // Policy status (Active, Renewed, Cancelled)
+    private String status; // Policy status (Active, Renewed, Cancelled) // add new  - active
     
     @Column(name = "term_length", nullable = false)
-    private String termLength;
+    private String termLength; // add new refer bewlo for values
 
     @Column(name = "term_factor")
     private Double termFactor;
