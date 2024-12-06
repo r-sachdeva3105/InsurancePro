@@ -39,10 +39,10 @@ public class GetPoliciesForRenewalServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//HttpSession session = request.getSession();
-        //int brokerId = (int) session.getAttribute("brokerId");
+		HttpSession session = request.getSession();
+        int brokerId = (int) session.getAttribute("brokerId");
         
-        List<Object[]> renewalDetails = assignmentService.getPoliciesforRenewal(1);
+        List<Object[]> renewalDetails = assignmentService.getPoliciesforRenewal(brokerId);
 
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
@@ -59,16 +59,18 @@ public class GetPoliciesForRenewalServlet extends HttpServlet {
 
 	    for (Object[] row : renewalDetails) {
 	    	int id = (int) row[0];
-	        String policyName = (String) row[1];
-	        String customerName = (String) row[2];
-	        Double premium = (Double) row[3];
-	        String termLength = (String) row[4];
-	        Date startDate = (Date) row[5];
-	        Date endDate = (Date) row[6];
+	    	int policyId = (int) row[1];
+	        String policyName = (String) row[2];
+	        String customerName = (String) row[3];
+	        Double premium = (Double) row[4];
+	        String termLength = (String) row[5];
+	        Date startDate = (Date) row[6];
+	        Date endDate = (Date) row[7];
 
 	        StringBuilder policyJson = new StringBuilder();
 	        policyJson.append("{")
 	        		.append("\"id\":\"").append(id).append("\",")
+	        		.append("\"policyId\":\"").append(policyId).append("\",")
 	        		.append("\"policyName\":\"").append(policyName).append("\",")
 	        		.append("\"customerName\":\"").append(customerName).append("\",")
 	                .append("\"premium\":\"").append(premium).append("\",")

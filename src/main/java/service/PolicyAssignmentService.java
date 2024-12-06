@@ -27,33 +27,32 @@ public class PolicyAssignmentService {
 	}
 
 // add policy details
-	public boolean addPolicyDetails(int customerId, String policyName, int brokerId, Date startDate, Date endDate, String status, String termLength)
-			throws Exception {
+	public boolean addPolicyDetails(int customerId, String policyName, int brokerId, Date startDate, Date endDate, String status, String termLength) throws Exception {
+	    if (policyName == null || policyName.trim().isEmpty()) {
+	        System.out.println("Invalid policy name provided.");
+	        throw new IllegalArgumentException("Policy name cannot be null or empty");
+	    }
 
-		Policy policyNew = null;
-		Double premiumAmount = 0.0;
-		for (Policy policy : policyService.getAllPolicies()) {
+	    Policy policyNew = null;
+	    for (Policy policy : policyService.getAllPolicies()) {
+	        if (policy.getName().equals(policyName)) {
+	            policyNew = policy;
+	            break;
+	        }
+	    }
 
-			if (policy.getName().equals(policyName)) {
+	    if (policyNew != null) {
+	    	PolicyDetails details = new PolicyDetails();
+	        double premiumAmount = policyNew.getBaseRate() * policyNew.getCoverageAmount() * details.calculateTermFactor(termLength);
+	         details = new PolicyDetails(policyNew.getId(),customerId, brokerId, premiumAmount, startDate, endDate, status, termLength);
 
-				policyNew = policy;
-				
-				break;
-			}
+	        assignmentRepo.addPolicyDetails(details); // Save policy details
+	        System.out.println("Policy details added successfully for customer ID: " + customerId);
+	        return true;
+	    }
 
-		}
-		if (policyNew != null) {
-
-			
-			PolicyDetails details = new PolicyDetails(customerId, policyNew.getId(), brokerId, premiumAmount, startDate, endDate, status, termLength );
-			premiumAmount = policyNew.getBaseRate() * policyNew.getCoverageAmount() * details.getTermFactor();
-			assignmentRepo.addPolicyDetails(details);
-			System.out.println("vbnm,yuijk");
-			return true;
-		}
-		System.out.println("sdfghq345trd");
-		return false;
-
+	    System.out.println("Policy not found for the name: " + policyName);
+	    return false;
 	}
 
 // get policy details for customer
@@ -96,6 +95,11 @@ public class PolicyAssignmentService {
 	    } else {
 	        throw new IllegalArgumentException("Invalid term length format: " + termLength);
 	    }
+	}
+	
+	
+	public void cancelPolicy(int id) {
+		assignmentRepo.cancelPolicyForCustomer(id);
 	}
 
 }

@@ -16,4 +16,5 @@ public interface PolicyAssignmentDetailsRepository {
 	void addPolicyDetails(PolicyDetails details);
 	List<Object[]> getPoliciesforRenewal(int brokerId);
 	void updatePolicyDetails(PolicyDetails details);
+	void cancelPolicyForCustomer(int id);
 }

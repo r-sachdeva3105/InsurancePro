@@ -230,4 +230,15 @@
 		<url-pattern>/RenewPolicyServlet</url-pattern>
 	</servlet-mapping>
 	
+		<servlet>
+		<description></description>
+		<display-name>CancelPolicyServlet</display-name>
+		<servlet-name>CancelPolicyServlet</servlet-name>
+		<servlet-class>servlets.CancelPolicyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CancelPolicyServlet</servlet-name>
+		<url-pattern>/CancelPolicyServlet</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

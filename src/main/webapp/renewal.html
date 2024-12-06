@@ -119,7 +119,7 @@
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.startDate.split(" ")[0]}</td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.endDate.split(" ")[0]}</td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" onclick="renewPolicy(${policy.id})">Renew</button>
+                                <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700" onclick="renewPolicy(${policy.id}, '${policy.termLength}')">Renew</button>
                             </td>
                         </tr>
                     `;
@@ -128,11 +128,11 @@
             }
 
             // Action when "Renew" button is clicked
-            window.renewPolicy = function(policyId) {
+            window.renewPolicy = function(policyId, termLength) {
                 $.ajax({
                     url: "RenewPolicyServlet", // Adjust the URL if necessary
                     method: "POST",
-                    data: { id: policyId },
+                    data: { id: policyId, termLength: termLength },
                     success: function(response) {
                         alert("Policy renewed successfully!");
                         fetchPolicies(); // Refresh the table
