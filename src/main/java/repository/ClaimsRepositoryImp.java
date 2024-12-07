@@ -34,7 +34,8 @@ public class ClaimsRepositoryImp implements ClaimsRepository {
             	claimHistory.addClaimHistory(new ClaimsHistory(1, claim.getStatus(), claim.getBrokerId(), "Submitted a new Claim"));
             else {
             	Object[] claims = claimDetails.get(claimDetails.size()-1);
-            	int claimId = (int)claims[0] + 1;
+            	int claimId = Integer.parseInt(claims[0].toString());
+            	System.out.println(claimId);
             	claimHistory.addClaimHistory(new ClaimsHistory(claimId, claim.getStatus(), claim.getBrokerId(), "Submitted a new Claim"));
             }
             
