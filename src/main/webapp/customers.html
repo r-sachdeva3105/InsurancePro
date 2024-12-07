@@ -196,6 +196,37 @@
 					</div>
 				</form>
 			</div>
+			
+			<!-- Submit Claim Form -->
+			<div id="submitClaimForm" class="hidden mt-6">
+			    <h2 class="text-2xl font-bold mb-4">Submit Claim</h2>
+			    <form id="claimForm" action="SubmitClaimServlet" method="POST" class="bg-white p-6 rounded-lg shadow-md space-y-4">
+			        <div>
+			            <label for="policyName" class="block text-sm font-medium text-gray-700">Policy Name</label>
+			            <input type="text" id="claim-policyName" name="policyName" class="mt-1 p-2 w-full border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed" readonly>
+			        </div>
+			        <div>
+			            <label for="brokerId" class="block text-sm font-medium text-gray-700">Broker ID</label>
+			            <input type="text" id="claim-brokerId" name="brokerId" class="mt-1 p-2 w-full border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed" readonly>
+			        </div>
+			        <div>
+			            <label for="customerId" class="block text-sm font-medium text-gray-700">Customer ID</label>
+			            <input type="text" id="claim-customerId" name="customerId" class="mt-1 p-2 w-full border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed" readonly>
+			        </div>
+			        <div>
+			            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+			            <input id="claim-description" name="description" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" placeholder="Enter claim description"></input>
+			        </div>
+			        <div>
+			            <label for="amount" class="block text-sm font-medium text-gray-700">Amount</label>
+			            <input type="number" id="claim-amount" name="amount" class="mt-1 p-2 w-full border border-gray-300 rounded-lg" placeholder="Enter claim amount" required>
+			        </div>
+			        <div class="flex space-x-4">
+			            <button type="submit" class="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">Submit</button>
+			            <button type="button" class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700" onclick="closeSubmitClaimForm()">Cancel</button>
+			        </div>
+			    </form>
+			</div>
 		</main>
 	</div>
 
@@ -305,8 +336,10 @@
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.brokerId}</td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">${policy.premiumAmount}</td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                            	<button class="text-blue-600 hover:text-blue-900" onclick="submitClaim(${customerId}, '${policy.policyName}', ${policy.brokerId})">Submit Claim</button>
-                            </td>
+	                            <button class="text-blue-600 hover:text-blue-900" onclick="openSubmitClaimForm('${currentCustomerId}', '${policy.policyName}', '${policy.brokerId}')">
+	                                Submit Claim
+	                            </button>
+                        	</td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         	<button class="text-red-600 hover:text-blue-900" onclick="cancelPolicy(${policy.policyDetailsId})">Cancel Policy</button>
                         </td>
@@ -422,6 +455,7 @@
 			document.getElementById('editCustomerForm').classList.add('hidden');
 			document.getElementById('assignPolicyForm').classList.add('hidden');
 			document.getElementById('policyDetailsForm').classList.add('hidden');
+			document.getElementById("submitClaimForm").classList.add("hidden");
 		}
 
 		/* // Format premium amount
@@ -469,6 +503,24 @@
 		      alert("An error occurred while cancelling.");
 		    }
 		  }
+		
+		// Function to open Submit Claim Form
+		function openSubmitClaimForm(customerId, policyName, brokerId, description = "") {
+		    // Populate form fields with provided data
+		    document.getElementById("claim-policyName").value = policyName;
+		    document.getElementById("claim-brokerId").value = brokerId;
+		    document.getElementById("claim-customerId").value = customerId;
+		    document.getElementById("claim-description").value = description;
+
+		    // Show the Submit Claim form
+		    document.getElementById("submitClaimForm").classList.remove("hidden");
+		}
+
+		// Function to close Submit Claim Form
+		function closeSubmitClaimForm() {
+		    document.getElementById("submitClaimForm").classList.add("hidden");
+		}
+
 	</script>
 
 </body>
